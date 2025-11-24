@@ -1,0 +1,38 @@
+{{ define "main" }}
+<div class="taxonomy-page">
+  <header class="taxonomy-header">
+    <h1>{{ .Title }}</h1>
+    <p class="taxonomy-description">{{ .Params.description | default (printf "%d posts in this category" (len .Pages)) }}</p>
+  </header>
+
+  <div class="blog-grid">
+    {{ range .Pages }}
+      <article class="blog-card">
+        {{ with .Params.image }}
+          <div class="blog-card-image">
+            <a href="{{ $.RelPermalink }}">
+              <img src="{{ . }}" alt="{{ $.Title }}" loading="lazy">
+            </a>
+          </div>
+        {{ end }}
+        
+        <div class="blog-card-content">
+          <div class="blog-meta">
+            <time datetime="{{ .Date.Format "2006-01-02" }}">
+              {{ .Date.Format "January 2, 2006" }}
+            </time>
+          </div>
+
+          <h2 class="blog-card-title">
+            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+          </h2>
+
+          <p class="blog-card-excerpt">{{ .Summary }}</p>
+
+          <a href="{{ .RelPermalink }}" class="read-more">Read More →</a>
+        </div>
+      </article>
+    {{ end }}
+  </div>
+</div>
+{{ end }}

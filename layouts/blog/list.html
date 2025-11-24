@@ -1,0 +1,382 @@
+{{ define "main" }}
+<div class="blog-container">
+  <header class="blog-header">
+    <h1>{{ .Title }}</h1>
+    {{ with .Description }}
+      <p class="blog-description">{{ . }}</p>
+    {{ end }}
+  </header>
+
+  <div class="blog-content">
+    <div class="blog-grid">
+      {{ $paginator := .Paginate (where .Pages "Type" "blog") 15 }}
+      {{ range $paginator.Pages }}
+        <article class="blog-card">
+          {{ with .Params.image }}
+            <div class="blog-card-image">
+              <a href="{{ $.RelPermalink }}">
+                <img src="{{ . }}" alt="{{ $.Title }}" loading="lazy">
+              </a>
+            </div>
+          {{ end }}
+          
+          <div class="blog-card-content">
+            <div class="blog-meta">
+              <time datetime="{{ .Date.Format "2006-01-02" }}">
+                {{ .Date.Format "January 2, 2006" }}
+              </time>
+              {{ with .Params.author }}
+                <span class="author">By {{ . }}</span>
+              {{ end }}
+            </div>
+
+            <h2 class="blog-card-title">
+              <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+            </h2>
+
+            {{ with .Description }}
+              <p class="blog-card-excerpt">{{ . }}</p>
+            {{ else }}
+              <p class="blog-card-excerpt">{{ .Summary }}</p>
+            {{ end }}
+
+            <div class="blog-card-footer">
+              {{ with .Params.categories }}
+                <div class="categories">
+                  {{ range . }}
+                    <a href="{{ "/categories/" | relURL }}{{ . | urlize }}" class="category-tag">{{ . }}</a>
+                  {{ end }}
+                </div>
+              {{ end }}
+              
+              <a href="{{ .RelPermalink }}" class="read-more">Read More →</a>
+            </div>
+          </div>
+        </article>
+      {{ end }}
+    </div>
+
+    <!-- Pagination -->
+    {{ if gt $paginator.TotalPages 1 }}
+      <nav class="pagination">
+        {{ if $paginator.HasPrev }}
+          <a href="{{ $paginator.Prev.URL }}" class="pagination-link pagination-prev">← Previous</a>
+        {{ end }}
+
+        <div class="pagination-pages">
+          {{ range $paginator.Pagers }}
+            {{ if eq . $paginator }}
+              <span class="pagination-link pagination-current">{{ .PageNumber }}</span>
+            {{ else }}
+              <a href="{{ .URL }}" class="pagination-link">{{ .PageNumber }}</a>
+            {{ end }}
+          {{ end }}
+        </div>
+
+        {{ if $paginator.HasNext }}
+          <a href="{{ $paginator.Next.URL }}" class="pagination-link pagination-next">Next →</a>
+        {{ end }}
+      </nav>
+    {{ end }}
+  </div>
+
+  <!-- Sidebar with Categories and Tags -->
+  <aside class="blog-sidebar">
+    <div class="sidebar-widget">
+      <h3>Categories</h3>
+      <ul class="category-list">
+        {{ range .Site.Taxonomies.categories }}
+          <li>
+            <a href="{{ .Page.RelPermalink }}">
+              {{ .Page.Title }} <span class="count">({{ .Count }})</span>
+            </a>
+          </li>
+        {{ end }}
+      </ul>
+    </div>
+
+    <div class="sidebar-widget">
+      <h3>Popular Tags</h3>
+      <div class="tag-cloud">
+        {{ range .Site.Taxonomies.tags }}
+          <a href="{{ .Page.RelPermalink }}" class="tag">{{ .Page.Title }}</a>
+        {{ end }}
+      </div>
+    </div>
+  </aside>
+</div>
+
+<style>
+.blog-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 60px 20px;
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 40px;
+}
+
+.blog-header {
+  grid-column: 1 / -1;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.blog-header h1 {
+  font-size: 3rem;
+  color: var(--color-navy);
+  margin-bottom: 16px;
+}
+
+.blog-description {
+  font-size: 1.25rem;
+  color: var(--color-text-gray);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 30px;
+}
+
+.blog-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.blog-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.blog-card-image {
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+}
+
+.blog-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.blog-card:hover .blog-card-image img {
+  transform: scale(1.05);
+}
+
+.blog-card-content {
+  padding: 24px;
+}
+
+.blog-meta {
+  display: flex;
+  gap: 12px;
+  font-size: 0.875rem;
+  color: var(--color-text-gray);
+  margin-bottom: 12px;
+}
+
+.blog-card-title {
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+}
+
+.blog-card-title a {
+  color: var(--color-navy);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.blog-card-title a:hover {
+  color: var(--color-gold);
+}
+
+.blog-card-excerpt {
+  color: var(--color-text-gray);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.blog-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.category-tag {
+  background: var(--color-bg-light);
+  color: var(--color-navy);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.category-tag:hover {
+  background: var(--color-gold);
+  color: white;
+}
+
+.read-more {
+  color: var(--color-gold);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.read-more:hover {
+  color: var(--color-gold-dark);
+}
+
+/* Pagination */
+.pagination {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 60px;
+}
+
+.pagination-pages {
+  display: flex;
+  gap: 8px;
+}
+
+.pagination-link {
+  padding: 8px 16px;
+  border: 2px solid var(--color-navy);
+  border-radius: 6px;
+  text-decoration: none;
+  color: var(--color-navy);
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.pagination-link:hover {
+  background: var(--color-navy);
+  color: white;
+}
+
+.pagination-current {
+  background: var(--color-gold);
+  border-color: var(--color-gold);
+  color: white;
+}
+
+/* Sidebar */
+.blog-sidebar {
+  position: sticky;
+  top: 100px;
+  height: fit-content;
+}
+
+.sidebar-widget {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.sidebar-widget h3 {
+  color: var(--color-navy);
+  font-size: 1.25rem;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--color-gold);
+}
+
+.category-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.category-list li {
+  margin-bottom: 12px;
+}
+
+.category-list a {
+  color: var(--color-text-dark);
+  text-decoration: none;
+  display: flex;
+  justify-content: space-between;
+  transition: color 0.2s ease;
+}
+
+.category-list a:hover {
+  color: var(--color-gold);
+}
+
+.count {
+  color: var(--color-text-gray);
+  font-size: 0.875rem;
+}
+
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag {
+  background: var(--color-bg-light);
+  color: var(--color-navy);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.tag:hover {
+  background: var(--color-gold);
+  color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .blog-container {
+    grid-template-columns: 1fr;
+  }
+
+  .blog-sidebar {
+    position: static;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .blog-header h1 {
+    font-size: 2rem;
+  }
+
+  .blog-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pagination {
+    flex-wrap: wrap;
+  }
+}
+</style>
+{{ end }}

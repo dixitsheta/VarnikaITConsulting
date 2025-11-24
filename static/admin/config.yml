@@ -1,0 +1,139 @@
+backend:
+  name: github
+  repo: dixitsheta/VarnikaITConsulting
+  branch: main
+  base_url: https://api.netlify.com
+  auth_endpoint: auth
+
+# Publish mode - editorial_workflow allows draft/review/publish workflow
+publish_mode: editorial_workflow
+
+# Media files configuration
+media_folder: "static/images/uploads"
+public_folder: "/images/uploads"
+
+# Collections define the structure of content types
+collections:
+  # Blog Posts
+  - name: "blog"
+    label: "Blog Posts"
+    folder: "content/blog"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    editor:
+      preview: false
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Publish Date", name: "date", widget: "datetime"}
+      - {label: "Author", name: "author", widget: "string", default: "Varnika IT Consulting"}
+      - {label: "Description", name: "description", widget: "text", required: false}
+      - {label: "Featured Image", name: "image", widget: "image", required: false}
+      - {label: "Categories", name: "categories", widget: "list", default: ["SAP Analytics"]}
+      - {label: "Tags", name: "tags", widget: "list", required: false}
+      - {label: "Draft", name: "draft", widget: "boolean", default: false}
+      - {label: "Body", name: "body", widget: "markdown"}
+
+  # Service Pages
+  - name: "services"
+    label: "Services"
+    folder: "content/services"
+    create: true
+    slug: "{{slug}}"
+    editor:
+      preview: false
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Description", name: "description", widget: "text", required: false}
+      - {label: "Weight", name: "weight", widget: "number", default: 10, required: false}
+      - {label: "Icon", name: "icon", widget: "string", required: false, hint: "Font Awesome icon class (e.g., fa-cloud)"}
+      - {label: "Featured Image", name: "image", widget: "image", required: false}
+      - {label: "Draft", name: "draft", widget: "boolean", default: false}
+      - {label: "Body", name: "body", widget: "markdown"}
+
+  # Case Studies
+  - name: "case-studies"
+    label: "Case Studies"
+    folder: "content/case-studies"
+    create: true
+    slug: "{{slug}}"
+    editor:
+      preview: false
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Client Name", name: "client", widget: "string"}
+      - {label: "Industry", name: "industry", widget: "string"}
+      - {label: "Publish Date", name: "date", widget: "datetime"}
+      - {label: "Description", name: "description", widget: "text"}
+      - {label: "Featured Image", name: "image", widget: "image", required: false}
+      - {label: "Challenge", name: "challenge", widget: "markdown"}
+      - {label: "Solution", name: "solution", widget: "markdown"}
+      - {label: "Results", name: "results", widget: "markdown"}
+      - {label: "Technologies", name: "technologies", widget: "list"}
+      - {label: "Draft", name: "draft", widget: "boolean", default: false}
+      - {label: "Body", name: "body", widget: "markdown", required: false}
+
+  # Team Members
+  - name: "team"
+    label: "Team Members"
+    folder: "content/team"
+    create: true
+    slug: "{{slug}}"
+    editor:
+      preview: false
+    fields:
+      - {label: "Name", name: "title", widget: "string"}
+      - {label: "Position", name: "position", widget: "string"}
+      - {label: "Bio", name: "bio", widget: "text"}
+      - {label: "Photo", name: "image", widget: "image", required: false}
+      - {label: "LinkedIn URL", name: "linkedin", widget: "string", required: false}
+      - {label: "Email", name: "email", widget: "string", required: false}
+      - {label: "Weight", name: "weight", widget: "number", default: 10, hint: "Display order"}
+      - {label: "Draft", name: "draft", widget: "boolean", default: false}
+      - {label: "Body", name: "body", widget: "markdown", required: false}
+
+  # Testimonials
+  - name: "testimonials"
+    label: "Testimonials"
+    folder: "content/testimonials"
+    create: true
+    slug: "{{slug}}"
+    editor:
+      preview: false
+    fields:
+      - {label: "Client Name", name: "title", widget: "string"}
+      - {label: "Company", name: "company", widget: "string"}
+      - {label: "Position", name: "position", widget: "string"}
+      - {label: "Quote", name: "quote", widget: "text"}
+      - {label: "Photo", name: "image", widget: "image", required: false}
+      - {label: "Rating", name: "rating", widget: "number", min: 1, max: 5, default: 5}
+      - {label: "Date", name: "date", widget: "datetime"}
+      - {label: "Weight", name: "weight", widget: "number", default: 10}
+      - {label: "Draft", name: "draft", widget: "boolean", default: false}
+
+  # Pages
+  - name: "pages"
+    label: "Pages"
+    files:
+      - label: "About Page"
+        name: "about"
+        file: "content/about.md"
+        fields:
+          - {label: "Title", name: "title", widget: "string"}
+          - {label: "Description", name: "description", widget: "text", required: false}
+          - {label: "Body", name: "body", widget: "markdown"}
+      
+      - label: "Contact Page"
+        name: "contact"
+        file: "content/contact.md"
+        fields:
+          - {label: "Title", name: "title", widget: "string"}
+          - {label: "Description", name: "description", widget: "text", required: false}
+          - {label: "Body", name: "body", widget: "markdown"}
+      
+      - label: "Homepage"
+        name: "home"
+        file: "content/_index.md"
+        fields:
+          - {label: "Title", name: "title", widget: "string"}
+          - {label: "Description", name: "description", widget: "text", required: false}
+          - {label: "Body", name: "body", widget: "markdown"}
