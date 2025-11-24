@@ -25,6 +25,15 @@ jobs:
 
       - name: Build Hugo site
         run: hugo --minify
+      
+      - name: Install Pagefind
+        run: |
+          wget -O pagefind.tar.gz https://github.com/CloudCannon/pagefind/releases/download/v1.0.4/pagefind-v1.0.4-x86_64-unknown-linux-musl.tar.gz
+          tar -xzf pagefind.tar.gz
+          chmod +x pagefind
+      
+      - name: Build Pagefind index
+        run: ./pagefind --site public --output-subdir pagefind
         
       - name: List build output
         run: |
