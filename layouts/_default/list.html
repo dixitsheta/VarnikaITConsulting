@@ -1,32 +1,37 @@
 {{ define "main" }}
-<div class="list-page">
+
+<!-- Hero Section -->
+<div style="background: linear-gradient(135deg, #003366 0%, #004488 100%); color: white; padding: 4rem 0; text-align: center;">
     <div class="container">
-        <header class="page-header">
-            <h1>{{ .Title }}</h1>
-            {{ if .Description }}
-            <p class="page-description">{{ .Description }}</p>
-            {{ end }}
-        </header>
-        
-        <div class="list-content">
-            {{ .Content }}
-            
-            {{ if .Pages }}
-            <div class="pages-list">
-                {{ range .Pages }}
-                <article class="page-item">
-                    <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
-                    {{ if .Description }}
-                    <p>{{ .Description }}</p>
-                    {{ else if .Summary }}
-                    <p>{{ .Summary }}</p>
-                    {{ end }}
-                    <a href="{{ .RelPermalink }}" class="read-more">Read More →</a>
-                </article>
-                {{ end }}
-            </div>
-            {{ end }}
-        </div>
+        <h1 style="font-size: 3rem; margin-bottom: 1rem; color: white;">{{ .Title }}</h1>
+        {{ if .Description }}
+        <p style="font-size: 1.2rem; opacity: 0.95; max-width: 800px; margin: 0 auto;">{{ .Description }}</p>
+        {{ end }}
     </div>
 </div>
+
+<div style="max-width: 1200px; margin: 0 auto; padding: 4rem 2rem;">
+    <div style="margin-bottom: 3rem;">
+        {{ .Content }}
+    </div>
+    
+    {{ if .Pages }}
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 2rem;">
+        {{ range .Pages }}
+        <article style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border-top: 4px solid #F4C430; transition: transform 0.3s ease;">
+            <h2 style="color: #003366; font-size: 1.5rem; margin-bottom: 1rem;">
+                <a href="{{ .RelPermalink }}" style="color: #003366; text-decoration: none;">{{ .Title }}</a>
+            </h2>
+            {{ if .Description }}
+            <p style="color: #666; line-height: 1.6; margin-bottom: 1.5rem;">{{ .Description }}</p>
+            {{ else if .Summary }}
+            <p style="color: #666; line-height: 1.6; margin-bottom: 1.5rem;">{{ .Summary }}</p>
+            {{ end }}
+            <a href="{{ .RelPermalink }}" style="color: #F4C430; font-weight: 600; text-decoration: none;">Read More →</a>
+        </article>
+        {{ end }}
+    </div>
+    {{ end }}
+</div>
+
 {{ end }}

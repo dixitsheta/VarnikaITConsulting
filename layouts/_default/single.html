@@ -1,20 +1,132 @@
 {{ define "main" }}
-<article class="single-page">
+
+<!-- Hero Section -->
+<div style="background: linear-gradient(135deg, #003366 0%, #004488 100%); color: white; padding: 4rem 0; text-align: center;">
     <div class="container">
-        <header class="page-header">
-            <h1>{{ .Title }}</h1>
-            {{ if .Date }}
-            <p class="page-meta">
-                <time datetime="{{ .Date.Format "2006-01-02" }}">
-                    {{ .Date.Format "January 2, 2006" }}
-                </time>
-            </p>
-            {{ end }}
-        </header>
-        
-        <div class="page-content">
-            {{ .Content }}
-        </div>
+        <h1 style="font-size: 3rem; margin-bottom: 1rem; color: white;">{{ .Title }}</h1>
+        {{ if .Description }}
+        <p style="font-size: 1.2rem; opacity: 0.95; max-width: 800px; margin: 0 auto;">{{ .Description }}</p>
+        {{ end }}
+        {{ if .Date }}
+        <p style="font-size: 0.95rem; opacity: 0.85; margin-top: 1rem;">
+            <time datetime="{{ .Date.Format "2006-01-02" }}">
+                {{ .Date.Format "January 2, 2006" }}
+            </time>
+        </p>
+        {{ end }}
+    </div>
+</div>
+
+<!-- Content Section -->
+<article style="max-width: 900px; margin: 0 auto; padding: 4rem 2rem;">
+    <div class="page-content" style="font-size: 1.1rem; line-height: 1.8; color: #333;">
+        {{ .Content }}
     </div>
 </article>
+
+<style>
+.page-content h1 {
+    color: #003366;
+    font-size: 2.5rem;
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 3px solid #F4C430;
+}
+
+.page-content h2 {
+    color: #003366;
+    font-size: 2rem;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #F4C430;
+}
+
+.page-content h3 {
+    color: #003366;
+    font-size: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.page-content p {
+    margin-bottom: 1.5rem;
+}
+
+.page-content ul,
+.page-content ol {
+    margin-bottom: 1.5rem;
+    padding-left: 2rem;
+}
+
+.page-content li {
+    margin-bottom: 0.75rem;
+}
+
+.page-content a {
+    color: #F4C430;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+.page-content a:hover {
+    color: #DAA520;
+    text-decoration: underline;
+}
+
+.page-content hr {
+    border: none;
+    border-top: 2px solid #e0e0e0;
+    margin: 3rem 0;
+}
+
+.page-content blockquote {
+    border-left: 4px solid #F4C430;
+    padding-left: 2rem;
+    margin: 2rem 0;
+    font-style: italic;
+    color: #666;
+}
+
+.page-content code {
+    background: #F7F9FC;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+    color: #003366;
+}
+
+.page-content pre {
+    background: #003366;
+    color: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+}
+
+.page-content pre code {
+    background: none;
+    padding: 0;
+    color: inherit;
+}
+
+@media (max-width: 768px) {
+    .page-content {
+        font-size: 1rem;
+    }
+    
+    .page-content h1 {
+        font-size: 2rem;
+    }
+    
+    .page-content h2 {
+        font-size: 1.5rem;
+    }
+}
+</style>
+
 {{ end }}
