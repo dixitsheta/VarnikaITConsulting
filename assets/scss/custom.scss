@@ -1,0 +1,386 @@
+// Varnika IT Consulting Custom Styles
+// Golden Theme with Navy Primary
+
+// ============================================
+// COLOR VARIABLES (Varnika Brand Colors)
+// ============================================
+
+$primary-navy: #003366;
+$accent-gold: #F4C430;
+$background-light: #F7F9FC;
+$text-dark: #1A1A1A;
+$text-gray: #666666;
+$white: #FFFFFF;
+$gold-hover: #DAA520; // Darker gold for hover states
+
+// ============================================
+// TYPOGRAPHY
+// ============================================
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: $text-dark;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  color: $primary-navy;
+  line-height: 1.2;
+}
+
+// ============================================
+// PRIMARY COLORS OVERRIDE
+// ============================================
+
+// Override theme primary color
+.navbar, .navbar-menu {
+  background-color: $white !important;
+  border-bottom: 1px solid rgba($primary-navy, 0.1);
+}
+
+.navbar-item, .navbar-link {
+  color: $primary-navy !important;
+  
+  &:hover, &:focus {
+    color: $accent-gold !important;
+    background-color: transparent !important;
+  }
+}
+
+// Active menu item
+.navbar-item.is-active {
+  color: $accent-gold !important;
+  border-bottom: 2px solid $accent-gold;
+}
+
+// ============================================
+// GOLDEN ACCENT ELEMENTS
+// ============================================
+
+// CTA Buttons with golden background
+.button.is-primary, .cta-button {
+  background-color: $accent-gold !important;
+  color: $primary-navy !important;
+  border: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  
+  &:hover, &:focus {
+    background-color: $gold-hover !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba($accent-gold, 0.3);
+  }
+}
+
+// Secondary buttons with navy background
+.button.is-secondary {
+  background-color: $primary-navy !important;
+  color: $white !important;
+  border: 2px solid $primary-navy;
+  
+  &:hover {
+    background-color: transparent !important;
+    color: $primary-navy !important;
+    border-color: $primary-navy;
+  }
+}
+
+// Outline buttons
+.button.is-outlined {
+  border: 2px solid $accent-gold;
+  color: $accent-gold;
+  background-color: transparent;
+  
+  &:hover {
+    background-color: $accent-gold;
+    color: $primary-navy;
+  }
+}
+
+// ============================================
+// HERO SECTION
+// ============================================
+
+.hero {
+  background: linear-gradient(135deg, $primary-navy 0%, darken($primary-navy, 10%) 100%);
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(244,196,48,0.05)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+    opacity: 0.5;
+  }
+  
+  .hero-body {
+    position: relative;
+    z-index: 1;
+  }
+  
+  .title, .subtitle {
+    color: $white !important;
+  }
+  
+  .title {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    
+    @media (max-width: 768px) {
+      font-size: 2rem;
+    }
+  }
+  
+  .subtitle {
+    font-size: 1.25rem;
+    opacity: 0.95;
+    margin-bottom: 2rem;
+  }
+}
+
+// ============================================
+// SERVICES GRID
+// ============================================
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin: 3rem 0;
+}
+
+.service-card {
+  background: $white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border-top: 4px solid transparent;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    border-top-color: $accent-gold;
+  }
+  
+  .service-icon {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 1.5rem;
+    color: $accent-gold;
+  }
+  
+  h3 {
+    color: $primary-navy;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  p {
+    color: $text-gray;
+    line-height: 1.7;
+  }
+}
+
+// ============================================
+// TESTIMONIALS
+// ============================================
+
+.testimonial {
+  background: $background-light;
+  padding: 2rem;
+  border-radius: 8px;
+  border-left: 4px solid $accent-gold;
+  margin: 1.5rem 0;
+  
+  .quote {
+    font-style: italic;
+    color: $text-dark;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    line-height: 1.8;
+  }
+  
+  .author {
+    display: flex;
+    align-items: center;
+    
+    .author-name {
+      font-weight: 600;
+      color: $primary-navy;
+    }
+    
+    .author-title {
+      color: $text-gray;
+      font-size: 0.9rem;
+    }
+  }
+}
+
+// ============================================
+// CLIENT LOGOS
+// ============================================
+
+.client-logos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  padding: 3rem 0;
+  
+  img {
+    height: 48px;
+    filter: grayscale(100%);
+    opacity: 0.6;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      filter: grayscale(0%) brightness(1.2);
+      opacity: 1;
+      transform: scale(1.1);
+    }
+  }
+}
+
+// ============================================
+// SECTION STYLING
+// ============================================
+
+.section {
+  padding: 5rem 1.5rem;
+  
+  &.has-background-light {
+    background-color: $background-light;
+  }
+  
+  .section-title {
+    font-size: 2.5rem;
+    color: $primary-navy;
+    text-align: center;
+    margin-bottom: 1rem;
+    position: relative;
+    padding-bottom: 1rem;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, transparent, $accent-gold, transparent);
+    }
+  }
+  
+  .section-subtitle {
+    text-align: center;
+    color: $text-gray;
+    font-size: 1.1rem;
+    max-width: 700px;
+    margin: 0 auto 3rem;
+  }
+}
+
+// ============================================
+// FOOTER
+// ============================================
+
+.footer {
+  background-color: $primary-navy;
+  color: $white;
+  padding: 3rem 1.5rem;
+  
+  a {
+    color: $accent-gold;
+    
+    &:hover {
+      color: lighten($accent-gold, 10%);
+      text-decoration: underline;
+    }
+  }
+  
+  .footer-copyright {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba($white, 0.1);
+    color: rgba($white, 0.7);
+  }
+}
+
+// ============================================
+// UTILITY CLASSES
+// ============================================
+
+.text-gold {
+  color: $accent-gold !important;
+}
+
+.text-navy {
+  color: $primary-navy !important;
+}
+
+.bg-gold {
+  background-color: $accent-gold !important;
+}
+
+.bg-navy {
+  background-color: $primary-navy !important;
+}
+
+.border-gold {
+  border-color: $accent-gold !important;
+}
+
+// Golden checkmarks for lists
+.checkmark-list {
+  list-style: none;
+  padding-left: 0;
+  
+  li {
+    padding-left: 2rem;
+    position: relative;
+    margin-bottom: 0.75rem;
+    
+    &::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: $accent-gold;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+  }
+}
+
+// ============================================
+// RESPONSIVE DESIGN
+// ============================================
+
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .hero .title {
+    font-size: 2rem;
+  }
+  
+  .hero .subtitle {
+    font-size: 1rem;
+  }
+}

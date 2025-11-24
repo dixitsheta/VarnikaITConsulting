@@ -1,0 +1,52 @@
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Varnika IT Consulting</h3>
+                <p>Specialized SAP Analytics Cloud, Datasphere, BW/4HANA, and custom widget development consulting.</p>
+                <p class="tagline"><em>Varnika means Pure Gold in Sanskrit</em></p>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="/services/sap-datasphere/">SAP Datasphere</a></li>
+                    <li><a href="/services/sac-analytics-cloud/">SAP Analytics Cloud</a></li>
+                    <li><a href="/services/sac-custom-widgets/">SAC Custom Widgets</a></li>
+                    <li><a href="/services/bw4hana-modernization/">BW/4HANA Modernization</a></li>
+                    <li><a href="/services/afo-embedded-analytics/">Embedded Analytics (AFO)</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="/about/">About Us</a></li>
+                    <li><a href="/blog/">Blog</a></li>
+                    <li><a href="/case-studies/">Case Studies</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p>
+                    <strong>Email:</strong><br>
+                    <a href="mailto:{{ .Site.Params.contact.email }}">{{ .Site.Params.contact.email }}</a>
+                </p>
+                <p>
+                    <strong>Serving:</strong><br>
+                    EU | Americas | Middle East
+                </p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>{{ .Site.Copyright }}</p>
+            <p>
+                <a href="/privacy/">Privacy Policy</a> | 
+                <a href="/terms/">Terms of Service</a>
+            </p>
+        </div>
+    </div>
+</footer>

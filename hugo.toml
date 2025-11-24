@@ -1,0 +1,102 @@
+baseURL = 'https://varnikaitconsulting.com/'
+languageCode = 'en-us'
+title = 'Varnika IT Consulting - SAP Analytics & Datasphere Experts'
+
+# Enable emoji support
+enableEmoji = true
+
+# Enable Git info
+enableGitInfo = false
+
+# Copyright notice
+copyright = '© 2025 Varnika IT Consulting. All rights reserved.'
+
+# Pagination
+[pagination]
+  pagerSize = 12
+
+# Taxonomies (categories and tags for blog)
+[taxonomies]
+  category = 'categories'
+  tag = 'tags'
+
+# Markup configuration
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true  # Allow HTML in markdown
+  [markup.highlight]
+    style = 'monokai'
+    lineNos = false
+    lineNumbersInTable = false
+
+# Sitemap configuration
+[sitemap]
+  changefreq = 'weekly'
+  filename = 'sitemap.xml'
+  priority = 0.5
+
+# Menu configuration
+[menu]
+  [[menu.main]]
+    identifier = 'home'
+    name = 'Home'
+    url = '/'
+    weight = 1
+  
+  [[menu.main]]
+    identifier = 'services'
+    name = 'Services'
+    url = '/services/'
+    weight = 2
+  
+  [[menu.main]]
+    identifier = 'blog'
+    name = 'Blog'
+    url = '/blog/'
+    weight = 3
+  
+  [[menu.main]]
+    identifier = 'case-studies'
+    name = 'Case Studies'
+    url = '/case-studies/'
+    weight = 4
+  
+  [[menu.main]]
+    identifier = 'about'
+    name = 'About'
+    url = '/about/'
+    weight = 5
+  
+  [[menu.main]]
+    identifier = 'contact'
+    name = 'Contact'
+    url = '/contact/'
+    weight = 6
+
+# Site params for theme customization
+[params]
+  description = 'Varnika IT Consulting specializes in SAP Analytics Cloud, Datasphere, BW/4HANA, and custom widget development. Expert SAP consulting services for enterprise analytics.'
+  author = 'Varnika IT Consulting'
+  
+  # Logo paths
+  logo = '/images/logo/logo-dark.svg'
+  logo_light = '/images/logo/logo-light.svg'
+  
+  # Brand colors (Varnika golden theme)
+  [params.colors]
+    primary = '#003366'      # Navy blue
+    accent = '#F4C430'       # Golden
+    background = '#F7F9FC'   # Light gray
+    text = '#1A1A1A'         # Dark text
+    white = '#FFFFFF'
+  
+  # Contact information
+  [params.contact]
+    email = 'sales@varnikaitconsulting.com'
+    # phone = '+1-xxx-xxx-xxxx'  # Add when available
+  
+  # Social media links (add when available)
+  # [params.social]
+  #   linkedin = 'https://linkedin.com/company/varnika-it-consulting'
+  #   twitter = 'https://twitter.com/varnikait'

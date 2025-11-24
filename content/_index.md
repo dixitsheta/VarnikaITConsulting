@@ -1,0 +1,133 @@
+---
+title: "Transform Your Business with SAP Analytics Excellence"
+description: "Varnika IT Consulting specializes in SAP Analytics Cloud, Datasphere, BW/4HANA, and custom widget development. Expert SAP consulting services for enterprise analytics transformation."
+---
+
+<div class="hero-section" style="background: linear-gradient(135deg, #003366 0%, #00264d 100%); color: #FFFFFF; padding: 5rem 2rem; text-align: center; margin-bottom: 3rem;">
+  <div class="container">
+    <h1 style="color: #FFFFFF; font-size: 3rem; margin-bottom: 1.5rem;">Transform Your Business with SAP Analytics Excellence</h1>
+    <p style="font-size: 1.25rem; margin-bottom: 1rem; opacity: 0.95;"><strong>Varnika means Pure Gold in Sanskrit</strong> - delivering premium SAP Datasphere, Analytics Cloud, and BW/4HANA solutions that drive measurable business value.</p>
+    <p style="font-size: 1.1rem; margin-bottom: 2rem; opacity: 0.9;">Specialized expertise in SAP analytics, custom widget development, and data modernization for enterprises across EU, Americas, and Middle East.</p>
+    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+      <a href="/contact/" class="button" style="background: #F4C430; color: #003366; padding: 1rem 2rem; border-radius: 4px; font-weight: 600; text-decoration: none;">Request Free Consultation</a>
+      <a href="/services/" class="button" style="background: transparent; color: #FFFFFF; border: 2px solid #F4C430; padding: 1rem 2rem; border-radius: 4px; font-weight: 600; text-decoration: none;">View Our Services</a>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="padding: 4rem 0; background: #F7F9FC;">
+  <div class="container">
+    <h2 style="text-align: center; color: #003366; font-size: 2.5rem; margin-bottom: 3rem;">Our SAP Expertise</h2>
+    <p style="text-align: center; color: #666666; font-size: 1.1rem; max-width: 700px; margin: 0 auto 3rem;">We specialize in cutting-edge SAP analytics technologies, helping enterprises unlock the full potential of their data.</p>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+      <div style="background: #FFFFFF; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-top: 4px solid #F4C430;">
+        <h3 style="color: #003366; margin-bottom: 1rem;">SAP Datasphere</h3>
+        <p style="color: #666;">Data fabric architecture, BW to Datasphere migration, data integration, and semantic layer development for unified analytics.</p>
+        <a href="/services/sap-datasphere/" style="color: #F4C430; font-weight: 600;">Learn More →</a>
+      </div>
+      
+      <div style="background: #FFFFFF; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-top: 4px solid #F4C430;">
+        <h3 style="color: #003366; margin-bottom: 1rem;">SAP Analytics Cloud</h3>
+        <p style="color: #666;">End-to-end SAC implementation, dashboard design, planning solutions, and predictive analytics powered by AI.</p>
+        <a href="/services/sac-analytics-cloud/" style="color: #F4C430; font-weight: 600;">Learn More →</a>
+      </div>
+      
+      <div style="background: #FFFFFF; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-top: 4px solid #F4C430;">
+        <h3 style="color: #003366; margin-bottom: 1rem;">SAC Custom Widgets</h3>
+        <p style="color: #666;">Bespoke JavaScript widget development, third-party API integrations, and branded analytics experiences.</p>
+        <a href="/services/sac-custom-widgets/" style="color: #F4C430; font-weight: 600;">Learn More →</a>
+      </div>
+      
+      <div style="background: #FFFFFF; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-top: 4px solid #F4C430;">
+        <h3 style="color: #003366; margin-bottom: 1rem;">SAP BW/4HANA</h3>
+        <p style="color: #666;">BW to BW/4HANA modernization, performance optimization, data warehouse design, and InfoCube development.</p>
+        <a href="/services/bw4hana-modernization/" style="color: #F4C430; font-weight: 600;">Learn More →</a>
+      </div>
+      
+      <div style="background: #FFFFFF; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-top: 4px solid #F4C430;">
+        <h3 style="color: #003366; margin-bottom: 1rem;">Embedded Analytics (AFO)</h3>
+        <p style="color: #666;">S/4HANA embedded analytics, CDS view development, Virtual Data Models, and real-time operational reporting.</p>
+        <a href="/services/afo-embedded-analytics/" style="color: #F4C430; font-weight: 600;">Learn More →</a>
+      </div>
+      
+      <div style="background: #FFFFFF; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-top: 4px solid #F4C430;">
+        <h3 style="color: #003366; margin-bottom: 1rem;">Integration Services</h3>
+        <p style="color: #666;">SAP and non-SAP data source connectivity, ETL pipeline development, and cross-system data harmonization.</p>
+        <a href="/services/" style="color: #F4C430; font-weight: 600;">Learn More →</a>
+      </div>
+    </div>
+    
+    <div style="text-align: center; margin-top: 3rem;">
+      <a href="/services/" class="button" style="background: #F4C430; color: #003366; padding: 1rem 2rem; border-radius: 4px; font-weight: 600; text-decoration: none; display: inline-block;">Explore All Services →</a>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="padding: 4rem 0;">
+  <div class="container">
+    <h2 style="text-align: center; color: #003366; font-size: 2.5rem; margin-bottom: 3rem;">Why Choose Varnika?</h2>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+      <div style="text-align: center; padding: 2rem;">
+        <h3 style="color: #F4C430; font-size: 1.5rem; margin-bottom: 1rem;">Specialized Expertise</h3>
+        <p>Deep technical knowledge in SAP BI-BW, Analytics Cloud, Datasphere, and custom development. We don't just implement - we optimize and innovate.</p>
+      </div>
+      
+      <div style="text-align: center; padding: 2rem;">
+        <h3 style="color: #F4C430; font-size: 1.5rem; margin-bottom: 1rem;">Boutique Advantage</h3>
+        <p>As a specialized consultancy, you get personalized attention, faster decision-making, and direct access to senior expertise on every engagement.</p>
+      </div>
+      
+      <div style="text-align: center; padding: 2rem;">
+        <h3 style="color: #F4C430; font-size: 1.5rem; margin-bottom: 1rem;">Cost-Effective Excellence</h3>
+        <p>Enterprise-grade SAP consulting without the enterprise agency overhead. Premium quality at rates that make sense for your business.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="padding: 4rem 0; background: #F7F9FC;">
+  <div class="container">
+    <h2 style="text-align: center; color: #003366; font-size: 2.5rem; margin-bottom: 3rem;">What Our Clients Say</h2>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+      <div style="background: #FFFFFF; padding: 2rem; border-radius: 8px; border-left: 4px solid #F4C430;">
+        <p style="font-style: italic; color: #1A1A1A; font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem;">"The Datasphere migration was seamless. Their expertise in both BW and Datasphere made all the difference in our analytics modernization journey."</p>
+        <div>
+          <p style="font-weight: 600; color: #003366; margin: 0;">Sarah Mitchell</p>
+          <p style="color: #666; font-size: 0.9rem; margin: 0;">Head of Analytics, Global Manufacturing Corp</p>
+        </div>
+      </div>
+      
+      <div style="background: #FFFFFF; padding: 2rem; border-radius: 8px; border-left: 4px solid #F4C430;">
+        <p style="font-style: italic; color: #1A1A1A; font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem;">"Custom SAC widgets transformed our executive dashboards. The team delivered exactly what we envisioned - beautiful, functional, and perfectly integrated."</p>
+        <div>
+          <p style="font-weight: 600; color: #003366; margin: 0;">Michael Chen</p>
+          <p style="color: #666; font-size: 0.9rem; margin: 0;">VP Business Intelligence, Financial Services Leader</p>
+        </div>
+      </div>
+      
+      <div style="background: #FFFFFF; padding: 2rem; border-radius: 8px; border-left: 4px solid #F4C430;">
+        <p style="font-style: italic; color: #1A1A1A; font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem;">"Responsive, knowledgeable, and delivers on time. Our BW/4HANA optimization project exceeded expectations in both performance gains and timeline."</p>
+        <div>
+          <p style="font-weight: 600; color: #003366; margin: 0;">Dr. Aisha Rahman</p>
+          <p style="color: #666; font-size: 0.9rem; margin: 0;">IT Director, Healthcare Technology Provider</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="padding: 4rem 0; background: #003366; color: #FFFFFF; text-align: center;">
+  <div class="container">
+    <h2 style="color: #FFFFFF; font-size: 2.5rem; margin-bottom: 1.5rem;">Ready to Transform Your SAP Analytics?</h2>
+    <p style="font-size: 1.1rem; margin-bottom: 2rem; opacity: 0.9;">Let's discuss how we can help modernize your analytics infrastructure, build custom solutions, or optimize your existing SAP investments.</p>
+    <p style="font-size: 1rem; margin-bottom: 2rem;"><strong>Free 30-minute consultation</strong> to assess your needs and explore possibilities.</p>
+    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+      <a href="/contact/" class="button" style="background: #F4C430; color: #003366; padding: 1rem 2rem; border-radius: 4px; font-weight: 600; text-decoration: none;">Schedule Consultation</a>
+      <a href="/case-studies/" class="button" style="background: transparent; color: #FFFFFF; border: 2px solid #F4C430; padding: 1rem 2rem; border-radius: 4px; font-weight: 600; text-decoration: none;">View Case Studies</a>
+    </div>
+  </div>
+</div>
+

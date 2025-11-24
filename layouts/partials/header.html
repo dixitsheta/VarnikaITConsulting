@@ -1,0 +1,30 @@
+<header class="site-header">
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-brand">
+                <a href="/" class="logo">
+                    {{ if fileExists "static/images/logo/logo-dark.svg" }}
+                    <img src="/images/logo/logo-dark.svg" alt="{{ .Site.Title }}" class="logo-dark">
+                    {{ else }}
+                    <span class="logo-text">Varnika IT Consulting</span>
+                    {{ end }}
+                </a>
+                <button class="navbar-toggle" aria-label="Toggle navigation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            
+            <div class="navbar-menu">
+                <ul class="navbar-nav">
+                    {{ range .Site.Menus.main }}
+                    <li class="nav-item{{ if $.IsMenuCurrent "main" . }} active{{ end }}">
+                        <a href="{{ .URL }}" class="nav-link">{{ .Name }}</a>
+                    </li>
+                    {{ end }}
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
