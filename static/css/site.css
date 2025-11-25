@@ -1,7 +1,7 @@
 /* Varnika IT Consulting - Main Site Styles */
 
 /* ============================================
-   GLOBAL STYLES
+   CSS VARIABLES - Light & Dark Modes
    ============================================ */
 
 :root {
@@ -13,7 +13,33 @@
     --color-text-gray: #666666;
     --color-white: #FFFFFF;
     --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    
+    /* Light mode (default) */
+    --bg-primary: #FFFFFF;
+    --bg-secondary: #F7F9FC;
+    --text-primary: #1A1A1A;
+    --text-secondary: #666666;
+    --border-color: rgba(0, 51, 102, 0.1);
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.15);
 }
+
+/* Dark mode */
+[data-theme="dark"] {
+    --bg-primary: #1A1A1A;
+    --bg-secondary: #242424;
+    --text-primary: #E5E5E5;
+    --text-secondary: #A0A0A0;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* ============================================
+   GLOBAL STYLES
+   ============================================ */
 
 * {
     margin: 0;
@@ -23,9 +49,11 @@
 
 body {
     font-family: var(--font-primary);
-    color: var(--color-text-dark);
+    color: var(--text-primary);
+    background-color: var(--bg-primary);
     line-height: 1.6;
     font-size: 16px;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .container {
@@ -71,12 +99,13 @@ a:hover {
    ============================================ */
 
 .site-header {
-    background: var(--color-white);
-    border-bottom: 1px solid rgba(0, 51, 102, 0.1);
+    background: var(--bg-primary);
+    border-bottom: 1px solid var(--border-color);
     position: sticky;
     top: 0;
     z-index: 1000;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    box-shadow: var(--shadow-sm);
+    transition: background-color 0.3s ease;
 }
 
 .navbar {
@@ -89,20 +118,69 @@ a:hover {
     align-items: center;
 }
 
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
 .navbar-brand .logo {
     display: flex;
     align-items: center;
 }
 
-.navbar-brand .logo-text {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--color-navy);
-}
-
-.navbar-brand img {
+.navbar-brand .logo-image {
     height: 50px;
     width: auto;
+    transition: opacity 0.3s ease;
+}
+
+/* Logo visibility based on theme */
+[data-theme="light"] .logo-light {
+    display: none;
+}
+
+[data-theme="dark"] .logo-dark {
+    display: none;
+}
+
+.navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+    background: none;
+    border: 2px solid var(--border-color);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    padding: 0;
+}
+
+.theme-toggle:hover {
+    border-color: var(--color-gold);
+    transform: rotate(15deg);
+}
+
+.theme-icon {
+    transition: opacity 0.3s ease;
+}
+
+[data-theme="light"] .theme-icon-dark {
+    display: none;
+}
+
+[data-theme="dark"] .theme-icon-light {
+    display: none;
 }
 
 .navbar-toggle {
@@ -130,7 +208,7 @@ a:hover {
 }
 
 .navbar-menu .nav-link {
-    color: var(--color-navy);
+    color: var(--text-primary);
     font-weight: 500;
     padding: 0.5rem 0;
     border-bottom: 2px solid transparent;
@@ -154,8 +232,8 @@ a:hover {
         top: 100%;
         left: 0;
         right: 0;
-        background: var(--color-white);
-        border-top: 1px solid rgba(0, 51, 102, 0.1);
+        background: var(--bg-primary);
+        border-top: 1px solid var(--border-color);
     }
     
     .navbar-menu.active {

@@ -3,17 +3,20 @@
         <div class="container">
             <div class="navbar-brand">
                 <a href="/" class="logo">
-                    {{ if fileExists "static/images/logo/logo-dark.svg" }}
-                    <img src="/images/logo/logo-dark.svg" alt="{{ .Site.Title }}" class="logo-dark">
-                    {{ else }}
-                    <span class="logo-text">Varnika IT Consulting</span>
-                    {{ end }}
+                    <img src="/images/logo/logo-dark.svg" alt="{{ .Site.Title }}" class="logo-image logo-dark" width="200" height="50">
+                    <img src="/images/logo/logo-light.svg" alt="{{ .Site.Title }}" class="logo-image logo-light" width="200" height="50">
                 </a>
-                <button class="navbar-toggle" aria-label="Toggle navigation">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
+                <div class="navbar-actions">
+                    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                        <span class="theme-icon theme-icon-light">🌙</span>
+                        <span class="theme-icon theme-icon-dark">☀️</span>
+                    </button>
+                    <button class="navbar-toggle" aria-label="Toggle navigation">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
             </div>
             
             <div class="navbar-menu">
@@ -271,6 +274,17 @@ document.addEventListener('DOMContentLoaded', function() {
             closeSearchModal();
         }
     });
+    
+    // Theme toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle) {
+        themeToggle.addEventListener('click', function() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+    }
 });
 </script>
 
