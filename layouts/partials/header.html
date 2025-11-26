@@ -6,17 +6,11 @@
                     <img src="/images/logo/logo-dark.svg" alt="{{ .Site.Title }}" class="logo-image logo-dark" width="200" height="50">
                     <img src="/images/logo/logo-light.svg" alt="{{ .Site.Title }}" class="logo-image logo-light" width="200" height="50">
                 </a>
-                <div class="navbar-actions">
-                    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
-                        <span class="theme-icon theme-icon-light">🌙</span>
-                        <span class="theme-icon theme-icon-dark">☀️</span>
-                    </button>
-                    <button class="navbar-toggle" aria-label="Toggle navigation">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </button>
-                </div>
+                <button class="navbar-toggle" aria-label="Toggle navigation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
             
             <div class="navbar-menu">
@@ -26,252 +20,311 @@
                         <a href="{{ .URL }}" class="nav-link">{{ .Name }}</a>
                     </li>
                     {{ end }}
-                    <li class="nav-item">
-                        <button id="search-button" class="nav-link search-button" aria-label="Open search">
-                            🔍 Search
-                        </button>
-                    </li>
                 </ul>
+                
+                <div class="navbar-search">
+                    <div class="header-search-wrapper">
+                        <span class="header-search-icon">🔍</span>
+                        <input type="text" id="header-search-input" placeholder="Search..." />
+                        <button id="header-clear-btn" class="header-clear-btn" style="display: none;">Clear</button>
+                    </div>
+                    <div id="header-search-results" class="header-search-results"></div>
+                    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                        <span class="theme-icon theme-icon-light">🌙</span>
+                        <span class="theme-icon theme-icon-dark">☀️</span>
+                    </button>
+                </div>
             </div>
         </div>
     </nav>
 </header>
 
-<!-- Search Modal -->
-<div id="search-modal" class="search-modal">
-    <div class="search-modal-content">
-        <div class="search-modal-header">
-            <h2 style="color: #003366; margin: 0;">Search</h2>
-            <button id="close-search" class="close-search" aria-label="Close search">&times;</button>
-        </div>
-        <div id="search-container"></div>
-        <div id="see-all-container" class="see-all-container" style="display: none;">
-            <a href="/search/" class="see-all-button">See All Results →</a>
-        </div>
-    </div>
-</div>
-
 <style>
-.search-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0.75rem 1rem;
-    font-size: 1rem;
-    font-family: inherit;
-}
-
-.search-modal {
-    display: none;
-    position: fixed;
-    z-index: 10000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    animation: fadeIn 0.2s ease;
-}
-
-.search-modal.active {
+/* Inline search in header */
+.navbar-menu {
     display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    padding-top: 10vh;
-}
-
-.search-modal-content {
-    background: white;
-    border-radius: 12px;
-    width: 90%;
-    max-width: 800px;
-    max-height: 80vh;
-    overflow: hidden;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-    animation: slideDown 0.3s ease;
-}
-
-.search-modal-header {
-    display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 1.5rem 2rem;
-    border-bottom: 2px solid #F4C430;
+    gap: 2rem;
 }
 
-.close-search {
-    background: none;
-    border: none;
-    font-size: 2rem;
+.navbar-search {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-width: 250px;
+    position: relative;
+}
+
+/* Header search wrapper */
+.header-search-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+/* Search icon */
+.header-search-icon {
+    position: absolute;
+    left: 0.85rem;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    z-index: 2;
+    font-size: 0.875rem;
+}
+
+/* Search input */
+#header-search-input {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 0.5rem 3rem 0.5rem 2.5rem;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#header-search-input:focus {
+    border-color: var(--color-gold);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(244, 196, 48, 0.1);
+}
+
+/* Clear button */
+.header-clear-btn {
+    position: absolute;
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
     cursor: pointer;
-    color: #666;
-    line-height: 1;
-    transition: color 0.2s ease;
+    transition: all 0.2s ease;
+    z-index: 2;
 }
 
-.close-search:hover {
-    color: #003366;
+.header-clear-btn:hover {
+    background: var(--color-gold);
+    color: var(--color-navy);
+    border-color: var(--color-gold);
 }
 
-#search-container {
-    padding: 1rem 2rem 0;
-    max-height: calc(80vh - 160px);
+/* Search results drawer */
+.header-search-results {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: var(--shadow-lg);
+    width: 500px;
+    max-height: 450px;
+    display: none;
+    flex-direction: column;
+    z-index: 9999;
+    overflow: hidden;
+}
+
+.header-search-results.active {
+    display: flex;
+}
+
+.header-search-results-content {
     overflow-y: auto;
+    max-height: 350px;
+    flex: 1;
+    padding: 0.5rem;
 }
 
-.see-all-container {
-    padding: 1.5rem 2rem;
-    border-top: 2px solid #F7F9FC;
+.header-search-result {
+    border-left: 3px solid var(--color-gold);
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 4px;
+    transition: background 0.2s ease;
+}
+
+.header-search-result:hover {
+    background: var(--bg-secondary);
+}
+
+.header-search-result h3 {
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+}
+
+.header-search-result h3 a {
+    color: var(--text-primary);
+    text-decoration: none;
+}
+
+.header-search-result h3 a:hover {
+    color: var(--color-gold);
+}
+
+.header-search-result p {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.header-search-message {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    padding: 1rem;
     text-align: center;
 }
 
-.see-all-button {
-    display: inline-block;
-    padding: 0.75rem 2rem;
-    background: #F4C430;
-    color: #003366;
-    text-decoration: none;
+.header-search-loading {
+    color: var(--color-gold);
+    text-align: center;
+    padding: 1rem;
+}
+
+/* Search actions */
+.header-search-actions {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    border-top: 1px solid var(--border-color);
+    background: var(--bg-secondary);
+    position: sticky;
+    bottom: 0;
+    border-radius: 0 0 8px 8px;
+}
+
+.header-see-all {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    background: var(--color-navy);
+    color: var(--bg-primary);
+    border: 1px solid var(--color-navy);
     border-radius: 6px;
     font-weight: 600;
-    transition: all 0.3s ease;
+    font-size: 0.875rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: inline-block;
 }
 
-.see-all-button:hover {
-    background: #DAA520;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(244, 196, 48, 0.3);
-}
-
-/* Pagefind UI Customization */
-#search-container .pagefind-ui__search-input {
-    border: 2px solid #e0e0e0;
-    border-radius: 8px;
-    padding: 1rem;
-    font-size: 1.1rem;
-    width: 100%;
-    transition: border-color 0.3s ease;
-}
-
-#search-container .pagefind-ui__search-input:focus {
-    border-color: #F4C430;
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(244, 196, 48, 0.1);
-}
-
-#search-container .pagefind-ui__result {
-    border-left: 3px solid #F4C430;
-    padding-left: 1rem;
-    margin-bottom: 1.5rem;
-}
-
-#search-container .pagefind-ui__result-link {
-    color: #003366;
-    font-weight: 600;
-    font-size: 1.1rem;
-}
-
-#search-container .pagefind-ui__result-link:hover {
-    color: #F4C430;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-@keyframes slideDown {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@media (max-width: 768px) {
-    .search-modal-content {
-        width: 95%;
-        max-height: 90vh;
-    }
-    
-    .search-modal-header {
-        padding: 1rem 1.5rem;
-    }
-    
-    #search-container {
-        padding: 1rem 1.5rem 1.5rem;
-    }
+.header-see-all:hover {
+    background: var(--color-gold);
+    color: var(--color-navy);
+    border-color: var(--color-gold);
 }
 </style>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const searchButton = document.getElementById('search-button');
-    const searchModal = document.getElementById('search-modal');
-    const closeSearch = document.getElementById('close-search');
-    const searchContainer = document.getElementById('search-container');
+    let pagefind;
     
-    let pagefindUI = null;
-    
-    // Open search modal
-    searchButton.addEventListener('click', function() {
-        searchModal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-        
-        // Initialize Pagefind UI if not already done
-        if (!pagefindUI) {
-            pagefindUI = new PagefindUI({
-                element: "#search-container",
-                showSubResults: true,
-                showImages: false,
-                excerptLength: 15,
-                resetStyles: false
-            });
-            
-            // Show "See All" button when results appear
-            const observer = new MutationObserver(function() {
-                const results = searchContainer.querySelector('.pagefind-ui__results');
-                const seeAllContainer = document.getElementById('see-all-container');
-                if (results && results.children.length > 0) {
-                    seeAllContainer.style.display = 'block';
-                } else {
-                    seeAllContainer.style.display = 'none';
-                }
-            });
-            
-            observer.observe(searchContainer, { childList: true, subtree: true });
+    async function initPagefind() {
+        if (!pagefind) {
+            pagefind = await import('/pagefind/pagefind.js');
         }
-        
-        // Focus search input
-        setTimeout(() => {
-            const searchInput = searchContainer.querySelector('.pagefind-ui__search-input');
-            if (searchInput) {
-                searchInput.focus();
-            }
-        }, 100);
-    });
-    
-    // Close search modal
-    function closeSearchModal() {
-        searchModal.classList.remove('active');
-        document.body.style.overflow = '';
+        return pagefind;
     }
     
-    closeSearch.addEventListener('click', closeSearchModal);
+    const input = document.getElementById('header-search-input');
+    const clearBtn = document.getElementById('header-clear-btn');
+    const resultsContainer = document.getElementById('header-search-results');
     
-    // Close on background click
-    searchModal.addEventListener('click', function(e) {
-        if (e.target === searchModal) {
-            closeSearchModal();
+    let searchTimeout;
+    
+    async function performHeaderSearch(query) {
+        if (!query.trim()) {
+            resultsContainer.classList.remove('active');
+            resultsContainer.innerHTML = '';
+            return;
+        }
+        
+        resultsContainer.classList.add('active');
+        resultsContainer.innerHTML = '<div class="header-search-loading">Searching...</div>';
+        
+        try {
+            const pf = await initPagefind();
+            const search = await pf.search(query);
+            
+            if (search.results.length === 0) {
+                resultsContainer.innerHTML = '<div class="header-search-message">No results found</div>';
+                return;
+            }
+            
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'header-search-results-content';
+            
+            for (const result of search.results.slice(0, 5)) {
+                const data = await result.data();
+                
+                const resultDiv = document.createElement('div');
+                resultDiv.className = 'header-search-result';
+                resultDiv.innerHTML = `
+                    <h3><a href="${data.url}">${data.meta.title || 'Untitled'}</a></h3>
+                    <p>${data.excerpt}</p>
+                `;
+                contentDiv.appendChild(resultDiv);
+            }
+            
+            resultsContainer.innerHTML = '';
+            resultsContainer.appendChild(contentDiv);
+            
+            // Add See All button
+            const actionsDiv = document.createElement('div');
+            actionsDiv.className = 'header-search-actions';
+            
+            const seeAllBtn = document.createElement('a');
+            seeAllBtn.href = '/search/?q=' + encodeURIComponent(query);
+            seeAllBtn.className = 'header-see-all';
+            seeAllBtn.textContent = 'See All Results';
+            
+            actionsDiv.appendChild(seeAllBtn);
+            resultsContainer.appendChild(actionsDiv);
+            
+        } catch (error) {
+            console.error('Search error:', error);
+            resultsContainer.innerHTML = '<div class="header-search-message">Search error occurred</div>';
+        }
+    }
+    
+    // Handle input changes
+    input.addEventListener('input', function() {
+        clearTimeout(searchTimeout);
+        
+        if (input.value.trim()) {
+            clearBtn.style.display = 'block';
+            searchTimeout = setTimeout(() => performHeaderSearch(input.value), 300);
+        } else {
+            clearBtn.style.display = 'none';
+            resultsContainer.classList.remove('active');
+            resultsContainer.innerHTML = '';
         }
     });
     
-    // Close on Escape key
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && searchModal.classList.contains('active')) {
-            closeSearchModal();
+    // Handle clear button
+    clearBtn.addEventListener('click', function() {
+        input.value = '';
+        clearBtn.style.display = 'none';
+        resultsContainer.classList.remove('active');
+        resultsContainer.innerHTML = '';
+        input.focus();
+    });
+    
+    // Close results when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.navbar-search')) {
+            resultsContainer.classList.remove('active');
         }
     });
     
@@ -287,4 +340,3 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
-

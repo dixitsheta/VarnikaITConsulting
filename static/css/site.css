@@ -68,9 +68,19 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
     font-weight: 600;
-    color: var(--color-navy);
+    color: var(--text-primary);
     line-height: 1.2;
     margin-bottom: 1rem;
+}
+
+/* Dark mode heading adjustments */
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6 {
+    color: var(--color-gold);
 }
 
 h1 { font-size: 3rem; }
@@ -147,7 +157,42 @@ a:hover {
 .navbar-actions {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 1rem;
+}
+
+/* Navbar Search */
+#inline-search {
+    position: relative;
+    min-width: 250px;
+}
+
+#inline-search input {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    font-size: 0.95rem;
+}
+
+#inline-search input::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.7;
+}
+
+#inline-search .pagefind-ui__drawer {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 0.5rem;
+    min-width: 400px;
+    max-width: 600px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    box-shadow: var(--shadow-lg);
+    z-index: 1000;
 }
 
 /* Theme Toggle Button */
@@ -352,7 +397,7 @@ main {
 
 .page-item {
     padding: 2rem;
-    background: var(--color-bg-light);
+    background: var(--bg-secondary);
     border-radius: 8px;
     margin-bottom: 2rem;
     border-left: 4px solid var(--color-gold);
@@ -465,7 +510,7 @@ button[type="submit"]:hover {
 .label {
     display: block;
     font-weight: 600;
-    color: var(--color-navy);
+    color: var(--text-primary);
     margin-bottom: 0.5rem;
 }
 
@@ -474,10 +519,12 @@ button[type="submit"]:hover {
 .select select {
     width: 100%;
     padding: 0.75rem;
-    border: 2px solid #e0e0e0;
+    border: 2px solid var(--border-color);
     border-radius: 4px;
     font-size: 1rem;
     font-family: var(--font-primary);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
     transition: border-color 0.3s ease;
 }
 

@@ -1,7 +1,7 @@
 ---
 title: "Building Custom SAC Widgets: A Developer's Complete Guide"
 date: 2024-11-15T14:00:00+00:00
-draft: false
+draft: true
 author: "Varnika IT Consulting"
 description: "Learn how to create custom widgets for SAP Analytics Cloud using JavaScript, HTML5, and CSS3. Includes code examples, best practices, and deployment guide."
 categories: ["SAP Analytics Cloud", "Custom Development"]
@@ -10,16 +10,18 @@ tags: ["SAC", "Custom Widgets", "JavaScript", "D3.js", "SDK", "Development"]
 
 ## Introduction
 
+> **Note:** This guide provides **conceptual overviews and architectural patterns** for building custom SAC widgets. Code examples are illustrative and designed to teach principles rather than provide production-ready implementations. For enterprise-grade custom widget development, [contact our team](#need-custom-sac-widget-development) for consultation.
+
 While SAP Analytics Cloud (SAC) offers 25+ standard chart types, sometimes your business needs require unique visualizations or interactive components that don't exist out of the box. That's where **custom widgets** come in.
 
-This comprehensive guide walks you through building custom SAC widgets from scratch, covering:
-- Widget SDK fundamentals
+This comprehensive guide walks you through the concepts and architecture of building custom SAC widgets, covering:
+- Widget SDK fundamentals and architecture
 - Development environment setup
-- Code structure and best practices
-- Deployment and versioning
-- Real-world examples with code
+- Design patterns and best practices
+- Deployment strategies and versioning
+- Testing and quality assurance approaches
 
-Whether you're building a specialized chart, integrating third-party APIs, or creating branded UI components, this guide has you covered.
+Whether you're evaluating custom widget feasibility or planning development, this guide provides the foundational knowledge needed.
 
 ## When to Build Custom Widgets
 
@@ -79,7 +81,7 @@ Whether you're building a specialized chart, integrating third-party APIs, or cr
 **Required:**
 - Text editor (VS Code recommended)
 - SAC Custom Widget SDK
-- Node.js v14+ (for local development server)
+- Node.js v18+ (for local development server)
 - Chrome/Firefox DevTools
 
 **Optional:**
@@ -166,453 +168,250 @@ my-custom-widget/
 }
 ```
 
-## Example 1: Building a Sankey Diagram Widget
+## Example 1: Custom Visualization Widget Conceptual Overview
 
-### Step 1: Define the HTML Structure
+### Understanding Widget Architecture
 
-**main.js - Part 1: Template**
+Custom SAC widgets follow the **Web Components** standard. Here's the conceptual structure:
+
+**High-Level Architecture:**
 
 ```javascript
-(function() {
-  let template = document.createElement("template");
-  template.innerHTML = `
-    <style>
-      :host {
-        display: block;
-        font-family: "72", Arial, sans-serif;
-      }
-      
-      #sankeyContainer {
-        width: 100%;
-        height: 100%;
-        position: relative;
-      }
-      
-      .node rect {
-        fill-opacity: 0.9;
-        stroke: #fff;
-        stroke-width: 2px;
-        cursor: pointer;
-        transition: fill-opacity 0.2s;
-      }
-      
-      .node rect:hover {
-        fill-opacity: 1;
-      }
-      
-      .node text {
-        font-size: 12px;
-        pointer-events: none;
-        fill: #333;
-      }
-      
-      .link {
-        fill: none;
-        stroke-opacity: 0.3;
-        transition: stroke-opacity 0.2s;
-      }
-      
-      .link:hover {
-        stroke-opacity: 0.6;
-      }
-      
-      .tooltip {
-        position: absolute;
-        background: rgba(0, 0, 0, 0.8);
-        color: white;
-        padding: 8px 12px;
-        border-radius: 4px;
-        font-size: 12px;
-        pointer-events: none;
-        opacity: 0;
-        transition: opacity 0.2s;
-      }
-    </style>
-    
-    <div id="sankeyContainer">
-      <svg id="sankeyChart"></svg>
-      <div class="tooltip"></div>
-    </div>
-  `;
-
-  class SankeyWidget extends HTMLElement {
-    constructor() {
-      super();
-      this.attachShadow({ mode: "open" });
-      this.shadowRoot.appendChild(template.content.cloneNode(true));
-      
-      this._props = {
-        width: 800,
-        height: 600,
-        colorScheme: "blues",
-        nodeWidth: 15
-      };
-      
-      this._data = null;
-    }
-
-    connectedCallback() {
-      this._render();
-    }
-
-    // Property setters
-    set width(value) {
-      this._props.width = value;
-      this._render();
-    }
-
-    set height(value) {
-      this._props.height = value;
-      this._render();
-    }
-
-    set colorScheme(value) {
-      this._props.colorScheme = value;
-      this._render();
-    }
-
-    // Data setter
-    setData(data) {
-      this._data = data;
-      this._render();
-    }
-
-    _render() {
-      if (!this._data) return;
-
-      const container = this.shadowRoot.getElementById("sankeyContainer");
-      const svg = this.shadowRoot.getElementById("sankeyChart");
-      const tooltip = this.shadowRoot.querySelector(".tooltip");
-
-      // Clear previous chart
-      svg.innerHTML = "";
-
-      // Set SVG dimensions
-      svg.setAttribute("width", this._props.width);
-      svg.setAttribute("height", this._props.height);
-
-      // Load D3.js if not already loaded
-      this._loadD3().then(() => {
-        this._drawSankey(svg, tooltip);
-      });
-    }
-
-    _loadD3() {
-      return new Promise((resolve) => {
-        if (window.d3) {
-          resolve();
-        } else {
-          const script = document.createElement("script");
-          script.src = "https://d3js.org/d3.v7.min.js";
-          script.onload = () => resolve();
-          document.head.appendChild(script);
-        }
-      });
-    }
-
-    _drawSankey(svg, tooltip) {
-      const width = this._props.width;
-      const height = this._props.height;
-      const nodeWidth = this._props.nodeWidth;
-      
-      // Process data
-      const nodes = this._data.nodes.map(d => ({ ...d }));
-      const links = this._data.links.map(d => ({ ...d }));
-
-      // Create Sankey generator
-      const sankey = d3.sankey()
-        .nodeWidth(nodeWidth)
-        .nodePadding(10)
-        .extent([[1, 1], [width - 1, height - 6]]);
-
-      const { nodes: sankeyNodes, links: sankeyLinks } = sankey({
-        nodes: nodes,
-        links: links
-      });
-
-      // Color scale
-      const color = this._getColorScale(this._props.colorScheme);
-
-      // Create SVG groups
-      const g = d3.select(svg).append("g");
-
-      // Draw links
-      g.append("g")
-        .selectAll("path")
-        .data(sankeyLinks)
-        .join("path")
-        .attr("class", "link")
-        .attr("d", d3.sankeyLinkHorizontal())
-        .attr("stroke", d => color(d.source.name))
-        .attr("stroke-width", d => Math.max(1, d.width))
-        .on("mouseover", (event, d) => {
-          tooltip.style.opacity = 1;
-          tooltip.innerHTML = `
-            ${d.source.name} → ${d.target.name}<br/>
-            <strong>Value: ${d.value.toLocaleString()}</strong>
-          `;
-        })
-        .on("mousemove", (event) => {
-          tooltip.style.left = (event.pageX + 10) + "px";
-          tooltip.style.top = (event.pageY - 20) + "px";
-        })
-        .on("mouseout", () => {
-          tooltip.style.opacity = 0;
-        });
-
-      // Draw nodes
-      const node = g.append("g")
-        .selectAll("g")
-        .data(sankeyNodes)
-        .join("g")
-        .attr("class", "node");
-
-      node.append("rect")
-        .attr("x", d => d.x0)
-        .attr("y", d => d.y0)
-        .attr("height", d => d.y1 - d.y0)
-        .attr("width", d => d.x1 - d.x0)
-        .attr("fill", d => color(d.name))
-        .on("click", (event, d) => {
-          // Dispatch custom event
-          this.dispatchEvent(new CustomEvent("onNodeClick", {
-            detail: { node: d.name, value: d.value }
-          }));
-        });
-
-      node.append("text")
-        .attr("x", d => d.x0 < width / 2 ? d.x1 + 6 : d.x0 - 6)
-        .attr("y", d => (d.y1 + d.y0) / 2)
-        .attr("dy", "0.35em")
-        .attr("text-anchor", d => d.x0 < width / 2 ? "start" : "end")
-        .text(d => d.name);
-    }
-
-    _getColorScale(scheme) {
-      const schemes = {
-        blues: d3.schemeBlues[9],
-        greens: d3.schemeGreens[9],
-        category10: d3.schemeCategory10
-      };
-      
-      return d3.scaleOrdinal(schemes[scheme] || schemes.blues);
-    }
+// Widget Structure (Conceptual Overview)
+class CustomWidget extends HTMLElement {
+  constructor() {
+    // Initialize shadow DOM
+    // Set default properties
+    // Prepare template
   }
 
-  customElements.define("sankey-widget", SankeyWidget);
-})();
+  connectedCallback() {
+    // Called when widget is added to DOM
+    // Initialize rendering
+  }
+
+  set propertyName(value) {
+    // Handle property changes
+    // Trigger re-render if needed
+  }
+
+  setData(data) {
+    // Receive data from SAC
+    // Validate data structure
+    // Update visualization
+  }
+
+  _render() {
+    // Core rendering logic
+    // Use D3.js, Chart.js, or Canvas
+    // Apply styling and interactions
+  }
+}
 ```
 
-### Step 2: Prepare Sample Data
+### Key Implementation Concepts
 
-**Example dataset for testing:**
+**1. Shadow DOM for Encapsulation:**
+- Isolates widget styles from parent page
+- Prevents CSS conflicts
+- Enables reusable components
+
+**2. Property Management:**
+- Define configurable properties (width, height, colors)
+- Implement getters/setters for reactivity
+- Validate input values
+
+**3. Data Binding:**
+- Accept data from SAC data source
+- Transform data into visualization format
+- Handle data updates efficiently
+
+**4. Event Handling:**
+- Dispatch custom events for user interactions
+- Enable drill-down and filtering
+- Communicate with SAC dashboard
+
+**5. Visualization Libraries:**
+- **D3.js:** Complex, custom visualizations
+- **Chart.js:** Standard charts with customization
+- **Canvas API:** High-performance rendering
+
+### Sample Widget Flow
+
+```
+User Action in SAC
+       ↓
+   setData() called
+       ↓
+  Data validation
+       ↓
+   _render() method
+       ↓
+  Visualization library (D3/Chart.js)
+       ↓
+   Update DOM/Canvas
+       ↓
+  Display to user
+```
+
+### Data Structure Concepts
+
+**Typical Data Format for Custom Widgets:**
 
 ```json
 {
-  "nodes": [
-    { "name": "Web Traffic" },
-    { "name": "Email Campaign" },
-    { "name": "Social Media" },
-    { "name": "Product Page" },
-    { "name": "Cart" },
-    { "name": "Checkout" },
-    { "name": "Purchase" },
-    { "name": "Abandoned" }
-  ],
-  "links": [
-    { "source": 0, "target": 3, "value": 5000 },
-    { "source": 1, "target": 3, "value": 2000 },
-    { "source": 2, "target": 3, "value": 1500 },
-    { "source": 3, "target": 4, "value": 6000 },
-    { "source": 3, "target": 7, "value": 2500 },
-    { "source": 4, "target": 5, "value": 4500 },
-    { "source": 4, "target": 7, "value": 1500 },
-    { "source": 5, "target": 6, "value": 3500 },
-    { "source": 5, "target": 7, "value": 1000 }
+  "metadata": {
+    "dimensions": ["Region", "Product"],
+    "measures": ["Revenue", "Quantity"]
+  },
+  "data": [
+    { "region": "North", "product": "A", "revenue": 5000 },
+    { "region": "South", "product": "B", "revenue": 3000 }
   ]
 }
 ```
 
-### Step 3: Deploy to SAC
+**Data Transformation Pattern:**
+
+```javascript
+// Conceptual data processing
+setData(rawData) {
+  // 1. Validate structure
+  if (!this._isValidData(rawData)) {
+    this._showError("Invalid data format");
+    return;
+  }
+  
+  // 2. Transform for visualization
+  const processedData = this._transformData(rawData);
+  
+  // 3. Update visualization
+  this._updateVisualization(processedData);
+}
+```
+
+### Deployment Strategies
 
 **Deployment Options:**
 
-**Option A: Direct Upload**
-1. Open SAC → Files → Public → Custom Widgets
-2. Click "Upload" → Select widget files
-3. Widget appears in chart picker
+**Option A: Direct Upload to SAC**
+1. Open SAC → Files → Public → Custom Widgets folder
+2. Upload widget package (zip containing widget.json, main.js, icon.png)
+3. Widget becomes available in chart picker within 5-10 minutes
+4. **Best for:** Development and testing
 
-**Option B: CDN Hosting**
-1. Host widget files on public CDN
-2. Reference URL in SAC widget configuration
-3. Benefit: Versioning and central updates
+**Option B: CDN Hosting (Recommended for Production)**
+1. Host widget files on corporate CDN or cloud storage
+2. Configure SAC to reference external URL
+3. **Benefits:**
+   - Centralized version management
+   - Faster updates across all dashboards
+   - Better performance with CDN caching
+4. **Best for:** Production deployments with multiple users
 
-**Option C: SAP BTP Deployment**
+**Option C: SAP BTP Deployment (Enterprise)**
 ```bash
-# Package widget
-zip -r sankey-widget.zip widget.json main.js icon.png
-
-# Deploy via SAP BTP CLI
-cf deploy sankey-widget.zip -t varnika-sac-widgets
+# Conceptual deployment workflow
+1. Package widget with manifest.yml
+2. Deploy to SAP BTP Cloud Foundry space
+3. Register widget URL in SAC tenant
+4. Manage versions via BTP DevOps
 ```
 
-## Example 2: KPI Card with Sparkline
+**Best Practice:** Use development SAC tenant for testing before promoting to production.
 
-**Simpler widget - perfect for beginners:**
+## Example 2: Simple KPI Card Widget - Conceptual Approach
 
+**Widget Purpose:** Display single metric with trend indicator and mini sparkline
+
+### Design Principles
+
+**Visual Structure:**
+```
+┌────────────────────────────┐
+│  KPI Label                 │
+│  $1.25M                    │  ← Main value (large, bold)
+│  ▲ 15.3% vs last month    │  ← Change indicator
+│  ▬▬▬▬▬▬▬▬                  │  ← Sparkline trend
+└────────────────────────────┘
+```
+
+### Implementation Concepts
+
+**1. Property Configuration:**
+- `label`: String (e.g., "Monthly Revenue")
+- `value`: Number (e.g., 1250000)
+- `change`: Number (percentage, e.g., 15.3)
+- `history`: Array of numbers for sparkline
+- `thresholds`: Object defining color rules
+
+**2. Value Formatting:**
 ```javascript
-(function() {
-  let template = document.createElement("template");
-  template.innerHTML = `
-    <style>
-      :host {
-        display: block;
-      }
-      
-      .kpi-card {
-        background: linear-gradient(135deg, #003366 0%, #004080 100%);
-        color: white;
-        padding: 24px;
-        border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        font-family: "72", Arial, sans-serif;
-      }
-      
-      .kpi-label {
-        font-size: 14px;
-        opacity: 0.9;
-        margin-bottom: 8px;
-      }
-      
-      .kpi-value {
-        font-size: 36px;
-        font-weight: bold;
-        margin-bottom: 4px;
-      }
-      
-      .kpi-change {
-        font-size: 16px;
-        margin-bottom: 12px;
-      }
-      
-      .kpi-change.positive {
-        color: #4CAF50;
-      }
-      
-      .kpi-change.negative {
-        color: #FF5252;
-      }
-      
-      .sparkline {
-        width: 100%;
-        height: 40px;
-      }
-    </style>
-    
-    <div class="kpi-card">
-      <div class="kpi-label"></div>
-      <div class="kpi-value"></div>
-      <div class="kpi-change"></div>
-      <canvas class="sparkline"></canvas>
-    </div>
-  `;
+// Conceptual formatter
+_formatValue(num) {
+  // Apply business logic:
+  // - Millions: 1.25M
+  // - Thousands: 125K
+  // - Add currency symbol
+  // - Respect locale settings
+}
+```
 
-  class KPICard extends HTMLElement {
-    constructor() {
-      super();
-      this.attachShadow({ mode: "open" });
-      this.shadowRoot.appendChild(template.content.cloneNode(true));
-      
-      this._label = "";
-      this._value = 0;
-      this._change = 0;
-      this._history = [];
-    }
+**3. Trend Visualization:**
+- Use HTML5 Canvas for performance
+- Draw simple line chart
+- Highlight recent data points
+- Apply color based on trend direction
 
-    set label(val) {
-      this._label = val;
-      this.shadowRoot.querySelector(".kpi-label").textContent = val;
-    }
-
-    set value(val) {
-      this._value = val;
-      this.shadowRoot.querySelector(".kpi-value").textContent = 
-        this._formatNumber(val);
-    }
-
-    set change(val) {
-      this._change = val;
-      const elem = this.shadowRoot.querySelector(".kpi-change");
-      const arrow = val >= 0 ? "▲" : "▼";
-      elem.textContent = `${arrow} ${Math.abs(val).toFixed(1)}%`;
-      elem.className = `kpi-change ${val >= 0 ? "positive" : "negative"}`;
-    }
-
-    set history(data) {
-      this._history = data;
-      this._drawSparkline();
-    }
-
-    _formatNumber(num) {
-      if (num >= 1000000) {
-        return (num / 1000000).toFixed(1) + "M";
-      } else if (num >= 1000) {
-        return (num / 1000).toFixed(1) + "K";
-      }
-      return num.toLocaleString();
-    }
-
-    _drawSparkline() {
-      const canvas = this.shadowRoot.querySelector(".sparkline");
-      const ctx = canvas.getContext("2d");
-      const width = canvas.width = canvas.offsetWidth * 2; // Retina
-      const height = canvas.height = canvas.offsetHeight * 2;
-      
-      ctx.scale(2, 2);
-      
-      const data = this._history;
-      if (!data || data.length < 2) return;
-
-      const max = Math.max(...data);
-      const min = Math.min(...data);
-      const range = max - min;
-      
-      const xStep = width / 2 / (data.length - 1);
-      const yScale = (height / 2 - 10) / range;
-
-      ctx.beginPath();
-      ctx.strokeStyle = "#F4C430"; // Gold
-      ctx.lineWidth = 2;
-      
-      data.forEach((val, i) => {
-        const x = i * xStep;
-        const y = height / 2 - 5 - ((val - min) * yScale);
-        
-        if (i === 0) {
-          ctx.moveTo(x, y);
-        } else {
-          ctx.lineTo(x, y);
-        }
-      });
-      
-      ctx.stroke();
-    }
+**4. Responsive Behavior:**
+```javascript
+// Conceptual responsive design
+_adjustLayout() {
+  if (containerWidth < 300) {
+    // Hide sparkline, show only KPI
+  } else if (containerWidth < 500) {
+    // Compact layout
+  } else {
+    // Full layout with all details
   }
-
-  customElements.define("kpi-card", KPICard);
-})();
+}
 ```
 
-**Usage in SAC:**
+### Integration with SAC
+
+**Conceptual Usage Pattern:**
 
 ```javascript
-// In SAC story script
-var kpiWidget = Canvas.getWidgetById("KPI_1");
+// In SAC story scripting
+var customWidget = Canvas.getWidgetById("CustomKPI_1");
 
-kpiWidget.label = "Monthly Revenue";
-kpiWidget.value = 1250000;
-kpiWidget.change = 15.3; // +15.3%
-kpiWidget.history = [980000, 1050000, 1100000, 1150000, 1250000];
+// Set properties
+customWidget.label = "Monthly Revenue";
+customWidget.value = 1250000;
+customWidget.change = 15.3;
+customWidget.history = [980000, 1050000, 1100000, 1150000, 1250000];
+
+// Listen for widget events
+customWidget.addEventListener("onValueClick", function(event) {
+  // Handle user interaction
+  // Apply filters, navigate to detail page, etc.
+  console.log("User clicked KPI:", event.detail);
+});
+```
+
+**Data Binding from SAC Data Source:**
+
+```javascript
+// Bind to SAC model
+customWidget.bindData({
+  dataSource: "SalesModel",
+  dimensions: ["TimePeriod"],
+  measures: ["Revenue"],
+  filters: {
+    Region: "North America",
+    Year: "2025"
+  }
+});
 ```
 
 ## Best Practices
@@ -634,174 +433,239 @@ kpiWidget.history = [980000, 1050000, 1100000, 1150000, 1250000];
 
 ### 2. Error Handling
 
+**Conceptual Error Management:**
+
 ```javascript
+// Validate data structure
 setData(data) {
   try {
-    // Validate data structure
-    if (!data || !data.nodes || !data.links) {
-      throw new Error("Invalid data format");
+    // Validation rules
+    if (!data) {
+      throw new Error("Data is required");
     }
     
-    // Validate data integrity
-    const maxIndex = data.nodes.length - 1;
-    data.links.forEach(link => {
-      if (link.source > maxIndex || link.target > maxIndex) {
-        throw new Error("Link references non-existent node");
-      }
-    });
+    if (!this._hasRequiredFields(data)) {
+      throw new Error("Missing required fields");
+    }
     
-    this._data = data;
+    if (!this._isDataWithinLimits(data)) {
+      throw new Error("Data exceeds processing limits");
+    }
+    
+    // Process valid data
+    this._processData(data);
     this._render();
     
   } catch (error) {
-    console.error("Widget data error:", error);
-    this._showError(error.message);
+    // Log for debugging
+    console.error("Widget error:", error);
+    
+    // Show user-friendly message
+    this._displayErrorState(error.message);
+    
+    // Report to monitoring system
+    this._reportError(error);
   }
 }
 
-_showError(message) {
-  const container = this.shadowRoot.getElementById("sankeyContainer");
-  container.innerHTML = `
-    <div style="color: red; padding: 20px;">
-      <strong>Error:</strong> ${message}
-    </div>
-  `;
+// Display error in widget
+_displayErrorState(message) {
+  // Replace widget content with error message
+  // Provide actionable feedback
+  // Maintain widget layout structure
 }
 ```
 
+**Error Categories:**
+- **Data validation errors:** Invalid format, missing fields
+- **Runtime errors:** Library loading failures, rendering issues
+- **Configuration errors:** Invalid property values
+- **Network errors:** Failed API calls, timeout issues
+
 ### 3. Accessibility
 
+**WCAG 2.1 AA Compliance Checklist:**
+
 ```html
-<!-- Add ARIA attributes -->
-<div role="img" aria-label="Sankey diagram showing flow from sources to destinations">
-  <svg>
-    <g role="graphics-symbol" aria-label="Node: Web Traffic, Value: 5000">
-      <rect></rect>
-      <text>Web Traffic</text>
-    </g>
-  </svg>
+<!-- Semantic HTML structure -->
+<div role="img" 
+     aria-label="Revenue trend visualization showing 15% increase">
+  
+  <!-- Keyboard navigation support -->
+  <button tabindex="0" 
+          aria-label="View detailed revenue breakdown">
+    View Details
+  </button>
+  
+  <!-- Screen reader descriptions -->
+  <span class="sr-only">
+    Monthly revenue is $1.25 million, up 15.3% from last month
+  </span>
+  
+  <!-- Focus indicators -->
+  <style>
+    :focus-visible {
+      outline: 2px solid #F4C430;
+      outline-offset: 2px;
+    }
+  </style>
 </div>
 ```
 
+**Key Accessibility Features:**
+
+1. **Keyboard Navigation**
+   - Tab through interactive elements
+   - Enter/Space to activate
+   - Escape to close overlays
+
+2. **Screen Reader Support**
+   - ARIA labels for all interactive elements
+   - Live regions for dynamic updates
+   - Alternative text for visuals
+
+3. **Color Contrast**
+   - Minimum 4.5:1 ratio for text
+   - 3:1 ratio for UI components
+   - Don't rely solely on color to convey information
+
+4. **Focus Management**
+   - Visible focus indicators
+   - Logical tab order
+   - Focus trapping in modals
+
 ### 4. Responsive Design
 
+**Conceptual Responsive Behavior:**
+
 ```javascript
+// Monitor container size changes
 connectedCallback() {
-  // Observe size changes
+  // Use ResizeObserver API
   this._resizeObserver = new ResizeObserver(entries => {
-    clearTimeout(this._resizeTimeout);
-    this._resizeTimeout = setTimeout(() => {
-      const width = entries[0].contentRect.width;
-      const height = entries[0].contentRect.height;
-      this.width = width;
-      this.height = height;
-    }, 300); // Debounce
+    // Debounce to avoid excessive re-renders
+    this._debounceResize(() => {
+      const { width, height } = entries[0].contentRect;
+      this._handleResize(width, height);
+    });
   });
   
   this._resizeObserver.observe(this);
 }
 
+// Apply responsive layout rules
+_handleResize(width, height) {
+  if (width < 400) {
+    // Mobile layout: Stack elements, larger touch targets
+    this._applyMobileLayout();
+  } else if (width < 768) {
+    // Tablet layout: Condensed view
+    this._applyTabletLayout();
+  } else {
+    // Desktop layout: Full features
+    this._applyDesktopLayout();
+  }
+  
+  // Re-render with new dimensions
+  this._render();
+}
+
+// Cleanup on disconnect
 disconnectedCallback() {
-  this._resizeObserver.disconnect();
+  this._resizeObserver?.disconnect();
 }
 ```
 
+**Responsive Design Patterns:**
+
+| Screen Size | Layout Strategy | Touch Target Size |
+|-------------|----------------|-------------------|
+| < 400px | Single column, simplified | 44px minimum |
+| 400-768px | Flexible grid, condensed | 36px minimum |
+| > 768px | Full features, detailed | 32px minimum |
+
 ## Testing Your Widget
 
-### Local Testing Setup
+### Development Testing Strategy
 
-**1. Create test HTML file:**
+**1. Local Testing Environment:**
+
+Create a minimal HTML test harness:
 
 ```html
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Widget Test</title>
-  <script src="main.js"></script>
+  <title>Widget Development Test</title>
+  <script src="your-widget.js"></script>
 </head>
 <body>
-  <h1>Sankey Widget Test</h1>
+  <h1>Widget Test Environment</h1>
   
-  <sankey-widget 
+  <!-- Your custom widget -->
+  <your-widget-name 
     id="testWidget" 
-    style="width: 800px; height: 600px; display: block;">
-  </sankey-widget>
+    style="width: 800px; height: 600px;">
+  </your-widget-name>
   
   <script>
+    // Test script
     const widget = document.getElementById("testWidget");
     
-    // Test data
-    widget.setData({
-      nodes: [
-        { name: "A" }, { name: "B" }, { name: "C" },
-        { name: "D" }, { name: "E" }
-      ],
-      links: [
-        { source: 0, target: 2, value: 100 },
-        { source: 1, target: 2, value: 80 },
-        { source: 2, target: 3, value: 120 },
-        { source: 2, target: 4, value: 60 }
-      ]
-    });
+    // Test with sample data
+    widget.setData({ /* test data */ });
     
     // Test property changes
-    widget.colorScheme = "greens";
-    widget.nodeWidth = 20;
+    widget.propertyName = "newValue";
     
-    // Test events
-    widget.addEventListener("onNodeClick", (e) => {
-      console.log("Node clicked:", e.detail);
+    // Test event listeners
+    widget.addEventListener("customEvent", (e) => {
+      console.log("Event fired:", e.detail);
     });
   </script>
 </body>
 </html>
 ```
 
-**2. Run local server:**
+**2. Run Local Server:**
 
 ```bash
-# Using Python
+# Option 1: Python
 python3 -m http.server 8000
 
-# Using Node.js
+# Option 2: Node.js
 npx http-server
 
-# Visit: http://localhost:8000/test.html
+# Option 3: VS Code Live Server extension
+# Right-click HTML file → "Open with Live Server"
 ```
 
-### Unit Testing
+### Testing Checklist
 
-```javascript
-// test/widget.test.js
-describe("SankeyWidget", () => {
-  let widget;
-  
-  beforeEach(() => {
-    widget = document.createElement("sankey-widget");
-    document.body.appendChild(widget);
-  });
-  
-  afterEach(() => {
-    document.body.removeChild(widget);
-  });
-  
-  it("should render with valid data", () => {
-    widget.setData({
-      nodes: [{ name: "A" }, { name: "B" }],
-      links: [{ source: 0, target: 1, value: 10 }]
-    });
-    
-    const svg = widget.shadowRoot.querySelector("svg");
-    expect(svg).toBeTruthy();
-  });
-  
-  it("should handle invalid data gracefully", () => {
-    widget.setData(null);
-    // Should not throw error
-    expect(widget.shadowRoot.querySelector(".error")).toBeFalsy();
-  });
-});
-```
+**Functional Testing:**
+- ✓ Widget renders with valid data
+- ✓ Properties update correctly
+- ✓ Events fire when expected
+- ✓ Error handling works gracefully
+- ✓ Data validation catches invalid inputs
+
+**Performance Testing:**
+- ✓ Renders in < 1 second with typical data
+- ✓ Smooth interactions (60fps)
+- ✓ Handles large datasets (test with 10,000+ rows)
+- ✓ No memory leaks after 100 renders
+
+**Compatibility Testing:**
+- ✓ Chrome, Firefox, Safari, Edge
+- ✓ Mobile browsers (iOS Safari, Chrome Mobile)
+- ✓ Different screen sizes (320px to 4K)
+- ✓ SAC latest version compatibility
+
+**Accessibility Testing:**
+- ✓ Keyboard navigation works
+- ✓ Screen reader announces changes
+- ✓ Color contrast meets WCAG AA
+- ✓ Focus indicators visible
 
 ## Deployment Checklist
 
@@ -838,24 +702,47 @@ describe("SankeyWidget", () => {
 
 ## Conclusion
 
-Custom SAC widgets unlock unlimited possibilities for visualizations and interactivity. While they require JavaScript development skills, the investment pays off when you need specialized analytics experiences that drive better business decisions.
+Custom SAC widgets unlock unlimited possibilities for visualizations and interactivity. While they require JavaScript development skills and careful planning, the investment pays off when you need specialized analytics experiences that drive better business decisions.
 
 **Key Takeaways:**
-- Start with simple widgets (KPI cards) before complex visualizations
-- Leverage proven libraries (D3.js, Chart.js) rather than building from scratch
-- Test thoroughly across browsers and devices
-- Document properties, methods, and events clearly
-- Version control your widgets and maintain changelogs
+- Understand widget architecture before writing code (Web Components, Shadow DOM, property management)
+- Start simple: Prove the concept with a basic widget before adding complexity
+- Leverage proven libraries (D3.js, Chart.js) rather than building visualization engines from scratch
+- Test thoroughly across browsers, devices, and data volumes
+- Plan for accessibility and responsive design from the start
+- Document widget APIs clearly for future maintainability
+- Always test with the latest SAC version (2025.X releases) for compatibility
+- Consider total cost of ownership: development + testing + maintenance
+
+**Development Timeline Expectations:**
+- Simple widget (KPI card): 1-2 weeks
+- Medium complexity (custom chart): 3-4 weeks  
+- Complex widget (advanced interactions): 6-8 weeks
+- Add 30-40% time for testing, documentation, deployment
+
+**When to Build vs. Buy:**
+- **Build in-house:** Unique business requirements, have skilled team, ongoing customization needs
+- **Partner with experts:** Time-critical, complex requirements, lack internal expertise, need production support
 
 ---
 
 ## Need Custom SAC Widget Development?
 
-Varnika IT Consulting has built 50+ custom widgets for SAC, from advanced visualizations to third-party API integrations. Our team combines SAP expertise with modern web development skills to create widgets that enhance your analytics platform.
+Varnika IT Consulting has built **50+ custom widgets** for SAC across industries, from advanced visualizations to third-party API integrations. Our team combines SAP platform expertise with modern web development skills to create widgets that enhance your analytics platform and drive user adoption.
 
-**Pricing:** $2,000 - $15,000 per widget depending on complexity
+**Our Widget Development Services:**
+- ✓ Requirements analysis and feasibility assessment
+- ✓ Proof-of-concept development (2-week sprints)
+- ✓ Production-grade implementation with full testing
+- ✓ SAC integration and deployment support
+- ✓ Documentation and knowledge transfer
+- ✓ Ongoing maintenance and enhancement
 
-**[Start Your Custom Widget Project →](/contact/)**
+**Pricing:** $2,000 - $15,000 per widget depending on complexity (simple KPI card to complex integrated solutions)
+
+**Typical Project Timeline:** 4-8 weeks from requirements to production deployment
+
+**[Schedule a Widget Consultation →](/contact/)**
 
 ---
 

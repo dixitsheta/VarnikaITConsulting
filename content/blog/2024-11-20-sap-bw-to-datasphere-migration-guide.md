@@ -1,7 +1,7 @@
 ---
-title: "SAP BW to Datasphere Migration: A Complete Guide for 2025"
+title: "SAP BW to Datasphere Migration: A Complete Guide for 2025-2026"
 date: 2024-11-20T10:00:00+00:00
-draft: false
+draft: true
 author: "Varnika IT Consulting"
 description: "Learn how to successfully migrate from SAP BW to SAP Datasphere with our comprehensive guide covering strategy, timeline, and best practices."
 categories: ["SAP Datasphere", "Migration"]

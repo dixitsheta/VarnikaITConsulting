@@ -1,7 +1,7 @@
 ---
-title: "10 SAP Analytics Cloud Dashboard Design Best Practices for 2025"
+title: "10 SAP Analytics Cloud Dashboard Design Best Practices"
 date: 2024-11-18T09:00:00+00:00
-draft: false
+draft: true
 author: "Varnika IT Consulting"
 description: "Transform your SAC dashboards from functional to exceptional with these proven design principles, performance tips, and user experience best practices."
 categories: ["SAP Analytics Cloud", "Best Practices"]

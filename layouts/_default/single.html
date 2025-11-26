@@ -1,9 +1,9 @@
 {{ define "main" }}
 
 <!-- Hero Section -->
-<div style="background: linear-gradient(135deg, #003366 0%, #004488 100%); color: white; padding: 4rem 0; text-align: center;">
+<div style="background: linear-gradient(135deg, var(--color-navy) 0%, #004488 100%); color: var(--bg-primary); padding: 4rem 0; text-align: center;">
     <div class="container">
-        <h1 style="font-size: 3rem; margin-bottom: 1rem; color: white;">{{ .Title }}</h1>
+        <h1 style="font-size: 3rem; margin-bottom: 1rem; color: var(--bg-primary);">{{ .Title }}</h1>
         {{ if .Description }}
         <p style="font-size: 1.2rem; opacity: 0.95; max-width: 800px; margin: 0 auto;">{{ .Description }}</p>
         {{ end }}
@@ -18,105 +18,149 @@
 </div>
 
 <!-- Content Section -->
-<article style="max-width: 900px; margin: 0 auto; padding: 4rem 2rem;">
-    <div class="page-content" style="font-size: 1.1rem; line-height: 1.8; color: #333;">
+<article style="max-width: 1100px; margin: 0 auto; padding: 4rem 2rem;">
+    <div class="page-content" style="font-size: 1.125rem; line-height: 1.8; color: var(--text-primary);">
         {{ .Content }}
     </div>
 </article>
 
 <style>
 .page-content h1 {
-    color: #003366;
+    color: var(--color-navy);
     font-size: 2.5rem;
+    font-weight: 700;
     margin-top: 3rem;
     margin-bottom: 1.5rem;
     padding-bottom: 0.75rem;
-    border-bottom: 3px solid #F4C430;
+    border-bottom: 3px solid var(--color-gold);
+    letter-spacing: -0.02em;
 }
 
 .page-content h2 {
-    color: #003366;
+    color: var(--color-navy);
     font-size: 2rem;
-    margin-top: 2.5rem;
-    margin-bottom: 1rem;
+    font-weight: 700;
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
     padding-bottom: 0.5rem;
-    border-bottom: 2px solid #F4C430;
+    border-bottom: 2px solid var(--color-gold);
+    letter-spacing: -0.01em;
 }
 
 .page-content h3 {
-    color: #003366;
+    color: var(--color-navy);
     font-size: 1.5rem;
-    margin-top: 2rem;
+    font-weight: 600;
+    margin-top: 2.5rem;
     margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .page-content p {
     margin-bottom: 1.5rem;
+    color: var(--text-primary);
+    max-width: 85ch;
+}
+
+.page-content strong {
+    color: var(--color-navy);
+    font-weight: 600;
 }
 
 .page-content ul,
 .page-content ol {
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
     padding-left: 2rem;
 }
 
 .page-content li {
-    margin-bottom: 0.75rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+    line-height: 1.7;
+}
+
+.page-content ul li {
+    padding-left: 0.5rem;
+}
+
+.page-content ul li::marker {
+    color: var(--color-gold);
 }
 
 .page-content a {
-    color: #F4C430;
+    color: var(--color-navy);
     text-decoration: none;
     font-weight: 600;
-    transition: color 0.2s ease;
+    border-bottom: 2px solid var(--color-gold);
+    transition: all 0.2s ease;
+    padding-bottom: 2px;
 }
 
 .page-content a:hover {
-    color: #DAA520;
-    text-decoration: underline;
+    color: var(--color-gold);
+    border-bottom-color: var(--color-navy);
 }
 
 .page-content hr {
     border: none;
-    border-top: 2px solid #e0e0e0;
-    margin: 3rem 0;
+    border-top: 2px solid var(--border-color);
+    margin: 4rem 0;
+    opacity: 0.3;
 }
 
 .page-content blockquote {
-    border-left: 4px solid #F4C430;
-    padding-left: 2rem;
-    margin: 2rem 0;
+    border-left: 4px solid var(--color-gold);
+    padding: 1.5rem 2rem;
+    margin: 2.5rem 0;
+    background: var(--bg-secondary);
+    border-radius: 0 8px 8px 0;
     font-style: italic;
-    color: #666;
+    color: var(--text-secondary);
 }
 
 .page-content code {
-    background: #F7F9FC;
+    background: var(--bg-secondary);
     padding: 0.2rem 0.5rem;
     border-radius: 4px;
-    font-family: 'Courier New', monospace;
+    font-family: 'Monaco', 'Courier New', monospace;
     font-size: 0.9em;
-    color: #003366;
+    color: var(--color-navy);
+    border: 1px solid var(--border-color);
 }
 
 .page-content pre {
-    background: #003366;
-    color: white;
+    background: var(--color-navy);
+    color: var(--bg-primary);
     padding: 1.5rem;
     border-radius: 8px;
     overflow-x: auto;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow-md);
 }
 
 .page-content pre code {
     background: none;
     padding: 0;
     color: inherit;
+    border: none;
+}
+
+/* Section spacing */
+.page-content > h2:first-of-type {
+    margin-top: 1rem;
+}
+
+/* Improve emoji in headings */
+.page-content h3:has(img),
+.page-content h3:has(svg) {
+    align-items: center;
 }
 
 @media (max-width: 768px) {
     .page-content {
-        font-size: 1rem;
+        font-size: 1.0625rem;
     }
     
     .page-content h1 {
@@ -124,7 +168,15 @@
     }
     
     .page-content h2 {
-        font-size: 1.5rem;
+        font-size: 1.75rem;
+    }
+    
+    .page-content h3 {
+        font-size: 1.375rem;
+    }
+    
+    .page-content p {
+        max-width: 100%;
     }
 }
 </style>
