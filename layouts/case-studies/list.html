@@ -1,0 +1,163 @@
+{{ define "main" }}
+
+<!-- Hero Section -->
+<div style="background: linear-gradient(135deg, var(--color-navy) 0%, #004488 100%); color: var(--bg-primary); padding: 5rem 0; text-align: center;">
+    <div class="container">
+        <h1 style="font-size: 3.5rem; margin-bottom: 1.5rem; color: var(--bg-primary); font-weight: 700;">{{ .Title }}</h1>
+        {{ if .Description }}
+        <p style="font-size: 1.3rem; opacity: 0.95; max-width: 900px; margin: 0 auto 2rem; line-height: 1.6;">{{ .Description }}</p>
+        {{ end }}
+    </div>
+</div>
+
+<!-- Stats Grid Section -->
+<div style="background: var(--bg-primary); padding: 3rem 0; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+    <div class="container">
+        <div class="stats-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 3rem; text-align: center;">
+            <div class="stat-card">
+                <div style="font-size: 3.5rem; font-weight: 700; color: var(--color-gold); margin-bottom: 0.5rem;">15+</div>
+                <p style="color: var(--text-secondary); font-size: 1.1rem; font-weight: 500;">Successful Implementations</p>
+            </div>
+            <div class="stat-card">
+                <div style="font-size: 3.5rem; font-weight: 700; color: var(--color-gold); margin-bottom: 0.5rem;">$2.5M+</div>
+                <p style="color: var(--text-secondary); font-size: 1.1rem; font-weight: 500;">Cost Savings Delivered</p>
+            </div>
+            <div class="stat-card">
+                <div style="font-size: 3.5rem; font-weight: 700; color: var(--color-gold); margin-bottom: 0.5rem;">98%</div>
+                <p style="color: var(--text-secondary); font-size: 1.1rem; font-weight: 500;">Client Satisfaction Rate</p>
+            </div>
+            <div class="stat-card">
+                <div style="font-size: 3.5rem; font-weight: 700; color: var(--color-gold); margin-bottom: 0.5rem;">50%</div>
+                <p style="color: var(--text-secondary); font-size: 1.1rem; font-weight: 500;">Avg. Time Reduction</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Featured Case Studies Section -->
+<div style="max-width: 1200px; margin: 0 auto; padding: 5rem 2rem;">
+    <div style="text-align: center; margin-bottom: 4rem;">
+        <h2 style="font-size: 2.5rem; color: var(--text-primary); margin-bottom: 1rem; font-weight: 700;">Featured Case Studies</h2>
+        <p style="font-size: 1.1rem; color: var(--text-secondary); max-width: 700px; margin: 0 auto;">
+            Explore how we've helped organizations overcome complex analytics challenges and achieve their digital transformation goals.
+        </p>
+    </div>
+    
+    {{ if .Pages }}
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2.5rem;">
+        {{ range .Pages }}
+        <article class="case-study-card" style="background: var(--bg-primary); border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); overflow: hidden; transition: all 0.3s ease; border: 1px solid var(--border-color); position: relative;">
+            <!-- Industry Badge -->
+            {{ if .Params.industry }}
+            <div style="position: absolute; top: 1rem; right: 1rem; background: var(--color-gold); color: var(--color-navy); padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600; z-index: 10;">
+                {{ .Params.industry }}
+            </div>
+            {{ end }}
+            
+            <!-- Color Bar Top -->
+            <div style="height: 6px; background: linear-gradient(90deg, var(--color-gold) 0%, var(--color-navy) 100%);"></div>
+            
+            <div style="padding: 2rem;">
+                <!-- Icon Section -->
+                <div style="margin-bottom: 1.5rem;">
+                    {{ if eq .Params.industry "Manufacturing" }}
+                        <div style="font-size: 3.5rem; line-height: 1;">🏭</div>
+                    {{ else if eq .Params.industry "Retail & Consumer Goods" }}
+                        <div style="font-size: 3.5rem; line-height: 1;">🛒</div>
+                    {{ else if eq .Params.industry "Healthcare" }}
+                        <div style="font-size: 3.5rem; line-height: 1;">🏥</div>
+                    {{ else if eq .Params.industry "Financial Services" }}
+                        <div style="font-size: 3.5rem; line-height: 1;">💼</div>
+                    {{ else }}
+                        <div style="font-size: 3.5rem; line-height: 1;">📊</div>
+                    {{ end }}
+                </div>
+                
+                <!-- Title -->
+                <h3 style="color: var(--text-primary); font-size: 1.4rem; margin-bottom: 1rem; line-height: 1.4; font-weight: 600; min-height: 60px;">
+                    <a href="{{ .RelPermalink }}" style="color: var(--text-primary); text-decoration: none;">{{ .Title }}</a>
+                </h3>
+                
+                <!-- Description -->
+                {{ if .Description }}
+                <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 1.5rem; font-size: 0.95rem;">{{ .Description }}</p>
+                {{ else if .Summary }}
+                <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 1.5rem; font-size: 0.95rem;">{{ .Summary }}</p>
+                {{ end }}
+                
+                <!-- Services Tags -->
+                {{ if .Params.services }}
+                <div style="margin-bottom: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                    {{ range first 3 .Params.services }}
+                    <span style="background: var(--bg-secondary); color: var(--color-navy); padding: 0.3rem 0.8rem; border-radius: 12px; font-size: 0.75rem; font-weight: 500; border: 1px solid var(--border-color);">{{ . }}</span>
+                    {{ end }}
+                </div>
+                {{ end }}
+                
+                <!-- Results Highlights -->
+                {{ if .Params.results }}
+                <div style="background: var(--bg-secondary); padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; border-left: 3px solid var(--color-gold);">
+                    <div style="font-size: 0.85rem; font-weight: 600; color: var(--color-gold); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px;">Key Results</div>
+                    <ul style="margin: 0; padding-left: 1.2rem; color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8;">
+                        {{ range first 3 .Params.results }}
+                        <li>{{ . }}</li>
+                        {{ end }}
+                    </ul>
+                </div>
+                {{ end }}
+                
+                <!-- Read More Link -->
+                <a href="{{ .RelPermalink }}" style="color: var(--color-gold); font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; transition: gap 0.3s ease;">
+                    Read Full Case Study 
+                    <span style="transition: transform 0.3s ease;">→</span>
+                </a>
+            </div>
+        </article>
+        {{ end }}
+    </div>
+    {{ end }}
+</div>
+
+<!-- CTA Section -->
+<div style="background: linear-gradient(135deg, var(--color-navy) 0%, #004488 100%); padding: 5rem 2rem; margin-top: 4rem;">
+    <div class="container" style="max-width: 800px; text-align: center;">
+        <h2 style="color: var(--bg-primary); font-size: 2.5rem; margin-bottom: 1.5rem; font-weight: 700;">Ready to Transform Your Analytics?</h2>
+        <p style="color: var(--bg-primary); font-size: 1.2rem; margin-bottom: 2.5rem; opacity: 0.95; line-height: 1.7;">
+            Let's discuss how we can help your organization achieve similar results with SAP analytics solutions tailored to your unique challenges.
+        </p>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+            <a href="/contact/" style="background: var(--color-gold); color: var(--color-navy); padding: 1.2rem 2.5rem; border-radius: 8px; font-weight: 600; text-decoration: none; display: inline-block; font-size: 1.1rem; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                Schedule Free Consultation
+            </a>
+            <a href="/services/" style="background: transparent; color: var(--bg-primary); border: 2px solid var(--color-gold); padding: 1.2rem 2.5rem; border-radius: 8px; font-weight: 600; text-decoration: none; display: inline-block; font-size: 1.1rem; transition: all 0.3s ease;">
+                Explore Our Services
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .case-study-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 32px rgba(0,0,0,0.15);
+    }
+    
+    .case-study-card:hover a[href*="RelPermalink"] span {
+        transform: translateX(5px);
+    }
+    
+    @media (max-width: 768px) {
+        .stats-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 2rem !important;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .stats-grid {
+            grid-template-columns: 1fr !important;
+        }
+    }
+</style>
+
+{{ end }}
