@@ -22,7 +22,7 @@ This year, we're focusing on **realistic timelines** and **proven ROI paths** ra
 
 **2025 Reality:** Joule copilot was **reactive** - you asked questions, it answered.
 
-**2026 Prediction:** Joule becomes an **autonomous agent** that takes actions on your behalf.
+**2026 Prediction:** Joule becomes an **autonomous agent** that takes action on your behalf.
 
 **What's Changing:**
 
@@ -46,7 +46,7 @@ Tasks:
 ```
 
 **Predictive Interventions:**
-- "Q1 forecast shows 12% risk of missing target. Should I run optimization scenarios and book a meeting with sales leadership?"
+- "Q1 forecast shows a 12% risk of missing target. Should I run optimization scenarios and book a meeting with sales leadership?"
 - System autonomously creates calendar invite, runs 5 what-if scenarios, prepares briefing deck
 
 **Timeline:** Q2 2026 beta, Q4 2026 GA

@@ -40,7 +40,7 @@ This comprehensive guide walks you through the entire migration journey, from in
 
 ## Migration Approach: Our Proven Methodology
 
-### Phase 1: Assessment & Planning (Weeks 1-2)
+### Phase 1: Assessment & Planning (Weeks 1-3)
 
 **Inventory Your BW Landscape**
 ```
@@ -62,7 +62,7 @@ This comprehensive guide walks you through the entire migration journey, from in
 - Migration complexity assessment
 - Resource and timeline estimation
 
-### Phase 2: Design & Architecture (Weeks 3-4)
+### Phase 2: Design & Architecture (Weeks 4-6)
 
 **Datasphere Architecture Design**
 
@@ -95,7 +95,7 @@ Modern data architecture in Datasphere consists of:
 | Transformation Rules | Transformation in Data Flow | Medium-High |
 | ABAP Routines | SQL Script or Python | High |
 
-### Phase 3: Proof of Concept (Weeks 5-6)
+### Phase 3: Proof of Concept (Weeks 7-9)
 
 **Build Representative Use Case**
 
@@ -112,29 +112,29 @@ Select 2-3 critical BW flows representing:
 ✓ User acceptance: Validated by business users
 ```
 
-### Phase 4: Development & Migration (Weeks 7-14)
+### Phase 4: Development & Migration (Weeks 10-21)
 
 **Iterative Migration Approach**
 
-**Sprint 1-2: Foundation**
+**Sprints 1-2: Foundation (3 weeks)**
 - Set up Datasphere space structure
 - Configure connections to source systems
 - Migrate master data tables
 - Establish security roles
 
-**Sprint 3-4: Core Data Flows**
+**Sprints 3-4: Core Data Flows (3 weeks)**
 - Convert high-priority InfoProviders
 - Build transformation logic
 - Create initial task chains
 - Develop error handling procedures
 
-**Sprint 5-6: Advanced Objects**
+**Sprints 5-6: Advanced Objects (3 weeks)**
 - Migrate complex transformations
 - Convert ABAP routines to SQL Script
 - Build composite analytical models
 - Implement calculation views
 
-**Sprint 7-8: Testing & Validation**
+**Sprints 7-8: Testing & Validation (3 weeks)**
 - Unit testing of individual objects
 - Integration testing of end-to-end flows
 - Performance testing under load
@@ -168,7 +168,7 @@ SELECT
 FROM SOURCE_TABLE
 ```
 
-### Phase 5: Cutover & Go-Live (Weeks 15-16)
+### Phase 5: Cutover & Go-Live (Weeks 22-24)
 
 **Pre-Cutover Checklist**
 ```
@@ -298,7 +298,7 @@ We've developed proprietary tools to speed up your migration:
 Migrating from SAP BW to Datasphere is a strategic investment in your data platform's future. While the journey requires careful planning and execution, the benefits of cloud-native architecture, simplified operations, and enhanced analytics capabilities make it a compelling move for most organizations.
 
 **Key Takeaways:**
-- Plan for 16-20 weeks for mid-sized implementations
+- Plan for 6-8 months for mid-sized implementations (200-500 BW objects)
 - Budget 30-40% more than "lift and shift" to leverage modern patterns
 - Invest in training and change management
 - Start with high-value use cases, not comprehensive migration

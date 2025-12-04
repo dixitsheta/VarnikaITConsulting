@@ -218,7 +218,7 @@ class CustomWidget extends HTMLElement {
 
 **2. Property Management:**
 - Define configurable properties (width, height, colors)
-- Implement getters/setters for reactivity
+- Implement getters and setters for reactivity
 - Validate input values
 
 **3. Data Binding:**
@@ -715,9 +715,9 @@ Custom SAC widgets unlock unlimited possibilities for visualizations and interac
 - Consider total cost of ownership: development + testing + maintenance
 
 **Development Timeline Expectations:**
-- Simple widget (KPI card): 1-2 weeks
-- Medium complexity (custom chart): 3-4 weeks  
-- Complex widget (advanced interactions): 6-8 weeks
+- Simple widget (KPI card): 2-3 weeks
+- Medium complexity (custom chart): 4-6 weeks  
+- Complex widget (advanced interactions): 8-12 weeks
 - Add 30-40% time for testing, documentation, deployment
 
 **When to Build vs. Buy:**
@@ -740,7 +740,7 @@ Varnika IT Consulting has built **50+ custom widgets** for SAC across industries
 
 **Pricing:** $2,000 - $15,000 per widget depending on complexity (simple KPI card to complex integrated solutions)
 
-**Typical Project Timeline:** 4-8 weeks from requirements to production deployment
+**Typical Project Timeline:** 6-12 weeks from requirements to production deployment
 
 **[Schedule a Widget Consultation →](/contact/)**
 
