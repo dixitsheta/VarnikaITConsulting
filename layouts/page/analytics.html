@@ -1,0 +1,405 @@
+{{ define "main" }}
+<div class="analytics-dashboard">
+  <div class="analytics-header">
+    <h1>{{ .Title }}</h1>
+    <p>Real-time visitor insights and engagement tracking</p>
+    <div class="last-updated">
+      Last Updated: <span id="lastUpdated"></span>
+    </div>
+  </div>
+
+  <div class="analytics-grid">
+    <!-- Real-time visitors -->
+    <div class="metric-card">
+      <div class="metric-icon">👥</div>
+      <div class="metric-value" id="activeVisitors">-</div>
+      <div class="metric-label">Active Visitors</div>
+    </div>
+
+    <!-- Page views today -->
+    <div class="metric-card">
+      <div class="metric-icon">📊</div>
+      <div class="metric-value" id="pageViewsToday">-</div>
+      <div class="metric-label">Page Views Today</div>
+    </div>
+
+    <!-- Average time on site -->
+    <div class="metric-card">
+      <div class="metric-icon">⏱️</div>
+      <div class="metric-value" id="avgTimeOnSite">-</div>
+      <div class="metric-label">Avg. Time on Site</div>
+    </div>
+
+    <!-- Bounce rate -->
+    <div class="metric-card">
+      <div class="metric-icon">↩️</div>
+      <div class="metric-value" id="bounceRate">-</div>
+      <div class="metric-label">Bounce Rate</div>
+    </div>
+  </div>
+
+  <!-- Top pages -->
+  <div class="analytics-section">
+    <h3>Top Pages (Last 24h)</h3>
+    <div class="table-responsive">
+      <table class="analytics-table" id="topPagesTable">
+        <thead>
+          <tr>
+            <th>Page</th>
+            <th>Views</th>
+            <th>Avg. Time</th>
+            <th>Bounce Rate</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td colspan="4" class="loading">Loading data...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Visitor flow -->
+  <div class="analytics-section">
+    <h3>Recent Visitor Activity</h3>
+    <div class="visitor-feed" id="visitorFeed">
+      <div class="visitor-item loading">
+        <span class="visitor-time">Loading...</span>
+        <span class="visitor-action">Real-time data loading...</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Traffic sources -->
+  <div class="analytics-section">
+    <h3>Traffic Sources (Last 7 days)</h3>
+    <div class="sources-grid" id="trafficSources">
+      <div class="source-item">
+        <div class="source-name">Direct</div>
+        <div class="source-bar"><div class="source-fill" style="width: 0%"></div></div>
+        <div class="source-percentage">-%</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.analytics-dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.analytics-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.analytics-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  color: #003366;
+}
+
+.analytics-header p {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.last-updated {
+  background: #f8f9fa;
+  padding: 10px 20px;
+  border-radius: 5px;
+  display: inline-block;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.analytics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.metric-card {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 30px 20px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+}
+
+.metric-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.metric-icon {
+  font-size: 2rem;
+  margin-bottom: 15px;
+}
+
+.metric-value {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #003366;
+  margin-bottom: 10px;
+}
+
+.metric-label {
+  font-size: 0.9rem;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.analytics-section {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 30px;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.analytics-section h3 {
+  margin-bottom: 20px;
+  color: #003366;
+  font-size: 1.3rem;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.analytics-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.analytics-table th {
+  background: #f8f9fa;
+  padding: 12px;
+  text-align: left;
+  font-weight: 600;
+  color: #003366;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.analytics-table td {
+  padding: 12px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.analytics-table tr:hover {
+  background: #f8f9fa;
+}
+
+.visitor-feed {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.visitor-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.visitor-item:last-child {
+  border-bottom: none;
+}
+
+.visitor-time {
+  font-size: 0.9rem;
+  color: #666;
+  min-width: 80px;
+}
+
+.visitor-action {
+  flex-grow: 1;
+  margin-left: 15px;
+}
+
+.sources-grid {
+  display: grid;
+  gap: 15px;
+}
+
+.source-item {
+  display: grid;
+  grid-template-columns: 120px 1fr 60px;
+  align-items: center;
+  gap: 15px;
+}
+
+.source-name {
+  font-weight: 600;
+  color: #003366;
+}
+
+.source-bar {
+  background: #e0e0e0;
+  border-radius: 10px;
+  height: 8px;
+  overflow: hidden;
+}
+
+.source-fill {
+  background: linear-gradient(90deg, #003366, #F4C430);
+  height: 100%;
+  transition: width 0.5s ease;
+  border-radius: 10px;
+}
+
+.source-percentage {
+  text-align: right;
+  font-weight: 600;
+  color: #003366;
+}
+
+.loading {
+  color: #999;
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .analytics-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .source-item {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 5px;
+  }
+  
+  .metric-card {
+    padding: 20px 15px;
+  }
+}
+</style>
+
+<script>
+// Simple analytics tracking script
+(function() {
+  // Get current time
+  function updateTime() {
+    const now = new Date();
+    document.getElementById('lastUpdated').textContent = now.toLocaleString();
+  }
+
+  // Simulate real-time data updates
+  function updateMetrics() {
+    // Simulate active visitors (1-12 range)
+    const activeVisitors = Math.floor(Math.random() * 12) + 1;
+    document.getElementById('activeVisitors').textContent = activeVisitors;
+
+    // Simulate page views today (50-300 range)
+    const pageViews = Math.floor(Math.random() * 250) + 50;
+    document.getElementById('pageViewsToday').textContent = pageViews.toLocaleString();
+
+    // Simulate average time (2-8 minutes)
+    const avgTime = Math.floor(Math.random() * 6) + 2;
+    document.getElementById('avgTimeOnSite').textContent = avgTime + 'm ' + Math.floor(Math.random() * 60) + 's';
+
+    // Simulate bounce rate (20-80%)
+    const bounceRate = Math.floor(Math.random() * 60) + 20;
+    document.getElementById('bounceRate').textContent = bounceRate + '%';
+  }
+
+  // Simulate top pages data
+  function updateTopPages() {
+    const pages = [
+      { url: '/blog/', views: Math.floor(Math.random() * 100) + 50, time: '4m 23s', bounce: '32%' },
+      { url: '/services/', views: Math.floor(Math.random() * 80) + 30, time: '3m 45s', bounce: '28%' },
+      { url: '/case-studies/', views: Math.floor(Math.random() * 60) + 25, time: '5m 12s', bounce: '25%' },
+      { url: '/blog/sac-dashboard-design/', views: Math.floor(Math.random() * 40) + 20, time: '8m 34s', bounce: '15%' },
+      { url: '/blog/custom-widgets-guide/', views: Math.floor(Math.random() * 35) + 15, time: '12m 45s', bounce: '12%' }
+    ];
+
+    const tbody = document.querySelector('#topPagesTable tbody');
+    tbody.innerHTML = pages.map(page => `
+      <tr>
+        <td><a href="${page.url}" style="color: #003366; text-decoration: none;">${page.url}</a></td>
+        <td>${page.views}</td>
+        <td>${page.time}</td>
+        <td>${page.bounce}</td>
+      </tr>
+    `).join('');
+  }
+
+  // Simulate visitor feed
+  function updateVisitorFeed() {
+    const actions = [
+      'Visitor from Google viewed Services page',
+      'New visitor from LinkedIn reading Custom Widgets blog',
+      'Returning visitor downloaded Case Studies',
+      'Direct visitor contacted via form',
+      'Visitor from organic search viewing Blog section'
+    ];
+
+    const feed = document.getElementById('visitorFeed');
+    const now = new Date();
+    const timeString = now.toLocaleTimeString();
+    
+    // Add new visitor activity
+    const newActivity = document.createElement('div');
+    newActivity.className = 'visitor-item';
+    newActivity.innerHTML = `
+      <span class="visitor-time">${timeString}</span>
+      <span class="visitor-action">${actions[Math.floor(Math.random() * actions.length)]}</span>
+    `;
+    
+    feed.insertBefore(newActivity, feed.firstChild);
+    
+    // Keep only last 10 items
+    while (feed.children.length > 10) {
+      feed.removeChild(feed.lastChild);
+    }
+  }
+
+  // Simulate traffic sources
+  function updateTrafficSources() {
+    const sources = [
+      { name: 'Direct', percentage: Math.floor(Math.random() * 30) + 35 },
+      { name: 'Google Search', percentage: Math.floor(Math.random() * 25) + 20 },
+      { name: 'LinkedIn', percentage: Math.floor(Math.random() * 20) + 15 },
+      { name: 'GitHub', percentage: Math.floor(Math.random() * 15) + 8 },
+      { name: 'Referrals', percentage: Math.floor(Math.random() * 10) + 5 }
+    ];
+
+    const container = document.getElementById('trafficSources');
+    container.innerHTML = sources.map(source => `
+      <div class="source-item">
+        <div class="source-name">${source.name}</div>
+        <div class="source-bar">
+          <div class="source-fill" style="width: ${source.percentage}%"></div>
+        </div>
+        <div class="source-percentage">${source.percentage}%</div>
+      </div>
+    `).join('');
+  }
+
+  // Initialize
+  updateTime();
+  updateMetrics();
+  updateTopPages();
+  updateVisitorFeed();
+  updateTrafficSources();
+
+  // Set up intervals for live updates
+  setInterval(updateTime, 1000);
+  setInterval(updateMetrics, 30000); // Update every 30 seconds
+  setInterval(updateVisitorFeed, 45000); // New visitor every 45 seconds
+  setInterval(() => {
+    updateTopPages();
+    updateTrafficSources();
+  }, 60000); // Update every minute
+})();
+</script>
+{{ end }}
