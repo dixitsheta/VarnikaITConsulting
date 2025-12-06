@@ -50,11 +50,11 @@ copyright = '© 2025 Varnika IT Consulting. All rights reserved.'
     url = '/services/'
     weight = 2
   
-  # [[menu.main]]
-  #   identifier = 'blog'
-  #   name = 'Blog'
-  #   url = '/blog/'
-  #   weight = 3
+  [[menu.main]]
+    identifier = 'blog'
+    name = 'Blog'
+    url = '/blog/'
+    weight = 3
   
   [[menu.main]]
     identifier = 'case-studies'
