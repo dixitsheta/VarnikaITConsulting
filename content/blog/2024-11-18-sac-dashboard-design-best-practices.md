@@ -1,7 +1,7 @@
 ---
 title: "10 SAP Analytics Cloud Dashboard Design Best Practices"
 date: 2024-11-18T09:00:00+00:00
-draft: true
+draft: false
 author: "Varnika IT Consulting"
 description: "Transform your SAC dashboards from functional to exceptional with these proven design principles, performance tips, and user experience best practices."
 categories: ["SAP Analytics Cloud", "Best Practices"]
@@ -108,7 +108,7 @@ Table_1.getDataSource().setFilterValue("Period", quarterFilter);
 ### Visualization Performance Tips
 
 | Technique | Impact | Implementation |
-|-----------|--------|----------------|
+|-----------|---------|----------------|
 | Limit chart series | High | Max 10-12 series per chart |
 | Use aggregated data | Very High | Pre-aggregate in data model |
 | Avoid complex calculations | Medium | Move to data layer when possible |
@@ -411,7 +411,7 @@ Leverage SAC's Smart Features:
 ## Common Mistakes to Avoid
 
 | Mistake | Impact | Solution |
-|---------|--------|----------|
+|---------|---------|----------|
 | Too many metrics | Cognitive overload | Follow 5-7-9 rule (exec/mgr/analyst) |
 | Inconsistent formatting | Confusion | Create style guide |
 | No drill-down paths | Limited analysis | Implement hierarchies |

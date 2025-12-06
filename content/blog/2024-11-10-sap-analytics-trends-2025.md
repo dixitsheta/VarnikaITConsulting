@@ -232,18 +232,30 @@ This was our **biggest success story**:
 
 **Overall Accuracy:** 7.3/10 - Strong predictions, but we overestimated timelines on cutting-edge features.
 
-| Trend | Prediction | Reality | Score |
-|-------|-----------|---------|-------|
-| 1. Generative AI | Mainstream adoption | ✅ Delivered | 9/10 |
-| 2. Edge Computing | Q2 2025 release | ❌ Delayed to 2026 | 2/10 |
-| 3. Embedded Analytics | 200% growth | ✅ 180% growth | 9/10 |
-| 4. Industry Clouds | Banking Jan 2025 | ✅ Feb 2025 (close) | 7/10 |
-| 5. AI Planning | 40% efficiency gain | ✅ 45% achieved | 10/10 |
-| 6. Data Marketplace | 2,000 assets | ⚠️ 1,200 assets | 6/10 |
-| 7. Low-Code | 60% citizen dev | ⚠️ 35% achieved | 6/10 |
-| 8. Sustainability | CSRD compliance | ✅ On track | 9/10 |
-| 9. Mobile-First | 70% mobile usage | ⚠️ 52% achieved | 7/10 |
-| 10. Interoperability | Multi-cloud support | ✅ Mostly delivered | 8/10 |
+<div style="overflow-x: auto;">
+<table style="width: 100%; table-layout: fixed;">
+<thead>
+<tr>
+<th style="width: 25%; padding: 12px; text-align: left;">Trend</th>
+<th style="width: 25%; padding: 12px; text-align: left;">Prediction</th>
+<th style="width: 30%; padding: 12px; text-align: left;">Reality</th>
+<th style="width: 20%; padding: 12px; text-align: left;">Score</th>
+</tr>
+</thead>
+<tbody>
+<tr><td style="padding: 8px;">1. Generative AI</td><td style="padding: 8px;">Mainstream adoption</td><td style="padding: 8px;">✅ Delivered</td><td style="padding: 8px;">9/10</td></tr>
+<tr><td style="padding: 8px;">2. Edge Computing</td><td style="padding: 8px;">Q2 2025 release</td><td style="padding: 8px;">❌ Delayed to 2026</td><td style="padding: 8px;">2/10</td></tr>
+<tr><td style="padding: 8px;">3. Embedded Analytics</td><td style="padding: 8px;">200% growth</td><td style="padding: 8px;">✅ 180% growth</td><td style="padding: 8px;">9/10</td></tr>
+<tr><td style="padding: 8px;">4. Industry Clouds</td><td style="padding: 8px;">Banking Jan 2025</td><td style="padding: 8px;">✅ Feb 2025 (close)</td><td style="padding: 8px;">7/10</td></tr>
+<tr><td style="padding: 8px;">5. AI Planning</td><td style="padding: 8px;">40% efficiency gain</td><td style="padding: 8px;">✅ 45% achieved</td><td style="padding: 8px;">10/10</td></tr>
+<tr><td style="padding: 8px;">6. Data Marketplace</td><td style="padding: 8px;">2,000 assets</td><td style="padding: 8px;">⚠️ 1,200 assets</td><td style="padding: 8px;">6/10</td></tr>
+<tr><td style="padding: 8px;">7. Low-Code</td><td style="padding: 8px;">60% citizen dev</td><td style="padding: 8px;">⚠️ 35% achieved</td><td style="padding: 8px;">6/10</td></tr>
+<tr><td style="padding: 8px;">8. Sustainability</td><td style="padding: 8px;">CSRD compliance</td><td style="padding: 8px;">✅ On track</td><td style="padding: 8px;">9/10</td></tr>
+<tr><td style="padding: 8px;">9. Mobile-First</td><td style="padding: 8px;">70% mobile usage</td><td style="padding: 8px;">⚠️ 52% achieved</td><td style="padding: 8px;">7/10</td></tr>
+<tr><td style="padding: 8px;">10. Interoperability</td><td style="padding: 8px;">Multi-cloud support</td><td style="padding: 8px;">✅ Mostly delivered</td><td style="padding: 8px;">8/10</td></tr>
+</tbody>
+</table>
+</div>
 
 ---
 
