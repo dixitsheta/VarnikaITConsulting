@@ -1,7 +1,7 @@
 ---
 title: "Building Custom SAC Widgets: A Developer's Complete Guide"
 date: 2024-11-15T14:00:00+00:00
-draft: true
+draft: false
 author: "Varnika IT Consulting"
 description: "Learn how to create custom widgets for SAP Analytics Cloud using JavaScript, HTML5, and CSS3. Includes code examples, best practices, and deployment guide."
 categories: ["SAP Analytics Cloud", "Custom Development"]
@@ -120,9 +120,17 @@ my-custom-widget/
     {
       "kind": "main",
       "tag": "sankey-widget",
-      "url": "main.js",
-      "integrity": "",
-      "ignoreIntegrity": true
+      "url": "main.js"
+    },
+    {
+      "kind": "styling",
+      "tag": "sankey-widget-styling",
+      "url": "styling.js"
+    },
+    {
+      "kind": "builder",
+      "tag": "sankey-widget-builder",
+      "url": "builder.js"
     }
   ],
   "properties": {
@@ -148,16 +156,14 @@ my-custom-widget/
       "maximum": 30
     }
   },
-  "methods": {
-    "setData": {
-      "description": "Update widget data",
-      "parameters": [
-        {
-          "name": "data",
-          "type": "object",
-          "description": "Nodes and links array"
-        }
-      ]
+  "dataBindings": {
+    "nodes": {
+      "type": "Dimension[]",
+      "description": "Source and target nodes"
+    },
+    "links": {
+      "type": "Measure[]",
+      "description": "Flow values between nodes"
     }
   },
   "events": {
@@ -166,6 +172,49 @@ my-custom-widget/
     }
   }
 }
+```
+
+### Understanding Panel Types
+
+**SAC Custom Widgets Support Three Panel Types:**
+
+**1. Main Panel (Required)**
+- The widget visualization itself
+- Handles data rendering and user interactions
+- Implements core business logic
+
+**2. Styling Panel (Optional)**
+- Controls visual appearance only
+- Properties: colors, fonts, borders, spacing, themes
+- **Best Practice:** Keep all styling properties here, not in builder
+- Users access via "Styling" tab in SAC widget properties
+
+**3. Builder Panel (Optional)**
+- Controls functional configuration
+- Properties: data mappings, calculation logic, behavioral settings
+- **Important SAC Limitation:** Cannot use both builder panel AND data bindings
+  - **With data bindings:** Use styling panel only
+  - **Without data bindings:** Can use both styling and builder panels
+- Users access via "Builder" tab in SAC widget properties
+
+**Panel Communication Pattern:**
+```javascript
+// Styling or builder panel communicates with main widget
+this.dispatchEvent(new CustomEvent('propertiesChanged', {
+  detail: {
+    properties: {
+      chartType: 'bar',
+      colorScheme: 'blues'
+    }
+  }
+}));
+
+// Main widget listens and updates
+this.addEventListener('propertiesChanged', (event) => {
+  const newProps = event.detail.properties;
+  this._applyProperties(newProps);
+  this._render();
+});
 ```
 
 ## Example 1: Custom Visualization Widget Conceptual Overview
@@ -178,27 +227,45 @@ Custom SAC widgets follow the **Web Components** standard. Here's the conceptual
 
 ```javascript
 // Widget Structure (Conceptual Overview)
+// Best practice: Extend a base class for shared functionality
 class CustomWidget extends HTMLElement {
   constructor() {
+    super();
     // Initialize shadow DOM
     // Set default properties
     // Prepare template
   }
 
-  connectedCallback() {
-    // Called when widget is added to DOM
-    // Initialize rendering
+  // SAC Widget Lifecycle Hooks
+  onCustomWidgetInit() {
+    // Called once when widget is first initialized
+    // Set up event listeners, load libraries
+  }
+
+  onCustomWidgetBeforeUpdate(changedProperties) {
+    // Called before data binding or property updates
+    // Validate incoming data, prepare for changes
+  }
+
+  onCustomWidgetAfterUpdate(changedProperties) {
+    // Called after data binding or property updates
+    // Update visualization with new data
+    // Access data via this.dataBinding.getDataBinding()
+  }
+
+  onCustomWidgetResize(width, height) {
+    // Called when widget container is resized
+    // Adjust layout and re-render
+  }
+
+  onCustomWidgetDestroy() {
+    // Called when widget is removed from dashboard
+    // Clean up event listeners, timers, resources
   }
 
   set propertyName(value) {
     // Handle property changes
     // Trigger re-render if needed
-  }
-
-  setData(data) {
-    // Receive data from SAC
-    // Validate data structure
-    // Update visualization
   }
 
   _render() {
@@ -241,9 +308,13 @@ class CustomWidget extends HTMLElement {
 ```
 User Action in SAC
        ↓
-   setData() called
+Data Binding Updates
+       ↓
+onCustomWidgetBeforeUpdate()
        ↓
   Data validation
+       ↓
+onCustomWidgetAfterUpdate()
        ↓
    _render() method
        ↓
@@ -274,18 +345,21 @@ User Action in SAC
 **Data Transformation Pattern:**
 
 ```javascript
-// Conceptual data processing
-setData(rawData) {
-  // 1. Validate structure
-  if (!this._isValidData(rawData)) {
+// Conceptual data processing with data binding
+onCustomWidgetAfterUpdate(changedProperties) {
+  // 1. Get bound data from SAC
+  const dataBinding = this.dataBinding.getDataBinding();
+  
+  // 2. Validate structure
+  if (!this._isValidData(dataBinding)) {
     this._showError("Invalid data format");
     return;
   }
   
-  // 2. Transform for visualization
-  const processedData = this._transformData(rawData);
+  // 3. Transform for visualization
+  const processedData = this._transformData(dataBinding);
   
-  // 3. Update visualization
+  // 4. Update visualization
   this._updateVisualization(processedData);
 }
 ```
@@ -296,7 +370,7 @@ setData(rawData) {
 
 **Option A: Direct Upload to SAC**
 1. Open SAC → Files → Public → Custom Widgets folder
-2. Upload widget package (zip containing widget.json, main.js, icon.png)
+2. Upload widget package (zip containing widget.json, main.js, styling.js, builder.js, icon.png)
 3. Widget becomes available in chart picker within 5-10 minutes
 4. **Best for:** Development and testing
 
@@ -317,6 +391,42 @@ setData(rawData) {
 3. Register widget URL in SAC tenant
 4. Manage versions via BTP DevOps
 ```
+
+### Security & Integrity in Production
+
+**Subresource Integrity (SRI):**
+- Generate SHA-384 hash of all widget files
+- Include in manifest to prevent tampering
+- SAC validates file integrity before loading
+
+```json
+// widget.json with integrity hashes
+{
+  "webcomponents": [
+    {
+      "kind": "main",
+      "tag": "my-widget",
+      "url": "main.js",
+      "integrity": "sha384-oqVuAfXRKap7fdgcCY5uykM6+R9GqQ8K/ux..."
+    }
+  ]
+}
+```
+
+**Production Build Checklist:**
+- ✓ Code minification and obfuscation
+- ✓ Remove console.log and debugging code
+- ✓ Generate integrity hashes (never edit manually)
+- ✓ Increment version number
+- ✓ Test in staging environment first
+- ✓ Document breaking changes in changelog
+
+**Security Best Practices:**
+- Validate all user inputs and data bindings
+- Sanitize HTML to prevent XSS attacks
+- Use CSP-compliant code (no inline scripts/styles in production)
+- Implement error boundaries to prevent widget crashes
+- Log errors to monitoring system (not console)
 
 **Best Practice:** Use development SAC tenant for testing before promoting to production.
 
@@ -402,16 +512,19 @@ customWidget.addEventListener("onValueClick", function(event) {
 **Data Binding from SAC Data Source:**
 
 ```javascript
-// Bind to SAC model
-customWidget.bindData({
-  dataSource: "SalesModel",
-  dimensions: ["TimePeriod"],
-  measures: ["Revenue"],
-  filters: {
-    Region: "North America",
-    Year: "2025"
-  }
-});
+// Data binding is configured in SAC Builder panel
+// 1. Select widget in canvas
+// 2. In Builder panel, click "Add Data"
+// 3. Choose model: "SalesModel"
+// 4. Map dimensions and measures to widget's dataBindings:
+//    - Dimensions: ["TimePeriod"] → nodes
+//    - Measures: ["Revenue"] → links
+// 5. Apply filters in Builder: Region = "North America", Year = "2025"
+
+// Access bound data in widget code:
+const dataBinding = this.dataBinding.getDataBinding();
+const dimensions = dataBinding.dimensions;
+const measures = dataBinding.measures;
 ```
 
 ## Best Practices
@@ -436,24 +549,27 @@ customWidget.bindData({
 **Conceptual Error Management:**
 
 ```javascript
-// Validate data structure
-setData(data) {
+// Validate data structure in lifecycle method
+onCustomWidgetAfterUpdate(changedProperties) {
   try {
+    // Get bound data
+    const dataBinding = this.dataBinding.getDataBinding();
+    
     // Validation rules
-    if (!data) {
-      throw new Error("Data is required");
+    if (!dataBinding || !dataBinding.data) {
+      throw new Error("No data bound to widget");
     }
     
-    if (!this._hasRequiredFields(data)) {
-      throw new Error("Missing required fields");
+    if (!this._hasRequiredFields(dataBinding)) {
+      throw new Error("Missing required dimensions or measures");
     }
     
-    if (!this._isDataWithinLimits(data)) {
+    if (!this._isDataWithinLimits(dataBinding.data)) {
       throw new Error("Data exceeds processing limits");
     }
     
     // Process valid data
-    this._processData(data);
+    this._processData(dataBinding.data);
     this._render();
     
   } catch (error) {
@@ -667,6 +783,203 @@ npx http-server
 - ✓ Color contrast meets WCAG AA
 - ✓ Focus indicators visible
 
+## Testing Strategy
+
+### Multi-Level Testing Approach
+
+**1. Unit Testing (Component Logic)**
+```javascript
+// Test individual widget methods
+describe('CustomWidget', () => {
+  test('should format currency correctly', () => {
+    const widget = new CustomWidget();
+    expect(widget._formatCurrency(1250000)).toBe('$1.25M');
+  });
+  
+  test('should validate data structure', () => {
+    const widget = new CustomWidget();
+    const validData = { dimensions: ['Region'], measures: ['Revenue'] };
+    expect(widget._isValidData(validData)).toBe(true);
+  });
+});
+```
+
+**2. Integration Testing (SAC Lifecycle)**
+```javascript
+// Test widget lifecycle and property sync
+describe('SAC Integration', () => {
+  test('should handle property updates from SAC', () => {
+    const widget = new CustomWidget();
+    const changes = { chartType: 'bar', theme: 'dark' };
+    
+    widget.onCustomWidgetAfterUpdate(changes);
+    
+    expect(widget.chartType).toBe('bar');
+    expect(widget.theme).toBe('dark');
+  });
+  
+  test('should dispatch events correctly', () => {
+    const widget = new CustomWidget();
+    let eventFired = false;
+    
+    widget.addEventListener('onDataPointClick', () => {
+      eventFired = true;
+    });
+    
+    widget._handleDataPointClick({ value: 100 });
+    expect(eventFired).toBe(true);
+  });
+});
+```
+
+**3. Browser Compatibility Testing**
+- Chrome (latest 2 versions)
+- Firefox (latest 2 versions)
+- Safari (latest 2 versions)
+- Edge (Chromium-based)
+- Mobile browsers (iOS Safari, Chrome Mobile)
+
+**4. Performance Testing**
+```javascript
+// Benchmark rendering with large datasets
+describe('Performance', () => {
+  test('should render 10,000 data points under 1 second', () => {
+    const widget = new CustomWidget();
+    const largeDataset = generateTestData(10000);
+    
+    const startTime = performance.now();
+    widget.onCustomWidgetAfterUpdate({ data: largeDataset });
+    const endTime = performance.now();
+    
+    expect(endTime - startTime).toBeLessThan(1000);
+  });
+  
+  test('should not leak memory after 100 renders', () => {
+    const widget = new CustomWidget();
+    const initialMemory = performance.memory.usedJSHeapSize;
+    
+    for (let i = 0; i < 100; i++) {
+      widget._render();
+    }
+    
+    const finalMemory = performance.memory.usedJSHeapSize;
+    const memoryIncrease = finalMemory - initialMemory;
+    
+    expect(memoryIncrease).toBeLessThan(5000000); // 5MB threshold
+  });
+});
+```
+
+**5. Visual Regression Testing**
+- Take screenshots of widget in different states
+- Compare against baseline images
+- Detect unintended visual changes
+- Tools: Playwright, Puppeteer, Percy
+
+**Testing Workflow:**
+```bash
+# Run all tests before deployment
+npm test                  # Unit tests
+npm run test:integration  # Integration tests
+npm run test:e2e          # End-to-end browser tests
+npm run test:visual       # Visual regression
+```
+
+## Deployment Checklist& Version Management
+
+### Critical Manifest Rules
+
+**Required Fields (SAC will reject upload without these):**
+```json
+{
+  "id": "com.yourcompany.widgetname",
+  "name": "Widget Display Name",
+  "vendor": "Your Company Name",
+  "version": "1.0.0",
+  "newInstancePrefix": "Widget",
+  "webcomponents": [ /* at least one */ ]
+}
+```
+
+**Forbidden Fields (cause upload errors):**
+- ❌ `author` (use `vendor` instead)
+- ❌ `homepage`
+- ❌ `enumValues` (use `enum` with `values` array)
+- ❌ `parameters` in events (events don't have parameters)
+
+**Property Type Compliance:**
+
+```json
+// ✓ Correct
+{
+  "chartType": {
+    "type": "string",
+    "description": "Chart visualization type",
+    "enum": ["bar", "line", "pie"],
+    "default": "bar"
+  },
+  "seriesColors": {
+    "type": "string[]",
+    "default": ["#FF0000", "#00FF00", "#0000FF"]
+  }
+}
+
+// ❌ Incorrect - don't use 'enumValues'
+{
+  "chartType": {
+    "type": "string",
+    "enumValues": ["bar", "line"]  // Wrong!
+  }
+}
+```
+
+### Semantic Versioning Strategy
+
+**Follow semantic versioning: MAJOR.MINOR.PATCH**
+
+- **MAJOR (1.0.0 → 2.0.0):** Breaking changes (removed properties, changed behavior)
+- **MINOR (1.0.0 → 1.1.0):** New features, backward compatible
+- **PATCH (1.0.0 → 1.0.1):** Bug fixes, no new features
+
+**When to Increment Version:**
+- ✓ Any change to widget files (.js, .json, .css)
+- ✓ Property additions or modifications
+- ✓ Bug fixes or performance improvements
+- ✓ Visual design changes
+
+**Version Management Example:**
+```json
+// v1.0.0 - Initial release
+{
+  "version": "1.0.0",
+  "properties": {
+    "title": { "type": "string" }
+  }
+}
+
+// v1.1.0 - Add new property (backward compatible)
+{
+  "version": "1.1.0",
+  "properties": {
+    "title": { "type": "string" },
+    "subtitle": { "type": "string", "default": "" }  // New
+  }
+}
+
+// v2.0.0 - Breaking change (rename property)
+{
+  "version": "2.0.0",
+  "properties": {
+    "heading": { "type": "string" }  // Renamed from 'title'
+  },
+  "migration": {
+    "v1ToV2": {
+      "title": "heading"  // Migration map
+    }
+  }
+}
+```
+
 ## Deployment Checklist
 
 ```
@@ -705,20 +1018,23 @@ npx http-server
 Custom SAC widgets unlock unlimited possibilities for visualizations and interactivity. While they require JavaScript development skills and careful planning, the investment pays off when you need specialized analytics experiences that drive better business decisions.
 
 **Key Takeaways:**
-- Understand widget architecture before writing code (Web Components, Shadow DOM, property management)
-- Start simple: Prove the concept with a basic widget before adding complexity
+- Understand widget lifecycle hooks (Init, BeforeUpdate, AfterUpdate, Resize, Destroy) before writing code
+- Master panel architecture: Builder vs Styling panels, and SAC's data binding limitations
+- Use a base class pattern for shared functionality across widgets (event handling, theming, validation)
 - Leverage proven libraries (D3.js, Chart.js) rather than building visualization engines from scratch
-- Test thoroughly across browsers, devices, and data volumes
-- Plan for accessibility and responsive design from the start
-- Document widget APIs clearly for future maintainability
+- Follow semantic versioning and manifest compliance rules to avoid deployment errors
+- Implement Subresource Integrity (SRI) for production security
+- Test at multiple levels: unit, integration, browser compatibility, performance, visual regression
+- Plan for accessibility (WCAG 2.1) and responsive design from the start
+- Document widget APIs and version migration paths clearly
 - Always test with the latest SAC version (2025.X releases) for compatibility
-- Consider total cost of ownership: development + testing + maintenance
+- Consider total cost of ownership: development (6-12 weeks) + testing + maintenance + security updates
 
 **Development Timeline Expectations:**
-- Simple widget (KPI card): 2-3 weeks
-- Medium complexity (custom chart): 4-6 weeks  
-- Complex widget (advanced interactions): 8-12 weeks
-- Add 30-40% time for testing, documentation, deployment
+- **Standard widgets** (KPI cards, simple gauges, filters): 2-3 weeks
+- **Advanced widgets** (custom charts, interactive visualizations, third-party integrations): 6-10 weeks  
+- **Enterprise solutions** (complex data processing, multi-widget systems, advanced interactivity): 12-20 weeks
+- Add 30-40% time for testing, documentation, deployment, and production hardening
 
 **When to Build vs. Buy:**
 - **Build in-house:** Unique business requirements, have skilled team, ongoing customization needs
@@ -738,9 +1054,17 @@ Varnika IT Consulting has built **50+ custom widgets** for SAC across industries
 - ✓ Documentation and knowledge transfer
 - ✓ Ongoing maintenance and enhancement
 
-**Pricing:** $2,000 - $15,000 per widget depending on complexity (simple KPI card to complex integrated solutions)
+**Investment Ranges:**
 
-**Typical Project Timeline:** 6-12 weeks from requirements to production deployment
+| Widget Type | Timeline | Investment Range |
+|------------|----------|-----------------|
+| **Standard Widgets**<br>KPI cards, filters, simple gauges, basic data displays | 2-3 weeks | $5,000 - $15,000 |
+| **Advanced Widgets**<br>Custom charts, interactive visualizations, API integrations, multi-panel widgets | 6-10 weeks | $15,000 - $35,000 |
+| **Enterprise Solutions**<br>Complex data processing, multi-widget ecosystems, advanced interactivity, real-time integrations | 12-20 weeks | $35,000 - $50,000+ |
+
+*Pricing includes: Development, testing, documentation, deployment support, and 90-day warranty. Ongoing maintenance and SLA support available separately.*
+
+**Typical Project Timeline:** 6-20 weeks from requirements to production deployment, depending on complexity
 
 **[Schedule a Widget Consultation →](/contact/)**
 
