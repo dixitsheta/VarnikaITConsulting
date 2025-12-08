@@ -1,6 +1,7 @@
 ---
 title: "About Varnika IT Consulting"
 description: "Learn about Varnika IT Consulting - specialized SAP analytics consulting focused on Datasphere, SAC, BW/4HANA, and custom development for enterprise clients."
+meta_description: "Specialized SAP analytics consultancy: Datasphere, SAC, BW/4HANA experts. Proven enterprise solutions, personalized service. Discover our gold standard."
 date: 2025-11-24
 ---
 
