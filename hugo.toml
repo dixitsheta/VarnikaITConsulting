@@ -57,12 +57,6 @@ copyright = '© 2025 Varnika IT Consulting. All rights reserved.'
     weight = 3
   
   [[menu.main]]
-    identifier = 'case-studies'
-    name = 'Case Studies'
-    url = '/case-studies/'
-    weight = 4
-  
-  [[menu.main]]
     identifier = 'about'
     name = 'About'
     url = '/about/'

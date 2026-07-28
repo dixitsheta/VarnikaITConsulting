@@ -134,7 +134,7 @@ Schedule a no-obligation consultation to discuss:
   max-width: 700px;
   margin: 2rem auto;
   padding: 2rem;
-  background: #F7F9FC;
+  background: var(--bg-secondary);
   border-radius: 8px;
 }
 
@@ -143,7 +143,7 @@ Schedule a no-obligation consultation to discuss:
 }
 
 .contact-form .label {
-  color: #003366;
+  color: var(--color-navy);
   font-weight: 600;
   margin-bottom: 0.5rem;
 }
@@ -151,25 +151,27 @@ Schedule a no-obligation consultation to discuss:
 .contact-form .input,
 .contact-form .textarea,
 .contact-form .select select {
-  border: 2px solid #e0e0e0;
+  border: 2px solid var(--border-color);
   border-radius: 4px;
   padding: 0.75rem;
   font-size: 1rem;
   width: 100%;
   transition: border-color 0.3s ease;
+  background: var(--bg-primary);
+  color: var(--text-primary);
 }
 
 .contact-form .input:focus,
 .contact-form .textarea:focus,
 .contact-form .select select:focus {
-  border-color: #F4C430;
+  border-color: var(--color-gold);
   outline: none;
   box-shadow: 0 0 0 3px rgba(244, 196, 48, 0.1);
 }
 
 .contact-form .button.is-primary {
-  background-color: #F4C430;
-  color: #003366;
+  background-color: var(--color-gold);
+  color: var(--color-navy);
   font-weight: 600;
   border: none;
   padding: 1rem 3rem;
@@ -179,13 +181,13 @@ Schedule a no-obligation consultation to discuss:
 }
 
 .contact-form .button.is-primary:hover {
-  background-color: #DAA520;
+  background-color: var(--color-gold-dark);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(244, 196, 48, 0.3);
 }
 
 .contact-form .help {
-  color: #666;
+  color: var(--text-secondary);
   font-size: 0.9rem;
   margin-top: 0.25rem;
 }
