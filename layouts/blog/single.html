@@ -109,7 +109,7 @@
               data-reactions-enabled="1"
               data-emit-metadata="0"
               data-input-position="bottom"
-              data-theme="preferred_color_scheme"
+              data-theme="light"
               data-lang="en"
               crossorigin="anonymous"
               async>
@@ -117,6 +117,31 @@
     </div>
   </div>
 </article>
+
+<script>
+// Sync Giscus theme with site theme toggle
+(function() {
+  function updateGiscusTheme() {
+    const theme = document.documentElement.getAttribute('data-theme');
+    const giscusTheme = theme === 'dark' ? 'dark' : 'light';
+    const iframe = document.querySelector('iframe[src*="giscus"]');
+    if (iframe) {
+      iframe.contentWindow.postMessage({ giscus: { setConfig: { theme: giscusTheme } } }, 'https://giscus.app');
+    }
+  }
+
+  // Listen for theme toggle clicks
+  const themeToggle = document.getElementById('theme-toggle');
+  if (themeToggle) {
+    themeToggle.addEventListener('click', function() {
+      setTimeout(updateGiscusTheme, 100);
+    });
+  }
+
+  // Also run on load
+  document.addEventListener('DOMContentLoaded', updateGiscusTheme);
+})();
+</script>
 
 <style>
 .blog-post {
