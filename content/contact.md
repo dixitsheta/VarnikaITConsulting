@@ -143,7 +143,7 @@ Schedule a no-obligation consultation to discuss:
 }
 
 .contact-form .label {
-  color: var(--color-navy);
+  color: var(--color-heading);
   font-weight: 600;
   margin-bottom: 0.5rem;
 }
@@ -171,7 +171,7 @@ Schedule a no-obligation consultation to discuss:
 
 .contact-form .button.is-primary {
   background-color: var(--color-gold);
-  color: var(--color-navy);
+  color: var(--color-heading);
   font-weight: 600;
   border: none;
   padding: 1rem 3rem;

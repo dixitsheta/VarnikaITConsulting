@@ -209,17 +209,17 @@ Your success is our success. We measure our performance by your business outcome
 
 ## Let's Work Together
 
-<div style="background: linear-gradient(135deg, var(--color-navy) 0%, #004488 100%); color: var(--bg-primary); padding: 3rem; border-radius: 12px; text-align: center; margin: 3rem 0;">
+<div style="background: linear-gradient(135deg, var(--color-navy) 0%, var(--color-navy-dark) 100%); color: var(--color-white); padding: 3rem; border-radius: 12px; text-align: center; margin: 3rem 0;">
 
 Whether you're planning a Datasphere migration, need custom SAC widgets, or want to modernize your BW infrastructure, we'd love to explore how we can help.
 
 <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem;">
 
-[Schedule a Free Consultation](/contact/){style="background: var(--color-gold); color: var(--color-navy); padding: 1rem 2rem; border-radius: 8px; font-weight: 600; text-decoration: none; display: inline-block; transition: all 0.3s ease;"}
+[Schedule a Free Consultation](/contact/){style="background: var(--color-gold); color: var(--color-heading); padding: 1rem 2rem; border-radius: 8px; font-weight: 600; text-decoration: none; display: inline-block; transition: all 0.3s ease;"}
 
-[View Our Services](/services/){style="background: transparent; color: var(--bg-primary); border: 2px solid var(--color-gold); padding: 1rem 2rem; border-radius: 8px; font-weight: 600; text-decoration: none; display: inline-block; transition: all 0.3s ease;"}
+[View Our Services](/services/){style="background: transparent; color: var(--color-white); border: 2px solid var(--color-gold); padding: 1rem 2rem; border-radius: 8px; font-weight: 600; text-decoration: none; display: inline-block; transition: all 0.3s ease;"}
 
-[Read Case Studies](/case-studies/){style="background: transparent; color: var(--bg-primary); border: 2px solid var(--color-gold); padding: 1rem 2rem; border-radius: 8px; font-weight: 600; text-decoration: none; display: inline-block; transition: all 0.3s ease;"}
+[Read Case Studies](/case-studies/){style="background: transparent; color: var(--color-white); border: 2px solid var(--color-gold); padding: 1rem 2rem; border-radius: 8px; font-weight: 600; text-decoration: none; display: inline-block; transition: all 0.3s ease;"}
 
 </div>
 

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://varnikaitconsulting.com/sitemap.xml

@@ -75,7 +75,7 @@ description: "Search Varnika IT Consulting's website for SAP analytics content, 
 
 .clear-btn:hover {
   background: var(--color-gold);
-  color: var(--color-navy);
+  color: var(--color-heading);
   border-color: var(--color-gold);
 }
 
@@ -100,14 +100,14 @@ description: "Search Varnika IT Consulting's website for SAP analytics content, 
 }
 
 .search-result h3 {
-  color: var(--color-navy);
+  color: var(--color-heading);
   font-size: 1.5rem;
   font-weight: 600;
   margin: 0 0 8px 0;
 }
 
 .search-result h3 a {
-  color: var(--color-navy);
+  color: var(--color-heading);
   text-decoration: none;
 }
 

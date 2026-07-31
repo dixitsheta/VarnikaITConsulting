@@ -6,6 +6,8 @@ author: "Varnika IT Consulting"
 description: "Transform your SAC dashboards from functional to exceptional with these proven design principles, performance tips, and user experience best practices."
 categories: ["SAP Analytics Cloud", "Best Practices"]
 tags: ["SAC", "Dashboard Design", "Analytics", "UX", "Performance"]
+canonical: "https://www.varnikaitconsulting.com/blog/sac-dashboard-design-best-practices/"
+lastmod: 2025-08-20T10:00:00+00:00
 ---
 
 ## Introduction

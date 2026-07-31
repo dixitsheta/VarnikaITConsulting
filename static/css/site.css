@@ -13,6 +13,8 @@
     --color-text-dark: #1A1A1A;
     --color-text-gray: #666666;
     --color-white: #FFFFFF;
+    --color-link: #003366;
+    --color-heading: #003366;
     --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     
     /* Light mode (default) */
@@ -32,6 +34,10 @@
     --bg-secondary: #242424;
     --text-primary: #E5E5E5;
     --text-secondary: #A0A0A0;
+    --color-link: #F4C430;
+    --color-heading: #E5E5E5;
+    --color-bg-light: #242424;
+    --color-white: #E5E5E5;
     --border-color: rgba(255, 255, 255, 0.1);
     --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
     --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
@@ -69,7 +75,7 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
     font-weight: 600;
-    color: var(--text-primary);
+    color: var(--color-heading);
     line-height: 1.2;
     margin-bottom: 1rem;
 }
@@ -81,6 +87,15 @@ h1, h2, h3, h4, h5, h6 {
 [data-theme="dark"] h4,
 [data-theme="dark"] h5,
 [data-theme="dark"] h6 {
+    color: var(--color-heading);
+}
+
+/* Dark mode link adjustments */
+[data-theme="dark"] a {
+    color: var(--color-link);
+}
+
+[data-theme="dark"] a:hover {
     color: var(--color-gold);
 }
 
@@ -96,7 +111,7 @@ p {
 }
 
 a {
-    color: var(--color-navy);
+    color: var(--color-link);
     text-decoration: none;
     transition: color 0.3s ease;
 }
@@ -415,7 +430,7 @@ main {
 }
 
 .page-item a {
-    color: var(--color-navy);
+    color: var(--color-link);
 }
 
 .read-more {
@@ -434,7 +449,7 @@ button[type="submit"] {
     display: inline-block;
     padding: 0.75rem 2rem;
     background: var(--color-gold);
-    color: var(--color-navy);
+    color: var(--color-heading);
     font-weight: 600;
     border: none;
     border-radius: 4px;
@@ -463,7 +478,7 @@ button[type="submit"]:hover {
 }
 
 .text-navy {
-    color: var(--color-navy) !important;
+    color: var(--color-heading) !important;
 }
 
 .bg-light {

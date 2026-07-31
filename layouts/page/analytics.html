@@ -97,7 +97,7 @@
 .analytics-header h1 {
   font-size: 2.5rem;
   margin-bottom: 10px;
-  color: var(--color-navy);
+  color: var(--color-heading);
 }
 
 .analytics-header p {
@@ -145,7 +145,7 @@
 .metric-value {
   font-size: 2.5rem;
   font-weight: bold;
-  color: var(--color-navy);
+  color: var(--color-heading);
   margin-bottom: 10px;
 }
 
@@ -167,7 +167,7 @@
 
 .analytics-section h3 {
   margin-bottom: 20px;
-  color: var(--color-navy);
+  color: var(--color-heading);
   font-size: 1.3rem;
 }
 
@@ -185,7 +185,7 @@
   padding: 12px;
   text-align: left;
   font-weight: 600;
-  color: var(--color-navy);
+  color: var(--color-heading);
   border-bottom: 2px solid var(--border-color);
 }
 
@@ -239,7 +239,7 @@
 
 .source-name {
   font-weight: 600;
-  color: var(--color-navy);
+  color: var(--color-heading);
 }
 
 .source-bar {
@@ -259,7 +259,7 @@
 .source-percentage {
   text-align: right;
   font-weight: 600;
-  color: var(--color-navy);
+  color: var(--color-heading);
 }
 
 .loading {
@@ -325,7 +325,7 @@
     const tbody = document.querySelector('#topPagesTable tbody');
     tbody.innerHTML = pages.map(page => `
       <tr>
-        <td><a href="${page.url}" style="color: #003366; text-decoration: none;">${page.url}</a></td>
+        <td><a href="${page.url}" style="color: var(--color-link); text-decoration: none;">${page.url}</a></td>
         <td>${page.views}</td>
         <td>${page.time}</td>
         <td>${page.bounce}</td>

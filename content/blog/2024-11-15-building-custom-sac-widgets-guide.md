@@ -6,6 +6,8 @@ author: "Varnika IT Consulting"
 description: "Learn how to create custom widgets for SAP Analytics Cloud using JavaScript, HTML5, and CSS3. Includes code examples, best practices, and deployment guide."
 categories: ["SAP Analytics Cloud", "Custom Development"]
 tags: ["SAC", "Custom Widgets", "JavaScript", "D3.js", "SDK", "Development"]
+canonical: "https://www.varnikaitconsulting.com/blog/building-custom-sac-widgets-guide/"
+lastmod: 2025-06-15T10:00:00+00:00
 ---
 
 ## Introduction

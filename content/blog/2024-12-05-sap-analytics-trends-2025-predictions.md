@@ -6,6 +6,8 @@ author: "Varnika IT Consulting"
 description: "Discover the 10 SAP analytics trends that will define 2025, from generative AI in SAC to edge computing in Datasphere. Expert predictions to help you plan your analytics roadmap."
 categories: ["Industry Trends", "SAP Analytics Cloud", "SAP Datasphere"]
 tags: ["SAC", "Datasphere", "AI", "Trends", "2025", "Predictions", "Generative AI", "Edge Computing"]
+canonical: "https://www.varnikaitconsulting.com/blog/sap-analytics-trends-2025-predictions/"
+lastmod: 2025-06-01T10:00:00+00:00
 ---
 
 ## Introduction

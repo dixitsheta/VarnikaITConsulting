@@ -6,6 +6,8 @@ author: "Varnika IT Consulting"
 description: "Learn how to successfully migrate from SAP BW to SAP Datasphere with our comprehensive guide covering strategy, timeline, and best practices."
 categories: ["SAP Datasphere", "Migration"]
 tags: ["Datasphere", "BW", "Migration", "Data Warehouse", "SAP Analytics"]
+canonical: "https://www.varnikaitconsulting.com/blog/sap-bw-to-datasphere-migration-guide/"
+lastmod: 2025-09-15T10:00:00+00:00
 ---
 
 ## Introduction

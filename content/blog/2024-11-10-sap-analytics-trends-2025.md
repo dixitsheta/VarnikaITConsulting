@@ -7,6 +7,8 @@ author: "Varnika IT Consulting"
 description: "A retrospective analysis of 2025 SAP analytics predictions: Which trends materialized, which didn't, and what it means for your analytics strategy heading into 2026."
 categories: ["Industry Trends", "SAP Analytics Cloud"]
 tags: ["SAC", "Datasphere", "AI", "Trends", "2025", "Predictions", "Generative AI", "Retrospective"]
+canonical: "https://www.varnikaitconsulting.com/blog/sap-analytics-trends-2025/"
+lastmod: 2025-12-06T10:00:00+00:00
 ---
 
 ## Introduction
