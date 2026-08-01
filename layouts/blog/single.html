@@ -311,33 +311,31 @@
 .blog-post-content .architecture-diagram {
   background: var(--bg-secondary);
   border: 1px solid var(--border-color);
+  border-left: 4px solid var(--color-gold);
   border-radius: 12px;
-  padding: 0;
+  padding: 24px;
   margin: 32px 0;
   box-shadow: var(--shadow-sm);
-  overflow: hidden;
-}
-
-.blog-post-content .architecture-diagram pre {
-  background: none;
-  color: var(--text-primary);
-  padding: 24px;
-  margin: 0;
+  overflow-x: auto;
   font-family: 'Courier New', 'Monaco', monospace;
   font-size: 0.9rem;
   line-height: 1.7;
+  color: var(--text-primary);
   white-space: pre;
-  overflow-x: auto;
+}
+
+.blog-post-content .architecture-diagram code {
+  background: none;
+  color: inherit;
+  padding: 0;
+  font-size: inherit;
   border: none;
-  border-radius: 0;
 }
 
 [data-theme="dark"] .blog-post-content .architecture-diagram {
   background: #1e1e1e;
   border-color: rgba(255, 255, 255, 0.08);
-}
-
-[data-theme="dark"] .blog-post-content .architecture-diagram pre {
+  border-left-color: var(--color-gold);
   color: #d4d4d4;
 }
 
@@ -345,33 +343,32 @@
 .blog-post-content .process-flow {
   background: var(--bg-secondary);
   border: 1px solid var(--border-color);
+  border-left: 4px solid var(--color-gold);
   border-radius: 12px;
-  padding: 0;
+  padding: 24px;
   margin: 32px 0;
   box-shadow: var(--shadow-sm);
-  overflow: hidden;
-}
-
-.blog-post-content .process-flow pre {
-  background: none;
-  color: var(--text-primary);
-  padding: 24px;
-  margin: 0;
+  overflow-x: auto;
   font-family: 'Courier New', 'Monaco', monospace;
   font-size: 0.9rem;
   line-height: 2;
+  color: var(--text-primary);
   white-space: pre;
-  overflow-x: auto;
-  border: none;
-  border-radius: 0;
+}
+
+.blog-post-content .process-flow pre {
+  all: unset;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+  white-space: pre;
 }
 
 [data-theme="dark"] .blog-post-content .process-flow {
   background: #1e1e1e;
   border-color: rgba(255, 255, 255, 0.08);
-}
-
-[data-theme="dark"] .blog-post-content .process-flow pre {
+  border-left-color: var(--color-gold);
   color: #d4d4d4;
 }
 

@@ -131,11 +131,12 @@ Schedule a no-obligation consultation to discuss:
 
 <style>
 .contact-form {
-  max-width: 700px;
-  margin: 2rem auto;
-  padding: 2rem;
+  max-width: 100%;
+  margin: 2rem 0;
+  padding: 2.5rem;
   background: var(--bg-secondary);
-  border-radius: 8px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
 }
 
 .contact-form .field {
