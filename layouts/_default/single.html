@@ -1,11 +1,11 @@
 {{ define "main" }}
 
 <!-- Hero Section -->
-<div style="background: linear-gradient(135deg, var(--color-navy) 0%, var(--color-navy-dark) 100%); color: var(--color-white); padding: 4rem 0; text-align: center;">
+<div style="background: linear-gradient(135deg, var(--color-navy) 0%, var(--color-navy-dark) 100%); color: var(--color-white); padding: clamp(2.5rem, 6vw, 5rem) 0; text-align: center;">
     <div class="container">
-        <h1 style="font-size: 3rem; margin-bottom: 1rem; color: var(--color-white);">{{ .Title }}</h1>
+        <h1 style="font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1rem; color: var(--color-white);">{{ .Title }}</h1>
         {{ if .Description }}
-        <p style="font-size: 1.2rem; opacity: 0.95; max-width: 800px; margin: 0 auto;">{{ .Description }}</p>
+        <p style="font-size: clamp(1rem, 1.5vw, 1.2rem); opacity: 0.95; max-width: 700px; margin: 0 auto;">{{ .Description }}</p>
         {{ end }}
         {{ if .Date }}
         <p style="font-size: 0.95rem; opacity: 0.85; margin-top: 1rem;">
@@ -18,8 +18,8 @@
 </div>
 
 <!-- Content Section -->
-<article style="max-width: 1200px; margin: 0 auto; padding: 4rem 2rem;">
-    <div class="page-content" style="font-size: 1.125rem; line-height: 1.8; color: var(--text-primary);">
+<article style="max-width: 1200px; margin: 0 auto; padding: clamp(2rem, 4vw, 4rem) clamp(1rem, 3vw, 2rem);">
+    <div class="page-content" style="font-size: clamp(1rem, 1.2vw, 1.125rem); line-height: 1.8; color: var(--text-primary);">
         {{ .Content }}
     </div>
 </article>
@@ -27,9 +27,9 @@
 <style>
 .page-content h1 {
     color: var(--color-heading);
-    font-size: 2.5rem;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
     font-weight: 700;
-    margin-top: 3rem;
+    margin-top: clamp(2rem, 3vw, 3rem);
     margin-bottom: 1.5rem;
     padding-bottom: 0.75rem;
     border-bottom: 3px solid var(--color-gold);
@@ -38,9 +38,9 @@
 
 .page-content h2 {
     color: var(--color-heading);
-    font-size: 2rem;
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
     font-weight: 700;
-    margin-top: 3rem;
+    margin-top: clamp(2rem, 3vw, 3rem);
     margin-bottom: 1.5rem;
     padding-bottom: 0.5rem;
     border-bottom: 2px solid var(--color-gold);
@@ -49,9 +49,9 @@
 
 .page-content h3 {
     color: var(--color-heading);
-    font-size: 1.5rem;
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
     font-weight: 600;
-    margin-top: 2.5rem;
+    margin-top: 2rem;
     margin-bottom: 1rem;
     display: flex;
     align-items: center;
@@ -71,7 +71,7 @@
 .page-content ul,
 .page-content ol {
     margin-bottom: 2rem;
-    padding-left: 2rem;
+    padding-left: clamp(1.2rem, 2vw, 2rem);
 }
 
 .page-content li {
@@ -105,14 +105,14 @@
 .page-content hr {
     border: none;
     border-top: 2px solid var(--border-color);
-    margin: 4rem 0;
+    margin: clamp(2rem, 4vw, 4rem) 0;
     opacity: 0.3;
 }
 
 .page-content blockquote {
     border-left: 4px solid var(--color-gold);
-    padding: 1.5rem 2rem;
-    margin: 2.5rem 0;
+    padding: clamp(1rem, 2vw, 1.5rem) clamp(1.2rem, 2.5vw, 2rem);
+    margin: 2rem 0;
     background: var(--bg-secondary);
     border-radius: 0 8px 8px 0;
     font-style: italic;
@@ -146,38 +146,128 @@
     border: none;
 }
 
-/* Section spacing */
-.page-content > h2:first-of-type {
-    margin-top: 1rem;
+/* Responsive grid helpers for content pages */
+.page-content .grid-2,
+.page-content .grid-3,
+.page-content .grid-4 {
+    display: grid;
+    gap: clamp(1rem, 2vw, 2rem);
+    margin: 2rem 0;
 }
 
-/* Improve emoji in headings */
-.page-content h3:has(img),
-.page-content h3:has(svg) {
-    align-items: center;
+.page-content .grid-2 {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
+}
+
+.page-content .grid-3 {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+}
+
+.page-content .grid-4 {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+}
+
+/* Responsive card */
+.page-content .card {
+    background: var(--bg-primary);
+    padding: clamp(1.2rem, 2vw, 2rem);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+}
+
+.page-content .card-accent {
+    background: var(--bg-primary);
+    padding: clamp(1.2rem, 2vw, 2rem);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    border-top: 4px solid var(--color-gold);
+    box-shadow: var(--shadow-sm);
+}
+
+.page-content .card-left {
+    background: var(--bg-primary);
+    padding: clamp(1.2rem, 2vw, 2rem);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    border-left: 4px solid var(--color-gold);
+    box-shadow: var(--shadow-sm);
+}
+
+.page-content .card-highlight {
+    background: var(--bg-secondary);
+    padding: clamp(1.2rem, 2vw, 2rem);
+    border-radius: 12px;
+    border-left: 5px solid var(--color-gold);
+    margin-bottom: 2rem;
+}
+
+.page-content .cta-section {
+    background: linear-gradient(135deg, var(--color-navy) 0%, var(--color-navy-dark) 100%);
+    color: var(--color-white);
+    padding: clamp(2rem, 4vw, 4rem);
+    border-radius: 16px;
+    text-align: center;
+    margin: 3rem 0;
+}
+
+.page-content .cta-section p {
+    color: var(--color-white);
+    opacity: 0.95;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.page-content .cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+
+.page-content .btn-primary {
+    display: inline-block;
+    background: var(--color-gold);
+    color: var(--color-navy);
+    padding: clamp(0.8rem, 1.5vw, 1rem) clamp(1.5rem, 3vw, 2.5rem);
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.page-content .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(244, 196, 48, 0.3);
+}
+
+.page-content .btn-outline {
+    display: inline-block;
+    background: transparent;
+    color: var(--color-white);
+    border: 2px solid var(--color-gold);
+    padding: clamp(0.8rem, 1.5vw, 1rem) clamp(1.5rem, 3vw, 2.5rem);
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+    transition: all 0.3s ease;
+}
+
+.page-content .btn-outline:hover {
+    background: var(--color-gold);
+    color: var(--color-navy);
 }
 
 @media (max-width: 768px) {
-    .page-content {
-        font-size: 1.0625rem;
-    }
-    
-    .page-content h1 {
-        font-size: 2rem;
-    }
-    
-    .page-content h2 {
-        font-size: 1.75rem;
-    }
-    
-    .page-content h3 {
-        font-size: 1.375rem;
-    }
-    
-    .page-content p {
-        max-width: 100%;
-    }
+    .page-content h1 { font-size: 1.8rem; }
+    .page-content h2 { font-size: 1.5rem; }
+    .page-content h3 { font-size: 1.2rem; }
+    .page-content { font-size: 1rem; }
 }
 </style>
-
 {{ end }}

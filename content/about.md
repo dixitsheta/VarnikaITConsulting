@@ -5,7 +5,7 @@ meta_description: "Specialized SAP analytics consultancy: Datasphere, SAC, BW/4H
 date: 2025-11-24
 ---
 
-<div style="background: var(--bg-secondary); padding: 2.5rem; border-radius: 12px; border-left: 5px solid var(--color-gold); margin-bottom: 3rem;">
+<div class="card-highlight">
 
 ## Varnika Means Pure Gold in Sanskrit
 
@@ -21,9 +21,9 @@ Today, we serve clients across **Europe, Americas, and the Middle East**, helpin
 
 ## What We Do
 
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin: 2rem 0 3rem 0;">
+<div class="grid-2">
 
-<div style="background: var(--bg-primary); padding: 2rem; border-radius: 12px; border: 2px solid var(--border-color); box-shadow: var(--shadow-md);">
+<div class="card">
 
 ### SAP Analytics Specialization
 
@@ -37,7 +37,7 @@ We focus exclusively on SAP's analytics ecosystem:
 
 </div>
 
-<div style="background: var(--bg-primary); padding: 2rem; border-radius: 12px; border: 2px solid var(--border-color); box-shadow: var(--shadow-md);">
+<div class="card">
 
 ### Our Approach
 
@@ -53,9 +53,9 @@ We focus exclusively on SAP's analytics ecosystem:
 
 ## Why Varnika?
 
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin: 2rem 0 3rem 0;">
+<div class="grid-3">
 
-<div style="background: var(--bg-secondary); padding: 2rem; border-radius: 12px; border-top: 4px solid var(--color-gold);">
+<div class="card-accent">
 
 ### 🎯 Specialized Expertise
 
@@ -68,7 +68,7 @@ Unlike generalist IT consultancies, we live and breathe SAP analytics:
 
 </div>
 
-<div style="background: var(--bg-secondary); padding: 2rem; border-radius: 12px; border-top: 4px solid var(--color-gold);">
+<div class="card-accent">
 
 ### 💼 Boutique Advantage
 
@@ -81,7 +81,7 @@ As a specialized consultancy rather than a massive enterprise firm:
 
 </div>
 
-<div style="background: var(--bg-secondary); padding: 2rem; border-radius: 12px; border-top: 4px solid var(--color-gold);">
+<div class="card-accent">
 
 ### 💰 Cost-Effective Excellence
 
@@ -94,7 +94,7 @@ Premium quality without premium overhead:
 
 </div>
 
-<div style="background: var(--bg-secondary); padding: 2rem; border-radius: 12px; border-top: 4px solid var(--color-gold);">
+<div class="card-accent">
 
 ### 🌍 Global Reach, Local Touch
 
@@ -111,9 +111,9 @@ Serving clients worldwide with personalized service:
 
 ## Our Expertise Areas
 
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin: 2rem 0 3rem 0;">
+<div class="grid-3">
 
-<div style="background: var(--bg-primary); padding: 2rem; border-radius: 12px; border-left: 4px solid var(--color-gold);">
+<div class="card-left">
 
 ### SAP Technologies
 
@@ -126,7 +126,7 @@ Serving clients worldwide with personalized service:
 
 </div>
 
-<div style="background: var(--bg-primary); padding: 2rem; border-radius: 12px; border-left: 4px solid var(--color-gold);">
+<div class="card-left">
 
 ### Technical Skills
 
@@ -138,7 +138,7 @@ Serving clients worldwide with personalized service:
 
 </div>
 
-<div style="background: var(--bg-primary); padding: 2rem; border-radius: 12px; border-left: 4px solid var(--color-gold);">
+<div class="card-left">
 
 ### Industry Experience
 
@@ -155,7 +155,7 @@ Serving clients worldwide with personalized service:
 
 ## Certifications & Partnerships
 
-<div style="background: var(--bg-secondary); padding: 2rem; border-radius: 12px; margin: 2rem 0;">
+<div class="card-highlight">
 
 While we operate as an independent specialized consultancy, our expertise is backed by:
 
@@ -171,7 +171,7 @@ While we operate as an independent specialized consultancy, our expertise is bac
 
 ## Our Values
 
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin: 2rem 0 3rem 0;">
+<div class="grid-4">
 
 <div style="text-align: center; padding: 1.5rem;">
 
@@ -209,19 +209,17 @@ Your success is our success. We measure our performance by your business outcome
 
 ## Let's Work Together
 
-<div style="background: linear-gradient(135deg, var(--color-navy) 0%, var(--color-navy-dark) 100%); color: var(--color-white); padding: 4rem; border-radius: 16px; text-align: center; margin: 3rem 0;">
+<div class="cta-section">
 
-<p style="font-size: 1.2rem; line-height: 1.8; margin-bottom: 2rem; opacity: 0.95; max-width: 800px; margin-left: auto; margin-right: auto;">
-Whether you're planning a Datasphere migration, need custom SAC widgets, or want to modernize your BW infrastructure, we'd love to explore how we can help.
-</p>
+<p>Whether you're planning a Datasphere migration, need custom SAC widgets, or want to modernize your BW infrastructure, we'd love to explore how we can help.</p>
 
-<div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+<div class="cta-buttons">
 
-<a href="/contact/" style="background: var(--color-gold); color: var(--color-navy); padding: 1rem 2.5rem; border-radius: 8px; font-weight: 600; text-decoration: none; display: inline-block; font-size: 1.1rem; transition: all 0.3s ease;">Schedule a Free Consultation</a>
+<a href="/contact/" class="btn-primary">Schedule a Free Consultation</a>
 
-<a href="/services/" style="background: transparent; color: var(--color-white); border: 2px solid var(--color-gold); padding: 1rem 2.5rem; border-radius: 8px; font-weight: 600; text-decoration: none; display: inline-block; font-size: 1.1rem; transition: all 0.3s ease;">View Our Services</a>
+<a href="/services/" class="btn-outline">View Our Services</a>
 
-<a href="/case-studies/" style="background: transparent; color: var(--color-white); border: 2px solid var(--color-gold); padding: 1rem 2.5rem; border-radius: 8px; font-weight: 600; text-decoration: none; display: inline-block; font-size: 1.1rem; transition: all 0.3s ease;">Read Case Studies</a>
+<a href="/case-studies/" class="btn-outline">Read Case Studies</a>
 
 </div>
 
