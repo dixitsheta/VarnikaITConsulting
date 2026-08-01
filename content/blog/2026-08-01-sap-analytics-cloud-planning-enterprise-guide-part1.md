@@ -89,24 +89,8 @@ It is **architecture alignment between business processes, data strategy, planni
 
 Many organizations still operate planning processes that look like this:
 
-{{< process-flow >}}
-Business Units
-      |
-      ↓
-Excel Templates
-      |
-      ↓
-Email Distribution
-      |
-      ↓
-Manual Consolidation
-      |
-      ↓
-Finance Validation
-      |
-      ↓
-Management Reporting
-{{< /process-flow >}}
+**The Traditional Process Flow:**
+`Business Units → Excel Templates → Email Distribution → Manual Consolidation → Finance Validation → Management Reporting`
 
 This process creates several challenges.
 
@@ -216,24 +200,10 @@ It should be positioned as part of the broader SAP analytics ecosystem.
 
 A typical enterprise architecture looks like:
 
-{{< diagram >}}
-                Business Users
-                     |
-                     |
-          SAP Analytics Cloud
-                     |
-     --------------------------------
-     |              |               |
- Analytics      Planning       Predictive
-     |
-     |
- SAP Datasphere
-     |
- -----------------------------------
- |                |                |
-S/4HANA        BW/4HANA        External Systems
-ERP            Enterprise DW    Non-SAP Sources
-{{< /diagram >}}
+- **Business Users**
+  - **SAP Analytics Cloud** (Analytics | Planning | Predictive)
+    - **SAP Datasphere** (Semantic Data Layer)
+      - **Source Systems:** SAP S/4HANA (ERP), SAP BW/4HANA (Enterprise DW), External Systems (Non-SAP Sources)
 
 ---
 
@@ -332,31 +302,11 @@ Modern planning should move away from simple top-down budgeting.
 
 Example:
 
-Traditional approach:
+**Traditional approach:**
+`[Last Year Budget] + [Management Adjustment] = [Next Year Budget]`
 
-{{< diagram >}}
-Last Year Budget
-        +
-Management Adjustment
-        =
-Next Year Budget
-{{< /diagram >}}
-
-Driver-based approach:
-
-{{< diagram >}}
-Revenue Drivers
-      |
-Sales Volume
-      |
-Pricing
-      |
-Market Growth
-      |
-Currency Impact
-      |
-Revenue Forecast
-{{< /diagram >}}
+**Driver-based approach:**
+`[Sales Volume] × [Pricing] × [Market Growth] ± [Currency Impact] = [Revenue Forecast]`
 
 This creates more realistic planning outcomes.
 
@@ -435,16 +385,11 @@ A mature SAC architecture considers:
 ## Typical Enterprise Integration Architecture
 
 {{< diagram >}}
-                SAP Analytics Cloud
-                       |
-                       |
-              SAP Datasphere
-                       |
-        --------------------------------
-        |               |              |
-  SAP S/4HANA     SAP BW/4HANA     Non-SAP
-  SuccessFactors     Ariba         Systems
-      IBP
+SAP Analytics Cloud
+       |
+SAP Datasphere
+       |
+SAP S/4HANA  |  SAP BW/4HANA  |  Non-SAP Systems
 {{< /diagram >}}
 
 ---
@@ -510,15 +455,7 @@ It enables:
 
 A typical architecture:
 
-{{< diagram >}}
-SAP S/4HANA
-       |
-       |
-SAP Datasphere
-       |
-       |
-SAP Analytics Cloud Planning
-{{< /diagram >}}
+`SAP S/4HANA → SAP Datasphere → SAP Analytics Cloud Planning`
 
 This separates:
 

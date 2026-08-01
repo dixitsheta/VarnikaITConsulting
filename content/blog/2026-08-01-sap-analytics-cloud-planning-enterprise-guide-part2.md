@@ -104,21 +104,11 @@ The SAC Planning model consumes business-ready information.
 
 A mature architecture therefore looks like:
 
-{{< diagram >}}
-Business Systems
-       |
-       |
-Data Integration
-       |
-       |
-Semantic Enterprise Layer
-       |
-       |
-SAC Planning Models
-       |
-       |
-Business Decisions
-{{< /diagram >}}
+1. **Business Systems** (Data Generation)
+2. **Data Integration** (Extraction & Harmonization)
+3. **Semantic Enterprise Layer** (Business Rules & Logic)
+4. **SAC Planning Models** (Budgeting & Simulation)
+5. **Business Decisions** (Actionable Outcomes)
 
 ---
 
@@ -138,23 +128,11 @@ Common issues include:
 
 **Example:**
 
-Sales plans by:
-
-{{< diagram >}}
-Region → Country → Sales Area
-{{< /diagram >}}
-
-Finance plans by:
-
-{{< diagram >}}
-Company Code → Profit Center → Cost Center
-{{< /diagram >}}
-
-Operations plans by:
-
-{{< diagram >}}
-Plant → Production Line → Product
-{{< /diagram >}}
+| Department | Planning Hierarchy |
+| :--- | :--- |
+| **Sales** | Region → Country → Sales Area |
+| **Finance** | Company Code → Profit Center → Cost Center |
+| **Operations** | Plant → Production Line → Product |
 
 If these structures are not harmonized, enterprise planning becomes a reconciliation exercise instead of a decision-support system.
 
@@ -263,21 +241,15 @@ Planning security commonly requires restrictions such as:
 
 A regional manager should see:
 
-{{< diagram >}}
-Europe Region
-     |
-     |
-Germany
-France
-Netherlands
-{{< /diagram >}}
+- **Europe Region**
+  - Germany
+  - France
+  - Netherlands
 
 but not:
 
-{{< diagram >}}
-North America
-Asia Pacific
-{{< /diagram >}}
+- North America
+- Asia Pacific
 
 This is achieved through:
 
@@ -327,32 +299,12 @@ A technically successful SAC implementation can still fail if planners experienc
 The first performance optimization happens during architecture design.
 
 **Poor design:**
-
-{{< diagram >}}
-Huge Planning Model
-+
-Millions of Records
-+
-Too Many Dimensions
-+
-Complex Calculations
-=
-Poor User Experience
-{{< /diagram >}}
+`Huge Planning Model + Millions of Records + Too Many Dimensions + Complex Calculations = Poor User Experience`
 
 ---
 
 **Better approach:**
-
-{{< diagram >}}
-Business Requirement
-        |
-        |
-Required Planning Level
-        |
-        |
-Optimized Model
-{{< /diagram >}}
+`Business Requirement → Required Planning Level → Optimized Model`
 
 ---
 
@@ -440,19 +392,12 @@ It is also about governance.
 
 A typical planning cycle:
 
-{{< process-flow >}}
-Finance Opens Planning Cycle
-        ↓
-Business Units Enter Plans
-        ↓
-Managers Review
-        ↓
-Finance Consolidates
-        ↓
-Executive Approval
-        ↓
-Final Budget Published
-{{< /process-flow >}}
+1. **Finance** opens the planning cycle.
+2. **Business Units** enter their base plans.
+3. **Managers** review and adjust submissions.
+4. **Finance** consolidates the enterprise view.
+5. **Executives** provide final approval.
+6. **Final Budget** is published as the approved version.
 
 ---
 
@@ -562,11 +507,7 @@ This is one of the biggest mistakes.
 
 Some organizations simply migrate:
 
-{{< process-flow >}}
-Old Excel Workbook
-        ↓
-SAC Story
-{{< /process-flow >}}
+`Old Excel Workbook → SAC Story`
 
 This misses the purpose of transformation.
 
