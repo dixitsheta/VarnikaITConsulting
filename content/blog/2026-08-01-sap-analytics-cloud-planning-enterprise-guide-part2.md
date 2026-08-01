@@ -428,6 +428,10 @@ Workflow design should consider:
 
 ---
 
+{{< figure src="/images/blog/sac-performance-optimization.jpg" alt="SAC Planning performance optimization layers" caption="Figure 4: SAC Planning performance optimization approach across data, calculation, and user experience layers." >}}
+
+---
+
 # 9. Enterprise Planning Workflow and Approval Design
 
 Enterprise planning is not only about calculations.
@@ -646,6 +650,10 @@ AI requires:
 - Quality master data
 
 **Poor data creates poor intelligence.**
+
+---
+
+{{< figure src="/images/blog/sac-ai-planning-future.jpg" alt="AI-driven enterprise planning future" caption="Figure 5: The future of AI-driven enterprise planning with predictive forecasting, scenario simulation, and intelligent decision support." >}}
 
 ---
 

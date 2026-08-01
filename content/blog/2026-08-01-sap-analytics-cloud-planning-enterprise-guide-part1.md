@@ -196,6 +196,10 @@ A successful planning transformation requires a clear data foundation.
 
 ---
 
+{{< figure src="/images/blog/sac-planning-evolution.jpg" alt="Evolution from traditional to intelligent enterprise planning" caption="Figure 1: The evolution from traditional spreadsheet-based planning to intelligent, connected enterprise planning with SAP Analytics Cloud." >}}
+
+---
+
 # 2. SAP Analytics Cloud Planning: Architecture Overview
 
 SAP Analytics Cloud is a cloud-based analytics platform that combines:
@@ -406,6 +410,10 @@ Planning granularity should match decision-making requirements.
 
 ---
 
+{{< figure src="/images/blog/sac-planning-model.jpg" alt="SAP Analytics Cloud Planning model structure" caption="Figure 2: SAC Planning model architecture showing connected dimensions, data flows, and planning outputs." >}}
+
+---
+
 # 5. SAC Integration Landscape
 
 SAC Planning rarely works alone.
@@ -522,6 +530,10 @@ This separates:
 - Operational data management
 - Enterprise semantic modeling
 - Planning consumption
+
+---
+
+{{< figure src="/images/blog/sac-ecosystem.jpg" alt="SAP Analytics Cloud enterprise ecosystem" caption="Figure 3: SAC enterprise ecosystem showing connected systems, data flow layers, and planning architecture." >}}
 
 ---
 
