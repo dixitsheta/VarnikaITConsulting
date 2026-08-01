@@ -89,7 +89,7 @@ It is **architecture alignment between business processes, data strategy, planni
 
 Many organizations still operate planning processes that look like this:
 
-```
+{{< process-flow >}}
 Business Units
       |
       ↓
@@ -106,7 +106,7 @@ Finance Validation
       |
       ↓
 Management Reporting
-```
+{{< /process-flow >}}
 
 This process creates several challenges.
 
@@ -216,7 +216,7 @@ It should be positioned as part of the broader SAP analytics ecosystem.
 
 A typical enterprise architecture looks like:
 
-```
+{{< diagram >}}
                 Business Users
                      |
                      |
@@ -233,7 +233,7 @@ A typical enterprise architecture looks like:
  |                |                |
 S/4HANA        BW/4HANA        External Systems
 ERP            Enterprise DW    Non-SAP Sources
-```
+{{< /diagram >}}
 
 ---
 
@@ -334,17 +334,17 @@ Example:
 
 Traditional approach:
 
-```
+{{< diagram >}}
 Last Year Budget
         +
 Management Adjustment
         =
 Next Year Budget
-```
+{{< /diagram >}}
 
 Driver-based approach:
 
-```
+{{< diagram >}}
 Revenue Drivers
       |
 Sales Volume
@@ -356,7 +356,7 @@ Market Growth
 Currency Impact
       |
 Revenue Forecast
-```
+{{< /diagram >}}
 
 This creates more realistic planning outcomes.
 
@@ -434,23 +434,18 @@ A mature SAC architecture considers:
 
 ## Typical Enterprise Integration Architecture
 
-```
+{{< diagram >}}
                 SAP Analytics Cloud
-
                        |
                        |
               SAP Datasphere
-
                        |
         --------------------------------
-
-        SAP S/4HANA
-        SAP BW/4HANA
-        SAP SuccessFactors
-        SAP Ariba
-        SAP IBP
-        Non-SAP Systems
-```
+        |               |              |
+  SAP S/4HANA     SAP BW/4HANA     Non-SAP
+  SuccessFactors     Ariba         Systems
+      IBP
+{{< /diagram >}}
 
 ---
 
@@ -515,7 +510,7 @@ It enables:
 
 A typical architecture:
 
-```
+{{< diagram >}}
 SAP S/4HANA
        |
        |
@@ -523,7 +518,7 @@ SAP Datasphere
        |
        |
 SAP Analytics Cloud Planning
-```
+{{< /diagram >}}
 
 This separates:
 
