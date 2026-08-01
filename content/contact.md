@@ -172,7 +172,7 @@ Schedule a no-obligation consultation to discuss:
 
 .contact-form .button.is-primary {
   background-color: var(--color-gold);
-  color: var(--color-heading);
+  color: var(--color-navy);
   font-weight: 600;
   border: none;
   padding: 1rem 3rem;

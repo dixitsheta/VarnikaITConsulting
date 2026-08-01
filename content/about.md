@@ -217,7 +217,7 @@ Whether you're planning a Datasphere migration, need custom SAC widgets, or want
 
 <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
 
-<a href="/contact/" style="background: var(--color-gold); color: var(--color-heading); padding: 1rem 2.5rem; border-radius: 8px; font-weight: 600; text-decoration: none; display: inline-block; font-size: 1.1rem; transition: all 0.3s ease;">Schedule a Free Consultation</a>
+<a href="/contact/" style="background: var(--color-gold); color: var(--color-navy); padding: 1rem 2.5rem; border-radius: 8px; font-weight: 600; text-decoration: none; display: inline-block; font-size: 1.1rem; transition: all 0.3s ease;">Schedule a Free Consultation</a>
 
 <a href="/services/" style="background: transparent; color: var(--color-white); border: 2px solid var(--color-gold); padding: 1rem 2.5rem; border-radius: 8px; font-weight: 600; text-decoration: none; display: inline-block; font-size: 1.1rem; transition: all 0.3s ease;">View Our Services</a>
 
