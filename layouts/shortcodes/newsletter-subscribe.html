@@ -1,0 +1,96 @@
+{{ if .Get "title" }}<h2 id="subscribe">{{ .Get "title" }}</h2>{{ end }}
+
+<div class="newsletter-subscribe card-accent">
+  <p>Subscribe to our monthly <strong>SAP Analytics Insights</strong> newsletter for trends, case studies, upcoming webinars, and exclusive research.</p>
+
+  <form action="https://formsubmit.co/sales@varnikaitconsulting.com" method="POST" class="subscribe-form">
+    <!-- FormSubmit Configuration -->
+    <input type="hidden" name="_subject" value="New Newsletter Subscriber from Varnika IT Consulting Website">
+    <input type="hidden" name="_next" value="https://varnikaitconsulting.com/thank-you/">
+    <input type="hidden" name="_captcha" value="true">
+    <input type="hidden" name="_template" value="box">
+    <input type="hidden" name="_autoresponse" value="Thank you for subscribing to SAP Analytics Insights from Varnika IT Consulting! Watch your inbox for trends, case studies, and exclusive research.">
+    <input type="hidden" name="type" value="newsletter-subscription">
+
+    <!-- Honeypot for spam protection -->
+    <input type="text" name="_honey" style="display:none">
+
+    <div class="field">
+      <label class="label">Name</label>
+      <div class="control">
+        <input class="input" type="text" name="name" placeholder="Your name">
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Email <span class="has-text-danger">*</span></label>
+      <div class="control">
+        <input class="input" type="email" name="email" placeholder="you@company.com" required>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="control">
+        <button type="submit" class="button is-primary">Subscribe</button>
+      </div>
+    </div>
+
+    <p class="help">No spam, ever. You can unsubscribe at any time. We'll never share your email.</p>
+  </form>
+</div>
+
+<style>
+.newsletter-subscribe {
+  margin: 2rem 0;
+  padding: 1.75rem;
+}
+.newsletter-subscribe .subscribe-form {
+  max-width: 520px;
+  margin-top: 1.25rem;
+}
+.newsletter-subscribe .field {
+  margin-bottom: 1.25rem;
+}
+.newsletter-subscribe .label {
+  color: var(--color-heading);
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  display: block;
+}
+.newsletter-subscribe .input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 1rem;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+.newsletter-subscribe .input:focus {
+  border-color: var(--color-gold);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(244, 196, 48, 0.1);
+}
+.newsletter-subscribe .button.is-primary {
+  background-color: var(--color-gold);
+  color: var(--color-navy);
+  font-weight: 600;
+  border: none;
+  padding: 0.85rem 2.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+.newsletter-subscribe .button.is-primary:hover {
+  background-color: var(--color-gold-dark);
+  transform: translateY(-1px);
+}
+.newsletter-subscribe .help {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+}
+</style>

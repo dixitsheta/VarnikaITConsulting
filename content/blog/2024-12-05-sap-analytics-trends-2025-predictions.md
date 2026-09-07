@@ -768,13 +768,9 @@ Don't wait until competitors gain an unfair advantage. Schedule a **free 30-minu
 
 ## Stay Ahead of the Curve
 
-Subscribe to our monthly **SAP Analytics Insights** newsletter:
-- Trend updates and analysis
-- Case studies and best practices
-- Upcoming webinars and events
-- Exclusive research and whitepapers
+{{< newsletter-subscribe title="Subscribe to SAP Analytics Insights" >}}
 
-**[Subscribe Now →](#)**
+*The newsletter includes trend updates, case studies, best practices, upcoming webinars, and exclusive research.*
 
 ---
 
