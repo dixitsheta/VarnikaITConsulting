@@ -26,8 +26,6 @@ Schedule a no-obligation consultation to discuss:
 
 ## Contact Form
 
-**Note:** If this is your first time submitting, please check your email (sales@varnikaitconsulting.com) for a verification link from FormSubmit to activate the form.
-
 <form action="https://formsubmit.co/sales@varnikaitconsulting.com" method="POST" class="contact-form">
   <!-- FormSubmit Configuration -->
   <input type="hidden" name="_subject" value="New Inquiry from Varnika IT Consulting Website">
