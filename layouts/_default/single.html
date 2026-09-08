@@ -7,13 +7,11 @@
         {{ if .Description }}
         <p style="font-size: clamp(1rem, 1.5vw, 1.2rem); opacity: 0.95; max-width: 700px; margin: 0 auto;">{{ .Description }}</p>
         {{ end }}
-        {{ if .Date }}
-        <p style="font-size: 0.95rem; opacity: 0.85; margin-top: 1rem;">
-            <time datetime="{{ .Date.Format "2006-01-02" }}">
-                {{ .Date.Format "January 2, 2006" }}
+        <p style="font-size: 0.95rem; opacity: 0.85; margin-top: 1rem; margin-bottom: 0;">
+            <time id="page-today" datetime="">
+                {{ with .Date }}{{ .Format "January 2, 2006" }}{{ end }}
             </time>
         </p>
-        {{ end }}
     </div>
 </div>
 
@@ -23,6 +21,21 @@
         {{ .Content }}
     </div>
 </article>
+
+<script>
+(function () {
+    var el = document.getElementById('page-today');
+    if (!el) return;
+    var now = new Date();
+    var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    var iso = now.getFullYear() + '-' +
+        String(now.getMonth() + 1).padStart(2, '0') + '-' +
+        String(now.getDate()).padStart(2, '0');
+    var text = months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
+    el.textContent = text;
+    el.setAttribute('datetime', iso);
+})();
+</script>
 
 <style>
 .page-content h1 {
