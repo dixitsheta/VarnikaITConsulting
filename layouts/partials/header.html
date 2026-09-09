@@ -47,6 +47,17 @@
     gap: 2rem;
 }
 
+/* On mobile, let the site.css collapse rule take effect (display:none) and
+   avoid the inline flex rule overriding it, which blocks the header. */
+@media (max-width: 768px) {
+    .navbar-menu {
+        display: none;
+    }
+    .navbar-menu.active {
+        display: block;
+    }
+}
+
 .navbar-search {
     display: flex;
     align-items: center;
@@ -327,6 +338,22 @@ document.addEventListener('DOMContentLoaded', function() {
             resultsContainer.classList.remove('active');
         }
     });
+    
+    // Mobile navigation toggle
+    const navToggle = document.querySelector('.navbar-toggle');
+    const navMenu = document.querySelector('.navbar-menu');
+    if (navToggle && navMenu) {
+        navToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            navMenu.classList.toggle('active');
+        });
+        // Close the menu when a nav link is tapped
+        navMenu.querySelectorAll('.nav-link').forEach(function(link) {
+            link.addEventListener('click', function() {
+                navMenu.classList.remove('active');
+            });
+        });
+    }
     
     // Theme toggle
     const themeToggle = document.getElementById('theme-toggle');
