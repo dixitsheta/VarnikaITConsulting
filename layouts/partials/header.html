@@ -353,6 +353,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 navMenu.classList.remove('active');
             });
         });
+        // Close the menu when clicking outside it (navToggle stops propagation above)
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.navbar-menu') && !e.target.closest('.navbar-toggle')) {
+                navMenu.classList.remove('active');
+            }
+        });
     }
     
     // Theme toggle

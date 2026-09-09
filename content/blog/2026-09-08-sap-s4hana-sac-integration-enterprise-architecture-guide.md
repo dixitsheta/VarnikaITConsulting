@@ -2,8 +2,8 @@
 title: "SAP Analytics Cloud and SAP S/4HANA Integration: An Enterprise Architecture Guide"
 description: "How to design a connected analytics architecture for reporting, planning, and decision-making. Learn live vs import integration patterns, the enterprise data layer, governance, and security."
 date: 2026-09-08
-lastmod: 2026-09-08T10:00:00Z
-draft: true
+lastmod: 2026-09-09T10:00:00Z
+draft: false
 author: "Dixit Sheta"
 tags: ["SAP Analytics Cloud", "SAP S/4HANA", "SAP Datasphere", "BW/4HANA", "Enterprise Architecture", "Data Integration", "SAC Planning"]
 categories: ["SAP Analytics Cloud", "S/4HANA Embedded Analytics", "Data & Analytics", "SAP Architecture"]
