@@ -1,44 +1,38 @@
+{{ $description := "" }}
+{{ if .Description }}{{ $description = .Description }}{{ else if .Params.meta_description }}{{ $description = .Params.meta_description }}{{ else if .Params.seo.meta_description }}{{ $description = .Params.seo.meta_description }}{{ else }}{{ $description = .Site.Params.description }}{{ end }}
+
+{{ $title := "" }}
+{{ if .Params.meta_title }}{{ $title = .Params.meta_title }}{{ else if .Params.seo.meta_title }}{{ $title = .Params.seo.meta_title }}{{ else if .IsHome }}{{ $title = .Site.Title }}{{ else }}{{ $title = printf "%s | %s" .Title .Site.Title }}{{ end }}
+
+{{ $ogImage := "" }}
+{{ if .Params.image }}{{ $ogImage = .Params.image }}{{ else if .Params.featured_image }}{{ $ogImage = .Params.featured_image }}{{ else if .Params.seo.og_image }}{{ $ogImage = .Params.seo.og_image }}{{ else }}{{ $ogImage = "images/logo/logo-dark.png" }}{{ end }}
+
+{{ $canonical := "" }}
+{{ if .Params.canonical }}{{ $canonical = .Params.canonical }}{{ else if .Params.seo.canonical_url }}{{ $canonical = .Params.seo.canonical_url }}{{ else }}{{ $canonical = .Permalink }}{{ end }}
+
 <!-- Primary Meta Tags -->
-<meta name="description" content="{{ if .Description }}{{ .Description }}{{ else if .Params.meta_description }}{{ .Params.meta_description }}{{ else if .Params.seo.meta_description }}{{ .Params.seo.meta_description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+<meta name="description" content="{{ $description }}">
 <meta name="author" content="{{ .Site.Params.author }}">
+{{ with .Params.tags }}<meta name="keywords" content="{{ delimit . ", " }}">{{ end }}
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+<meta property="og:site_name" content="{{ .Site.Title }}">
 <meta property="og:url" content="{{ .Permalink }}">
-<meta property="og:title" content="{{ if .Params.meta_title }}{{ .Params.meta_title }}{{ else if .Params.seo.meta_title }}{{ .Params.seo.meta_title }}{{ else if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}">
-<meta property="og:description" content="{{ if .Description }}{{ .Description }}{{ else if .Params.meta_description }}{{ .Params.meta_description }}{{ else if .Params.seo.meta_description }}{{ .Params.seo.meta_description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
-{{ $ogImage := "" }}
-{{ if .Params.image }}
-  {{ $ogImage = .Params.image }}
-{{ else if .Params.featured_image }}
-  {{ $ogImage = .Params.featured_image }}
-{{ else if .Params.seo.og_image }}
-  {{ $ogImage = .Params.seo.og_image }}
-{{ end }}
-{{ if $ogImage }}
+<meta property="og:title" content="{{ $title }}">
+<meta property="og:description" content="{{ $description }}">
 <meta property="og:image" content="{{ $ogImage | absURL }}">
-{{ else }}
-<meta property="og:image" content="{{ "images/logo/logo-dark.svg" | absURL }}">
-{{ end }}
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="en_GB">
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:url" content="{{ .Permalink }}">
-<meta name="twitter:title" content="{{ if .Params.meta_title }}{{ .Params.meta_title }}{{ else if .Params.seo.meta_title }}{{ .Params.seo.meta_title }}{{ else if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}">
-<meta name="twitter:description" content="{{ if .Description }}{{ .Description }}{{ else if .Params.meta_description }}{{ .Params.meta_description }}{{ else if .Params.seo.meta_description }}{{ .Params.seo.meta_description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
-{{ if $ogImage }}
+<meta name="twitter:title" content="{{ $title }}">
+<meta name="twitter:description" content="{{ $description }}">
 <meta name="twitter:image" content="{{ $ogImage | absURL }}">
-{{ end }}
 
 <!-- Canonical -->
-{{ $canonical := "" }}
-{{ if .Params.canonical }}
-  {{ $canonical = .Params.canonical }}
-{{ else if .Params.seo.canonical_url }}
-  {{ $canonical = .Params.seo.canonical_url }}
-{{ else }}
-  {{ $canonical = .Permalink }}
-{{ end }}
 <link rel="canonical" href="{{ $canonical }}">
 
 <!-- Favicon -->
@@ -53,4 +47,95 @@
 {{ if .Lastmod }}
 <meta property="article:modified_time" content="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}">
 {{ end }}
+{{ with .Params.author }}<meta property="article:author" content="{{ . }}">{{ end }}
+{{ end }}
+
+<!-- Structured Data: Organization (homepage) -->
+{{ if .IsHome }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Varnika IT Consulting",
+  "url": "{{ .Site.BaseURL }}",
+  "logo": "{{ "images/logo/logo-dark.png" | absURL }}",
+  "description": "{{ $description }}",
+  "sameAs": [
+    "https://varnikaitconsulting.com/"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "{{ .Site.Params.contact.email }}",
+    "contactType": "sales",
+    "availableLanguage": "English"
+  }
+}
+</script>
+{{ end }}
+
+<!-- Structured Data: Article / BlogPosting -->
+{{ if and .IsPage (eq .Section "blog") }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "{{ .Title }}",
+  "description": "{{ $description }}",
+  "image": "{{ $ogImage | absURL }}",
+  "datePublished": "{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}",
+  {{ with .Lastmod }}"dateModified": "{{ $.Lastmod.Format "2006-01-02T15:04:05Z07:00" }}",{{ end }}
+  "author": {
+    "@type": "Person",
+    "name": "{{ with .Params.author }}{{ . }}{{ else }}{{ .Site.Params.author }}{{ end }}"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "{{ .Site.Title }}",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ "images/logo/logo-dark.png" | absURL }}"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ .Permalink }}"
+  }
+}
+</script>
+{{ end }}
+
+<!-- Structured Data: BreadcrumbList (all pages) -->
+{{ if not .IsHome }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "{{ .Site.BaseURL }}"
+    }{{ if .Section }},
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "{{ .Section | title }}",
+      "item": "{{ $.Site.BaseURL }}{{ .Section }}/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "{{ .Title }}",
+      "item": "{{ .Permalink }}"
+    }{{ else }},
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "{{ .Title }}",
+      "item": "{{ .Permalink }}"
+    }{{ end }}
+  ]
+}
+</script>
 {{ end }}

@@ -1,0 +1,22 @@
+{{ $pages := where site.RegularPages "draft" "in" (slice false) }}
+{{- printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\" ?>\n" | safeHTML }}
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  {{- range site.Pages }}
+    {{- if and (or .IsHome .IsNode .IsPage) (ne .Kind "404") (not .Params.draft) }}
+  <url>
+    <loc>{{ .Permalink }}</loc>{{ if not .Lastmod.IsZero }}
+    <lastmod>{{ safeHTML (.Lastmod.Format "2006-01-02T15:04:05-07:00") }}</lastmod>{{ else if not .Date.IsZero }}
+    <lastmod>{{ safeHTML (.Date.Format "2006-01-02T15:04:05-07:00") }}</lastmod>{{ end }}
+    {{- $changefreq := "weekly" }}
+    {{- $priority := 0.5 }}
+    {{- if .IsHome }}{{ $changefreq = "daily" }}{{ $priority = 1.0 }}
+    {{- else if or (eq .Section "services") (eq .Section "case-studies") }}{{ $priority = 0.8 }}
+    {{- else if eq .Section "blog" }}{{ $priority = 0.7 }}
+    {{- else if or (eq .Section "about") (eq .Section "contact") (eq .Section "privacy") (eq .Section "terms") }}{{ $priority = 0.6 }}
+    {{- end }}
+    {{- if eq .Params.weight 0 }}<changefreq>{{ $changefreq }}</changefreq><priority>1</priority>
+    {{- else }}<changefreq>{{ $changefreq }}</changefreq><priority>{{ $priority }}</priority>{{ end }}
+  </url>
+    {{- end }}
+  {{- end }}
+</urlset>
