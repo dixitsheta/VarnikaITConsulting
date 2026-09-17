@@ -281,10 +281,29 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 const resultDiv = document.createElement('div');
                 resultDiv.className = 'header-search-result';
-                resultDiv.innerHTML = `
-                    <h3><a href="${data.url}">${data.meta.title || 'Untitled'}</a></h3>
-                    <p>${data.excerpt}</p>
-                `;
+                
+                // Only allow safe, in-page or http(s) URLs as links.
+                let targetHref = data.url;
+                try {
+                    const u = new URL(data.url, window.location.origin);
+                    if (u.protocol !== 'http:' && u.protocol !== 'https:') {
+                        targetHref = '#';
+                    }
+                } catch (e) {
+                    targetHref = '#';
+                }
+                
+                const heading = document.createElement('h3');
+                const link = document.createElement('a');
+                link.href = targetHref;
+                link.textContent = data.meta.title || 'Untitled';
+                heading.appendChild(link);
+                
+                const excerpt = document.createElement('p');
+                excerpt.textContent = data.excerpt;
+                
+                resultDiv.appendChild(heading);
+                resultDiv.appendChild(excerpt);
                 contentDiv.appendChild(resultDiv);
             }
             

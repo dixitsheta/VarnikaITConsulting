@@ -164,12 +164,21 @@ description: "Search Varnika IT Consulting's website for SAP analytics content, 
       const pf = await initPagefind();
       const search = await pf.search(query);
       
+      function createMessage(text) {
+        const el = document.createElement('div');
+        el.className = 'search-message';
+        el.textContent = text;
+        return el;
+      }
+      
       if (search.results.length === 0) {
-        resultsContainer.innerHTML = '<div class="search-message">No results found for "' + query + '"</div>';
+        resultsContainer.innerHTML = '';
+        resultsContainer.appendChild(createMessage('No results found for "' + query + '"'));
         return;
       }
       
-      resultsContainer.innerHTML = '<div class="search-message">' + search.results.length + ' results for "' + query + '"</div>';
+      resultsContainer.innerHTML = '';
+      resultsContainer.appendChild(createMessage(search.results.length + ' results for "' + query + '"'));
       
       for (const result of search.results.slice(0, 10)) {
         const data = await result.data();
@@ -177,11 +186,34 @@ description: "Search Varnika IT Consulting's website for SAP analytics content, 
         const resultDiv = document.createElement('div');
         resultDiv.className = 'search-result';
         
-        resultDiv.innerHTML = `
-          <h3><a href="${data.url}">${data.meta.title || 'Untitled'}</a></h3>
-          <p>${data.excerpt}</p>
-          <a href="${data.url}" class="result-url">${data.url}</a>
-        `;
+        // Only allow safe, in-page or http(s) URLs as links.
+        let targetHref = data.url;
+        try {
+          const u = new URL(data.url, window.location.origin);
+          if (u.protocol !== 'http:' && u.protocol !== 'https:') {
+            targetHref = '#';
+          }
+        } catch (e) {
+          targetHref = '#';
+        }
+        
+        const h3 = document.createElement('h3');
+        const a = document.createElement('a');
+        a.href = targetHref;
+        a.textContent = data.meta.title || 'Untitled';
+        h3.appendChild(a);
+        
+        const p = document.createElement('p');
+        p.textContent = data.excerpt;
+        
+        const urlLink = document.createElement('a');
+        urlLink.href = targetHref;
+        urlLink.className = 'result-url';
+        urlLink.textContent = data.url;
+        
+        resultDiv.appendChild(h3);
+        resultDiv.appendChild(p);
+        resultDiv.appendChild(urlLink);
         
         resultsContainer.appendChild(resultDiv);
       }
