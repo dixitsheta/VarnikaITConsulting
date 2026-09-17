@@ -2,10 +2,11 @@
 <div class="analytics-dashboard">
   <div class="analytics-header">
     <h1>{{ .Title }}</h1>
-    <p>Real-time visitor insights and engagement tracking</p>
+    <p class="analytics-subtitle">Sample analytics dashboard — illustrative data only, not live tracking</p>
     <div class="last-updated">
       Last Updated: <span id="lastUpdated"></span>
     </div>
+    <div class="analytics-disclaimer">⚠️ Demo view. Metrics shown are simulated examples and do not reflect actual site traffic.</div>
   </div>
 
   <div class="analytics-grid">
@@ -104,6 +105,18 @@
   font-size: 1.1rem;
   color: var(--text-secondary);
   margin-bottom: 20px;
+}
+
+.analytics-disclaimer {
+  margin: 12px auto 0;
+  max-width: 560px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 10px 14px;
+  line-height: 1.5;
 }
 
 .last-updated {
